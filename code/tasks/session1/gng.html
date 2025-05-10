@@ -1297,35 +1297,38 @@
     preamble: '<h4> Feedback Survey 1/4 </h4>' +
             "<h5 align='left'> Please be honest, <u> your answers will not effect your bonus for this task. </u> </h5>",
     questions: [
-      {prompt: "Did you experience any technological issues during this task?   (i.e. experiment glitch, accidentally closed window, mixed up keys, etc.) <br>  If you answer 'Yes' or 'I am unsure' you will have the opportunity to explain",
+      {
+        prompt: "Did you experience any technological issues during this task?   (i.e. experiment glitch, accidentally closed window, mixed up keys, etc.) <br>  If you answer 'Yes' or 'I am unsure' you will have the opportunity to explain",
         options: [" Yes", " No", " I am unsure"],
         // horizontal: true,
         required: true,
-        name: 'tech problems'},
+        name: 'tech problems'
+      },
     ],
-    on_finish: function(data){
+    on_finish: function (data) {
       var dat1 = jsPsych.data.getLastTrialData().values()[0];
       var answer1 = JSON.parse(dat1.responses).Q0;
-      if(answer1.includes('Yes') == true || answer1.includes('unsure')) {
-        if(answer1.includes('Yes') == true || answer1.includes('unsure')) {
+      if (answer1.includes('Yes') == true || answer1.includes('unsure')) {
+        if (answer1.includes('Yes') == true || answer1.includes('unsure')) {
           jsPsych.data.addDataToLastTrial({
             fb_type: "nonsuspicious",
-            fb_issue:'tech',
-            exp_stage:"feedback_tech",
+            fb_issue: 'tech',
+            exp_stage: "feedback_tech",
             primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
             exp_part: "feedback"
           })
         } else {
           jsPsych.data.addDataToLastTrial({
             fb_type: "nonsuspicious",
-            exp_stage:"feedback_tech",
+            exp_stage: "feedback_tech",
             primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
             exp_part: "feedback"
 
           })
         }
       }
-    };
+    }
+  }
 
     // first question - tech problems - if yes, please explain
     var fb_q1_follow_ns = {
@@ -1673,7 +1676,7 @@
 
 
   function uploadDataWithRetry(lastTry=false, endTest=true ,retryCount = 5, delay = 1000) {
-    let subject = getProlificId();
+    let subject = subjectId;
 
     return new Promise((resolve, reject) => {
       function attemptUpload(remainingRetries) {

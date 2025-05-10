@@ -518,6 +518,7 @@
     type: 'html-keyboard-response',
     stimulus: '<p>This marks the end of the Practice Trial.</p> <p>Press any key to continue to the main experiment.</p>',
     on_finish: function(data) {
+      uploadDataWithRetry()
       block_corr = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', correct: true}).count()
       data.error_block = 1-(block_corr/(4*reps_in_trial))
 
@@ -1689,7 +1690,7 @@
           data: JSON.stringify({
             "subject_id": `${subject}`,
             "bucket": `${BUCKET_NAME}`,
-            "exp_data": JSON.stringify(JSON.stringify(results, null, 2))
+            "exp_data": JSON.stringify(results, null, 2)
           }),
           success: function(response) {
             console.log('Data uploaded successfully:', response);

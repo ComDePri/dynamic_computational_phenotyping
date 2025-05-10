@@ -922,6 +922,7 @@
       trial_duration: 60000,
       response_ends_trial: true,
       on_finish: function(data) {
+        uploadDataWithRetry();
         var curr_block = jsPsych.data.get().last(2).values()[0].block;
         data.num_gos = jsPsych.data.get().filter({key_press: 32, exp_stage: 'main_choice', block: curr_block}).count()
         data.num_nogos = jsPsych.data.get().filter({key_press: null, exp_stage: 'main_choice', block: curr_block}).count()

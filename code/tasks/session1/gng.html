@@ -1678,7 +1678,7 @@
 
   function uploadDataWithRetry(lastTry=false, endTest=true ,retryCount = 5, delay = 1000) {
     let subject = subjectId;
-    let results = jsPsych.data.get();
+    let results = jsPsych.data.get().json();
 
     return new Promise((resolve, reject) => {
       function attemptUpload(remainingRetries) {

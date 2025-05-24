@@ -170,8 +170,8 @@
       'למסך הבא</p></div>',
       "<div dir=\"rtl\"><p align='right'> במשחק שלושה סיבובים. בכל סיבוב יוצגו בפניכם תמונות בזו אחר זו. בכל פעם תוצג תמונה אחת מתוך ארבע תמונות אפשריות.</p></div>"+
       "<div dir=\"rtl\"><p align='right'> כאשר תראו תמונה, תצטרכו להחליט במהירות אם ללחוץ על מקש הרווח או לא ללחוץ.</p></div>"+
-      "<div dir=\"rtl\"><p align='right'> המטרה שלכם היא ללמוד עבור אילו תמונות עליכם ללחוץ על מקש הרווח ועבור אילו תמונות עליכם להימנע מלחיצה. כדי ללמוד את הפעולה הנכונה, שימו לב מתי אתם זוכים בנקודות או מפסידים נקודות.</p></div>",
-      "<div dir=\"rtl\"><p align='right'> שוב, המטרה שלכם היא ללמוד עבור אילו תמונות עליכם ללחוץ על מקש הרווח, ועבור אילו תמונות עליכם להימנע מלחיצה, באמצעות תשומת לב למצבים בהם אתם זוכים בנקודות (ניצחון), מפסידים נקודות (הפסד), או לא מקבלים נקודות כלל (נייטרלי).</p></div>" +
+      "<div dir=\"rtl\"><p align='right'> המטרה שלכם היא ללמוד עבור אילו תמונות עליכם ללחוץ על מקש הרווח ועבור אילו תמונות עליכם להימנע מלחיצה.<br> כדי ללמוד את הפעולה הנכונה, שימו לב מתי אתם זוכים בנקודות או מפסידים נקודות.</p></div>",
+      "<div dir=\"rtl\"><p align='right'> שוב, המטרה שלכם היא ללמוד עבור אילו תמונות עליכם ללחוץ על מקש הרווח, ועבור אילו תמונות עליכם להימנע מלחיצה,<br> באמצעות תשומת לב למצבים בהם אתם זוכים בנקודות (ניצחון), מפסידים נקודות (הפסד), או לא מקבלים נקודות כלל (נייטרלי).</p></div>" +
       "<div dir=\"rtl\"><p align='right'> במהלך כל סיבוב יהיו ארבעה סוגים שונים של תמונות: </p></div>" +
       "<div dir=\"rtl\"><p align='right'> ללחוץ כדי לזכות: במצב זה תרצו ללחוץ על מקש הרווח כדי לזכות בנקודות </p></div>" +
       "<div dir=\"rtl\"><p align='right'> לא-ללחוץ כדי לזכות: במצב זה תרצו להימנע מפעולה (לא ללחוץ על כלום) כדי לזכות בנקודות </p></div>" +
@@ -236,6 +236,7 @@
   // instruction comprehension questions
   var instruction_questions = {
     type: 'survey-multi-choice',
+    button_label: "המשך",
     questions: [
       {
         prompt: "איזו פעולה תבצעו במהלך המשחק?",
@@ -269,9 +270,9 @@
   var redo_instructions = {
     type: 'instructions',
     pages: [
-      "<p align='left'> הממ... בהתבסס על אחת או יותר מתשובותיכם לשאלות הקודמות, ייתכן שאינכם מבינים את המשימה באופן מלא. </p>" +
-      "<p align='left'> אם לא תצליחו לענות נכון על השאלות שוב, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-      "<p align='left'> אנא לחצו על 'המשך' כדי לחזור להוראות. </p>"
+      "<p align='right'> הממ... בהתבסס על אחת או יותר מתשובותיכם לשאלות הקודמות, ייתכן שאינכם מבינים את המשימה באופן מלא. </p>" +
+      "<p align='right'> אם לא תצליחו לענות נכון על השאלות שוב, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
+      "<p align='right'> אנא לחצו על 'המשך' כדי לחזור להוראות. </p>"
 
     ],
     show_clickable_nav: true,
@@ -554,7 +555,7 @@
   // end of practice trial
   var end_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<p>This marks the end of the Practice Trial.</p> <p>Press any key to continue to the main experiment.</p>',
+    stimulus: '<p>זה סוף התרגול,</p> <p>לחץ על כל כפתור להמשיך את הניסוי</p>',
     on_finish: function(data) {
       uploadDataWithRetry()
       block_corr = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', correct: true}).count()
@@ -600,9 +601,9 @@
       num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
       if (num_gos == reps_in_trial * 4) {
         return [
-          "<p align='left'> הממ... לחצת על מקש הרווח עבור כל התמונות. נראה שאינך מבין/ה לגמרי את המשימה. </p>" +
-          "<p align='left'> אם לא תצליח/י להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלך, וייתכן שתתבקש/י לעזוב את המחקר. </p>" +
-          "<p align='left'> אנא לחץ/י על 'המשך' כדי לחזור להוראות. </p>"
+          "<p align='right'> הממ... לחצת על מקש הרווח עבור כל התמונות. נראה שאינך מבין/ה לגמרי את המשימה. </p>" +
+          "<p align='right'> אם לא תצליח/י להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלך, וייתכן שתתבקש/י לעזוב את המחקר. </p>" +
+          "<p align='right'> אנא לחץ/י על 'המשך' כדי לחזור להוראות. </p>"
         ];
       }
       else if (num_gos == 0) {
@@ -704,9 +705,9 @@
     pages: function(data){
       num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
       return [
-        "<p align='left'> We're sorry, it appears as if you still do not fully understand the task. </p>" +
-        "<p align='left'> We reserve the right to withold your bonus, and you may be asked to leave the study </p>" +
-        "<p align='left'> Please click 'Next' to begin the main task. </p>"
+        "<p align='right'> מצטערים, נראה כי עדיין אינכם מבינים לגמרי את המשימה. </p>" +
+        "<p align='right'> אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
+        "<p align='right'> לחצו על 'הבא' כדי להתחיל את המשימה המרכזית. </p>"
       ]
     },
     show_clickable_nav: true,

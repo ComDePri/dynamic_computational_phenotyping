@@ -1,7 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="0; url=code/tasks/session1/gng.html" />
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get("hebrew");
+
+      // Redirect or change content based on language
+      if (lang === "true") {
+        window.location.href = "code/tasks/session1/gng_heb.html" + window.location.search;
+      } else {
+        window.location.href = "code/tasks/session1/gng.html" + window.location.search;
+      }
+    };
+  </script>
 </head>
 <body>
 <p>Redirecting...</p>

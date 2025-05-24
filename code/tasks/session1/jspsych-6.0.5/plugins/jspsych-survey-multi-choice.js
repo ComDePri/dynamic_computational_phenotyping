@@ -22,22 +22,22 @@ jsPsych.plugins['survey-multi-choice'] = (function() {
         pretty_name: 'Questions',
         nested: {
           prompt: {type: jsPsych.plugins.parameterType.STRING,
-                     pretty_name: 'Prompt',
-                     default: undefined,
-                     description: 'The strings that will be associated with a group of options.'},
+            pretty_name: 'Prompt',
+            default: undefined,
+            description: 'The strings that will be associated with a group of options.'},
           options: {type: jsPsych.plugins.parameterType.STRING,
-                     pretty_name: 'Options',
-                     array: true,
-                     default: undefined,
-                     description: 'Displays options for an individual question.'},
+            pretty_name: 'Options',
+            array: true,
+            default: undefined,
+            description: 'Displays options for an individual question.'},
           required: {type: jsPsych.plugins.parameterType.BOOL,
-                     pretty_name: 'Required',
-                     default: false,
-                     description: 'Subject will be required to pick an option for each question.'},
+            pretty_name: 'Required',
+            default: false,
+            description: 'Subject will be required to pick an option for each question.'},
           horizontal: {type: jsPsych.plugins.parameterType.BOOL,
-                        pretty_name: 'Horizontal',
-                        default: false,
-                        description: 'If true, then questions are centered and options are displayed horizontally.'},
+            pretty_name: 'Horizontal',
+            default: false,
+            description: 'If true, then questions are centered and options are displayed horizontally.'},
         }
       },
       preamble: {
@@ -62,14 +62,49 @@ jsPsych.plugins['survey-multi-choice'] = (function() {
       return arr.join(separator = '-');
     }
 
-    // inject CSS for trial
+    // Function to detect if text contains Hebrew characters
+    var isHebrew = function(text) {
+      var hebrewRegex = /[\u0590-\u05FF]/;
+      return hebrewRegex.test(text);
+    }
+
+    // Check if any question or option contains Hebrew
+    var hasHebrew = false;
+    for (var i = 0; i < trial.questions.length; i++) {
+      if (isHebrew(trial.questions[i].prompt)) {
+        hasHebrew = true;
+        break;
+      }
+      for (var j = 0; j < trial.questions[i].options.length; j++) {
+        if (isHebrew(trial.questions[i].options[j])) {
+          hasHebrew = true;
+          break;
+        }
+      }
+      if (hasHebrew) break;
+    }
+
+    // inject CSS for trial - adapt based on language
     display_element.innerHTML = '<style id="jspsych-survey-multi-choice-css"></style>';
-    var cssstr = ".jspsych-survey-multi-choice-question { margin-top: 2em; margin-bottom: 2em; text-align: left; }"+
-      ".jspsych-survey-multi-choice-text span.required {color: darkred;}"+
-      ".jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-text {  text-align: center;}"+
-      ".jspsych-survey-multi-choice-option { line-height: 2; }"+
-      ".jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-option {  display: inline-block;  margin-left: 1em;  margin-right: 1em;  vertical-align: top;}"+
-      "label.jspsych-survey-multi-choice-text input[type='radio'] {margin-right: 1em;}"
+    var cssstr;
+
+    if (hasHebrew) {
+      // RTL layout for Hebrew
+      cssstr = ".jspsych-survey-multi-choice-question { margin-top: 2em; margin-bottom: 2em; text-align: right; direction: rtl; }"+
+          ".jspsych-survey-multi-choice-text span.required {color: darkred;}"+
+          ".jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-text {  text-align: center;}"+
+          ".jspsych-survey-multi-choice-option { line-height: 2; text-align: right; direction: rtl; }"+
+          ".jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-option {  display: inline-block;  margin-left: 1em;  margin-right: 1em;  vertical-align: top;}"+
+          "label.jspsych-survey-multi-choice-text input[type='radio'] {margin-left: 1em;}"
+    } else {
+      // LTR layout for English and other languages
+      cssstr = ".jspsych-survey-multi-choice-question { margin-top: 2em; margin-bottom: 2em; text-align: left; }"+
+          ".jspsych-survey-multi-choice-text span.required {color: darkred;}"+
+          ".jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-text {  text-align: center;}"+
+          ".jspsych-survey-multi-choice-option { line-height: 2; }"+
+          ".jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-option {  display: inline-block;  margin-left: 1em;  margin-right: 1em;  vertical-align: top;}"+
+          "label.jspsych-survey-multi-choice-text input[type='radio'] {margin-right: 1em;}"
+    }
 
     display_element.querySelector('#jspsych-survey-multi-choice-css').innerHTML = cssstr;
 
@@ -84,23 +119,23 @@ jsPsych.plugins['survey-multi-choice'] = (function() {
     }
     // add multiple-choice questions
     for (var i = 0; i < trial.questions.length; i++) {
-        // create question container
-        var question_classes = [_join(plugin_id_name, 'question')];
-        if (trial.questions[i].horizontal) {
-          question_classes.push(_join(plugin_id_name, 'horizontal'));
-        }
+      // create question container
+      var question_classes = [_join(plugin_id_name, 'question')];
+      if (trial.questions[i].horizontal) {
+        question_classes.push(_join(plugin_id_name, 'horizontal'));
+      }
 
-        trial_form.innerHTML += '<div id="'+_join(plugin_id_name, i)+'" class="'+question_classes.join(' ')+'"></div>';
+      trial_form.innerHTML += '<div id="'+_join(plugin_id_name, i)+'" class="'+question_classes.join(' ')+'"></div>';
 
-        var question_selector = _join(plugin_id_selector, i);
+      var question_selector = _join(plugin_id_selector, i);
 
-        // add question text
-        display_element.querySelector(question_selector).innerHTML += '<p class="' + plugin_id_name + '-text survey-multi-choice">' + trial.questions[i].prompt + '</p>';
+      // add question text
+      display_element.querySelector(question_selector).innerHTML += '<p class="' + plugin_id_name + '-text survey-multi-choice">' + trial.questions[i].prompt + '</p>';
 
       // create option radio buttons
       for (var j = 0; j < trial.questions[i].options.length; j++) {
         var option_id_name = _join(plugin_id_name, "option", i, j),
-        option_id_selector = '#' + option_id_name;
+            option_id_selector = '#' + option_id_name;
 
         // add radio button container
         display_element.querySelector(question_selector).innerHTML += '<div id="'+option_id_name+'" class="'+_join(plugin_id_name, 'option')+'"></div>';
@@ -120,8 +155,17 @@ jsPsych.plugins['survey-multi-choice'] = (function() {
         input.setAttribute('name', input_name);
         input.setAttribute('id', input_id);
         input.setAttribute('value', trial.questions[i].options[j]);
-        form.appendChild(label);
-        form.insertBefore(input, label);
+
+        // Position radio button based on language direction
+        if (hasHebrew) {
+          // Hebrew: label first, then radio button (radio button on the right)
+          form.appendChild(label);
+          form.appendChild(input);
+        } else {
+          // English: radio button first, then label (radio button on the left)
+          form.appendChild(input);
+          form.appendChild(label);
+        }
       }
 
       if (trial.questions[i].required) {

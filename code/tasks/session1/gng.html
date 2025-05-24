@@ -51,7 +51,7 @@
 
   // add identifying information for primary key
   // weeks of participation
-  var weekId = "1"; // change each week
+  var weekId = jsPsych.data.getURLVariable('weekId'); // change each week
   jsPsych.data.addProperties({
     weekId: weekId
   });
@@ -160,7 +160,7 @@
       "<p align='left'> <b>For the Go-to-Win and No-Go-to-Win you will either receive points (win) or no points (neutral). </b></p>" +
       "<p align='left'> <b>For the Go-to-Avoid-Loss, No-Go-to-Avoid-Loss you will either receive no points (neutral) or you will lose points. </b></p>" +
       "<p align='left'> For example, if you correctly press the spacebar for a Go-to-Win image, you have a high probability of winning points, <br> but you might also get no points. </p>" +
-      "<p align='left'> or if you correctly did not press the spacebar for a No-Go-to-Avoid-Loss image, you have a high probability of getting a neutral feedback,<br> but you might also lose points. </p>",
+      "<p align='left'> or if you correctly did not press the spacebar for a No-Go-to-Avoid-Loss image, you have a high probability of getting a neutral feedback,<brsubje but you might also lose points. </p>",
 
 
       "<p align='left'> You will only see each image for a very short time, so please make a decision to press or not press as fast as you can!</p>"+
@@ -1679,6 +1679,7 @@
 
   function uploadDataWithRetry(lastTry=false, endTest=true ,retryCount = 5, delay = 1000) {
     let subject = subjectId;
+    let week = weekId;
     let results = jsPsych.data.get().json();
 
     return new Promise((resolve, reject) => {
@@ -1688,7 +1689,7 @@
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify({
-            "subject_id": `${subject}`,
+            "subject_id": `${subject}_${week}`,
             "bucket": `${BUCKET_NAME}`,
             "exp_data": JSON.stringify(results, null, 2)
           }),

@@ -401,7 +401,11 @@
         data.choice = "invalid"
       }
       // correct label & bonus pt allocation
-      data.correct = data.key_press == data.correct_choice;
+      data.correct = (
+  data.correct_choice === 32
+    ? (data.key_press === 32 || data.key_press === 49)
+    : data.key_press === data.correct_choice
+);
       var practice_correct = jsPsych.data.get().filter({correct: true, block: 'block_p'}).count()
       var all_correct = jsPsych.data.get().filter({correct: true}).count()
       data.curr_bonus = (all_correct - practice_correct)*bonus_percent
@@ -781,7 +785,11 @@
         data.choice = "invalid"
       }
       // correct label & bonus pt allocation
-      data.correct = data.key_press == data.correct_choice;
+      data.correct = (
+  data.correct_choice === 32
+    ? (data.key_press === 32 || data.key_press === 49)
+    : data.key_press === data.correct_choice
+);
       var practice_correct = jsPsych.data.get().filter({correct: true, block: 'block_p'}).count()
       var all_correct = jsPsych.data.get().filter({correct: true}).count()
       data.curr_bonus = (all_correct - practice_correct)*bonus_percent

@@ -388,12 +388,12 @@
   var practice_test = {
     type: "image-keyboard-response",
     stimulus: jsPsych.timelineVariable('stimulus'),
-    choices: [32],
+    choices: [32, 49],
     data: jsPsych.timelineVariable('data'),
     trial_duration: square_duration,
     on_finish: function(data){
       // choice label
-      if (data.key_press == 32) {
+      if (data.key_press == 32 ||data.key_press == 49) {
         data.choice = "go"
       } else if (data.key_press == null) {
         data.choice = "nogo"
@@ -522,7 +522,7 @@
       block_corr = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', correct: true}).count()
       data.error_block = 1-(block_corr/(4*reps_in_trial))
 
-      data.num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      data.num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       data.num_nogos = (4*reps_in_trial)-data.num_gos
       jsPsych.data.addDataToLastTrial({
         exp_stage:"practice_end",
@@ -559,7 +559,7 @@
   var sus_1 = {
     type: 'instructions',
     pages: function(data){
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       if (num_gos == reps_in_trial*4){
         return [
           "<p align='left'> Hmm... You pressed the spacebar in response to every image. It looks as if you may not fully understand the task. </p>" +
@@ -608,7 +608,7 @@
   var sus_2 = {
     type: 'instructions',
     pages: function(data){
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       if (num_gos == reps_in_trial*4){
         return [
           "<p align='left'> Hmm... You pressed the spacebar in response to every image. It looks as if you may not fully understand the task. </p>" +
@@ -657,7 +657,7 @@
   var final_bad = {
     type: 'instructions',
     pages: function(data){
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       return [
         "<p align='left'> We're sorry, it appears as if you still do not fully understand the task. </p>" +
         "<p align='left'> We reserve the right to withold your bonus, and you may be asked to leave the study </p>" +
@@ -690,7 +690,7 @@
     timeline: [final_bad],
     data: {exp_part: 'practice'},
     conditional_function:   function() {
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
       error_rate = 1 - (correct_oi/(4*reps_in_trial))
       if(num_gos == reps_in_trial*4 || num_gos == 0) {
@@ -709,7 +709,7 @@
     timeline: [sus_2, instructions, trial_procedure, no_sus, sus_procedure3],
     data: {exp_part: 'practice'},
     conditional_function:   function() {
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
       error_rate = 1 - (correct_oi/(4*reps_in_trial))
       if(num_gos == reps_in_trial*4 || num_gos == 0) {
@@ -727,7 +727,7 @@
     timeline: [sus_1, instructions, trial_procedure, no_sus, sus_procedure2],
     data: {exp_part: 'practice'},
     conditional_function:   function() {
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
       error_rate = 1 - (correct_oi/(4*reps_in_trial))
       if(num_gos == reps_in_trial*4 || num_gos == 0) {
@@ -768,12 +768,12 @@
   var test = {
     type: "image-keyboard-response",
     stimulus: jsPsych.timelineVariable('stimulus'),
-    choices: [32],
+    choices: [32, 49],
     data: jsPsych.timelineVariable('data'),
     trial_duration: square_duration,
     on_finish: function(data){
       // choice label
-      if (data.key_press == 32) {
+      if (data.key_press == 32 || data.key_press == 49) {
         data.choice = "go"
       } else if (data.key_press == null) {
         data.choice = "nogo"

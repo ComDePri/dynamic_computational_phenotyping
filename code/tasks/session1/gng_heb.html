@@ -363,9 +363,9 @@
   function make_stimuli(trial, stim, block_num) {  // generates the stimuli from the square images
     if (trial === true){
       stimulus = [
-        {stimulus: 'img/go-nogo/stim/' + stim[0] + '.png', data: {color: stim[0], cond: 1, cond_name: 'go2win', correct_choice: 32, exp_part: 'practice', block: block_num}},
+        {stimulus: 'img/go-nogo/stim/' + stim[0] + '.png', data: {color: stim[0], cond: 1, cond_name: 'go2win', correct_choice: [32, 49], exp_part: 'practice', block: block_num}},
         {stimulus: 'img/go-nogo/stim/' + stim[1] + '.png', data: {color: stim[1], cond: 2, cond_name: 'noGo2win', correct_choice: null, exp_part: 'practice', block: block_num}},
-        {stimulus: 'img/go-nogo/stim/' + stim[2] + '.png', data: {color: stim[2], cond: 3, cond_name: 'go2avoidPun', correct_choice: 32, exp_part: 'practice', block: block_num}},
+        {stimulus: 'img/go-nogo/stim/' + stim[2] + '.png', data: {color: stim[2], cond: 3, cond_name: 'go2avoidPun', correct_choice: [32, 49], exp_part: 'practice', block: block_num}},
         {stimulus: 'img/go-nogo/stim/' + stim[3] + '.png', data: {color: stim[3], cond: 4, cond_name: 'noGo2avoidPun', correct_choice: null, exp_part: 'practice', block: block_num}},
       ];
     }
@@ -429,7 +429,11 @@
         data.choice = "invalid"
       }
       // correct label & bonus pt allocation
-      data.correct = data.key_press == data.correct_choice;
+      data.correct = (
+              data.correct_choice === 32
+                      ? (data.key_press === 32 || data.key_press === 49)
+                      : data.key_press === data.correct_choice
+      );
       var practice_correct = jsPsych.data.get().filter({correct: true, block: 'block_p'}).count()
       var all_correct = jsPsych.data.get().filter({correct: true}).count()
       data.curr_bonus = (all_correct - practice_correct)*bonus_percent
@@ -550,7 +554,7 @@
       block_corr = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', correct: true}).count()
       data.error_block = 1-(block_corr/(4*reps_in_trial))
 
-      data.num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      data.num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       data.num_nogos = (4*reps_in_trial)-data.num_gos
       jsPsych.data.addDataToLastTrial({
         exp_stage:"practice_end",
@@ -587,7 +591,7 @@
   var sus_1 = {
     type: 'instructions',
     pages: function(data){
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       if (num_gos == reps_in_trial * 4) {
         return [
           "<p align='right'> הממ... לחצת על מקש הרווח עבור כל התמונות. נראה שאינך מבין/ה לגמרי את המשימה. </p>" +
@@ -639,7 +643,7 @@
   var sus_2 = {
     type: 'instructions',
     pages: function(data){
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       if (num_gos == reps_in_trial * 4) {
         return [
           "<p align='right'> הממ... לחצתם על מקש הרווח בכל פעם שהוצגה תמונה. נראה שאינכם מבינים לגמרי את המשימה. </p>" +
@@ -692,7 +696,7 @@
   var final_bad = {
     type: 'instructions',
     pages: function(data){
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       return [
         "<p align='right'> מצטערים, נראה כי עדיין אינכם מבינים לגמרי את המשימה. </p>" +
         "<p align='right'> אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
@@ -727,7 +731,7 @@
     timeline: [final_bad],
     data: {exp_part: 'practice'},
     conditional_function:   function() {
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
       error_rate = 1 - (correct_oi/(4*reps_in_trial))
       if(num_gos == reps_in_trial*4 || num_gos == 0) {
@@ -746,7 +750,7 @@
     timeline: [sus_2, instructions, trial_procedure, no_sus, sus_procedure3],
     data: {exp_part: 'practice'},
     conditional_function:   function() {
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
       error_rate = 1 - (correct_oi/(4*reps_in_trial))
       if(num_gos == reps_in_trial*4 || num_gos == 0) {
@@ -764,7 +768,7 @@
     timeline: [sus_1, instructions, trial_procedure, no_sus, sus_procedure2],
     data: {exp_part: 'practice'},
     conditional_function:   function() {
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
       error_rate = 1 - (correct_oi/(4*reps_in_trial))
       if(num_gos == reps_in_trial*4 || num_gos == 0) {
@@ -818,7 +822,11 @@
         data.choice = "invalid"
       }
       // correct label & bonus pt allocation
-      data.correct = data.key_press == data.correct_choice;
+      data.correct = (
+              data.correct_choice === 32
+                      ? (data.key_press === 32 || data.key_press === 49)
+                      : data.key_press === data.correct_choice
+      );
       var practice_correct = jsPsych.data.get().filter({correct: true, block: 'block_p'}).count()
       var all_correct = jsPsych.data.get().filter({correct: true}).count()
       data.curr_bonus = (all_correct - practice_correct)*bonus_percent

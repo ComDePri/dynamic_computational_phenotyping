@@ -125,7 +125,7 @@
     pages: [
       "<div dir=\"rtl\"><p>במסך הבא תתבקשו להעביר את הדפדפן למצב מסך מלא.</p></div>" +
       "<div dir=\"rtl\"><p>לאחר שתעברו למסך מלא, חשוב שלא תצאו, לא תחליפו חלוניות, תמזערו או תשנו את הדפדפן שלכם עד סוף המשחק.</p></div>" +
-      "<div dir=\"rtl\"><p>הפעולות הללו משנות את תצוגת המשחק, אך המשחק לא עוצר מרגע שההתחיל.</p></div>"
+      "<div dir=\"rtl\"><p>הפעולות הללו משנות את תצוגת המשחק, אך המשחק לא עוצר מרגע שהתחיל.</p></div>"
     ],
     show_clickable_nav: true,
     button_label_next: "הבא",
@@ -159,54 +159,51 @@
 
   var instructions = {
     type: 'instructions',
-    pages: [
-      '<div dir=\"rtl\"><p align=\'right\'>ברוכים הבאים למשחק &quot;ללחוץ או לא ללחוץ&quot;! המשחק אורך כ-20 דקות. לחצו על כפתור &quot;הבא&quot; כדי\n' +
-      'לעבור למסך הבא</p></div>',
-      "<div dir=\"rtl\"><p align='right'> במשחק שלושה סיבובים. בכל סיבוב יוצגו בפניכם תמונות בזו אחר זו. בכל פעם תוצג תמונה אחת מתוך ארבע תמונות אפשריות.</p></div>"+
-      "<div dir=\"rtl\"><p align='right'>כאשר תראו תמונה, תצטרכו להחליט במהירות אם <strong>ללחוץ</strong> על מקש הרווח או <strong>לא ללחוץ</strong>.</p></div>"+
-      "<div dir=\"rtl\"><p align='right'> המטרה שלכם היא ללמוד עבור אילו תמונות עליכם ללחוץ על מקש הרווח ועבור אילו תמונות עליכם להימנע מלחיצה.<br> כדי ללמוד את הפעולה הנכונה, שימו לב מתי אתם זוכים בנקודות או מפסידים נקודות.</p></div>",
-      "<div dir=\"rtl\"><p align='right'>שוב, במהלך כל סיבוב יופיעו באקראי, בזו אחר זו, ארבע תמונות שונות. המטרה שלכם היא ללמוד עבור אילו תמונות עליכם ללחוץ על מקש הרווח,<br> ועבור אילו תמונות עליכם להימנע מלחיצה. כדי ללמוד את הפעולה הנכונה, עליכם לשים לב למשוב שתקבל – זכייה בנקודות, הפסד נקודות,<br> או משוב ניטרלי. ארבעת סוגי התמונות האפשריים הם:</p></div>" +
-      "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: במצב זה תרצו ללחוץ על מקש הרווח כדי לזכות בנקודות </p></div>" +
-      "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: במצב זה תרצו להימנע מפעולה (לא ללחוץ על כלום) כדי לזכות בנקודות </p></div>" +
-      "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: במצב זה תרצו ללחוץ על מקש הרווח כדי למנוע הפסד של נקודות </p></div>" +
-      "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: במצב זה תרצו להימנע מפעולה (לא ללחוץ על כלום) כדי למנוע הפסד של נקודות</p></div>",
-      "<div dir=\"rtl\"><p align='right'>כדי להפוך את המשחק למאתגר, כל תמונה תניב את התוצאה הצפויה ברוב המקרים, אך לא בכולם. <br>זכרו, יש ארבעה מצבים: ללחוץ כדי לזכות, לא-ללחוץ כדי לזכות, ללחוץ כדי להימנע מהפסד, לא-ללחוץ כדי להימנע מהפסד.<br><br>עבור תמונות מסוג \"ללחוץ כדי לזכות\" או \"לא-ללחוץ כדי לזכות\", לרוב תקבלו נקודות, אך לפעמים לא תקבלו נקודות (משוב ניטרלי).<br><br>עבור תמונות מסוג \"ללחוץ כדי למנוע הפסד\" או \"לא-ללחוץ כדי למנוע הפסד\", לרוב לא תקבלו נקודות (משוב ניטרלי), <br>אך לפעמים תפסידו נקודות.<br><br>לדוגמה, אם לחצתם נכון על מקש הרווח עבור תמונת \"ללחוץ כדי לזכות\", יש סבירות גבוהה שתזכו בנקודות, אך ייתכן גם שלא תקבלו <br>נקודות כלל. אם נמנעתם נכון מלחיצה עבור תמונה מסוג \"לא-ללחוץ כדי למנוע הפסד\", יש סבירות גבוהה שתקבלו משוב ניטרלי,<br>אך ייתכן גם שתאבדו נקודות.<br></p></div>" +
-      "<div dir=\"rtl\"><p align='right'></p></div> ",
+    pages: [ // page 1
+            '<div dir=\"rtl\"><p align=\'right\'>ברוכים הבאים למשחק <strong>"ללחוץ או לא ללחוץ"</strong>! המשחק אורך כ-20 דקות. לחצו על כפתור "הבא" כדי לעבור למסך הבא.</p></div>',
 
-      "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר מאוד, לכן עליכם להחליט מהר ככל האפשר אם ללחוץ או לא-ללחוץ.</p></div>"+
-      "<div dir=\"rtl\"><p align='right'> להלן דוגמה לסוג התמונה שתראו. </p></div>" +
-      // example squares
-      '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
-      '<td><img src="img/go-nogo/stim/fsamp_1.png" style="width: 200px;"></td>' +
-      '</tr><tr>' +
-      '<td>תמונה לדוגמה</td>' +
-      '</tr></table>',
+            // page 2
+            '<div dir=\"rtl\"><p align=\'right\'>במהלך המשחק יוצגו תמונות שונות. כל תמונה תוצג לזמן קצר ולאחריה תראו אם הרווחתם או הפסדתם נקודות.</p></div>' +
+            '<div dir=\"rtl\"><p align=\'right\'>כדי להרוויח נקודות או להימנע מהפסד, תצטרכו להחליט במהירות אם <strong>ללחוץ</strong> על מקש הרווח או <strong>לא-ללחוץ</strong>.</p></div>' +
+            '<div dir=\"rtl\"><p align=\'right\'>המטרה שלכם היא ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong>.</p></div> ',
 
-      "<div dir=\"rtl\"><p align='right'>בכל פעם שתראו תמונה, עליכם להחליט אם ללחוץ על מקש הרווח או לא, לפני שהתמונה נעלמת.</p></div>"+
-      "<div dir=\"rtl\"><p align='right'> לאחר שהתמונה תיעלם, תראו אם זכיתם בנקודות, הפסקת נקודות, או אם לא קרה כלום (ניטרלי). המשוב יוצג באמצעות התמונות הבאות:</p></div>" +
-      // win/lose/maintain feedback images
-      '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
-      '<td><img src=' + win_fb + ' style="width: 200px;"></td>' +
-      '<td><img src=' + neutral_fb + ' style="height: 200px; "></td>' +
-      '<td><img src=' + lose_fb + ' style="height: 200px; "></td>' +
-      '</tr><tr>' +
-      '<td>זכיתם בנקודות</td><td>ניטרלי</td><td>הפסדתם נקודות</td>' +
-      '</tr></table>',
+            // page 3
+            "<div dir=\"rtl\"><p align='right'>לאחר כל תגובה, תקבלו משוב על הפעולה שלכם:</p></div>"+
+            // win/lose/maintain feedback images
+            '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
+            '<td><img src=' + win_fb + ' style="width: 200px;"></td>' +
+            '<td><img src=' + neutral_fb + ' style="height: 200px; "></td>' +
+            '<td><img src=' + lose_fb + ' style="height: 200px; "></td>' +
+            '</tr><tr>' +
+            '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>' +
+            '</tr></table><br>',
 
-      // "<p align='left'> ></p>" +
-      // "<p align='left'> Every square has a correct reponse, and they do not change within the round. </p>" +
-      // "<p align='left'> <i>Please note:</i> Sometimes, you will not lose points for making the incorrect response. </p>" +
-      // "<p align='left'>  Sometimes, you will not earn points for making the correct response either. </p>" +
-      // "<p align='left'> However, most of the time, a correct response will earn you points and an incorrect response will lose you points. </p>",
+            //page 4
+            "<div dir=\"rtl\"><p align='right'> בכל סיבוב יש 4 תמונות שונות. לכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב:</p></div>"+
+            "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: אם תלחצו, לרוב תרוויחו נקודות</p></div>" +
+            "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: אם לא-תלחצו, לרוב תרוויחו נקודות</p></div>" +
+            "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם תלחצו, לרוב תימנעו מהפסד </p></div>" +
+            "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>:אם לא-תלחצו, לרוב תימנעו מהפסד</p></div>"+
+            "<div dir=\"rtl\"><p align='right'> שימו לב: התוצאה לא תמיד קבועה - גם אם בחרתם נכון, לפעמים תקבלו משוב ניטרלי (במקום לזכות בנקודות)<br> ולפעמים תפסידו נקודות (במקום להימנע מהפסד).</p></div>",
 
-      // "<p align='left'>  <b> Some colors may be used twice in different rounds. The colors are randomly selected for each round and the color of a image in one round has no effect on it's answer in another round. </b></p>" +
-      "<div dir=\"rtl\"><p align='right'>  במשחק תשלימו 3 סיבובים. כל סיבוב כולל סט שונה של ארבע תמונות, והן יוצגו " + reps_in_exp*4 + " פעמים. <div/></p> ",
+            // page 5
+            "<div dir=\"rtl\"><p align='right'>במשחק 3 סיבובים.</p></div>"+
+            "<div dir=\"rtl\"><p align='right'>בכל סיבוב 4 תמונות חדשות, שיוצגו בסך הכל 80 פעמים (20 פעמים לכל תמונה).</p></div>"+
+            "<div dir=\"rtl\"><p align='right'>בכל פעם תוצג תמונה אחת מתוך 4 התמונות האפשריות.</p></div>"+
+            "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ, לפני שהתמונה תיעלם.</p></div>"+
+            "<div dir=\"rtl\"><p align='right'> להלן דוגמה לסוג התמונה שתראו. </p></div>" +
+            // example squares
+            '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
+            '<td><img src="img/go-nogo/stim/fsamp_1.png" style="width: 200px;"></td>' +
+            '</tr><tr>' +
+            '<td>תמונה לדוגמה</td>' +
+            '</tr></table>',
 
-      "<div dir=\"rtl\"><p align='right'> אנא השתדלו ללמוד את הפעולה המתאימה לכל תמונה ולבצע את המשימה כמיטב יכולתכם. הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>" +
-      "<div dir=\"rtl\"><p align='right'> שימו לב כי אם תגיבו באופן אקראי, תמיד תלחצו, או לעולם לא תלחצו, אנו שומרים לעצמנו את הזכות לשלול מכם את הבונוס. </p></div>",
+            "<div dir=\"rtl\"><p align='right'> אנא השתדלו ללמוד את הפעולה המתאימה לכל תמונה ולבצע את המשימה כמיטב יכולתכם. הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>" +
+            "<div dir=\"rtl\"><p align='right'> שימו לב כי אם תגיבו באופן אקראי, תמיד תלחצו, או לעולם לא תלחצו, אנו שומרים לעצמנו את הזכות לשלול מכם את הבונוס. </p></div>",
 
-      "<div dir=\"rtl\"><p align='right'>כעת, תשיבו על מספר שאלות בנוגע למשחק ולאחר מכן תעברו לתרגול קצר. </p></div>" +
-      "<p>לחצו על \"המשך\" כדי לענות על שאלות הבנת ההוראות.</p></div>"
+            "<div dir=\"rtl\"><p align='right'>כעת, תשיבו על מספר שאלות בנוגע למשחק ולאחר מכן תעברו לתרגול קצר. </p></div>" +
+            "<p>לחצו על \"הבא\" כדי לענות על שאלות הבנת ההוראות.</p></div>"
     ],
     show_clickable_nav: true,
     button_label_next: "הבא",
@@ -259,9 +256,9 @@
   var redo_instructions = {
     type: 'instructions',
     pages: [
-      "<p align='right'> הממ... בהתבסס על אחת או יותר מתשובותיכם לשאלות הקודמות, ייתכן שאינכם מבינים את המשימה באופן מלא. </p>" +
+      "<p align='right'> בהתבסס על אחת או יותר מתשובותיכם לשאלות הקודמות, ייתכן שאינכם מבינים את המשימה באופן מלא. </p>" +
       "<p align='right'> אם לא תצליחו לענות נכון על השאלות שוב, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-      "<p align='right'> אנא לחצו על 'המשך' כדי לחזור להוראות. </p>"
+      "<p align='right'> אנא לחצו על 'הבא' כדי לחזור להוראות. </p>"
 
     ],
     show_clickable_nav: true,
@@ -280,9 +277,9 @@
   var failed_instructions = {
     type: 'instructions',
     pages: [
-      "<p align='left'> מצטערים. נראה ששוב לא הצלחתם לענות נכונה על אחת או יותר משאלות ההבנה. </p>" +
-      "<p align='left'> ייתכן שלא תקבלו בונוס כספי עבור ההשתתפות בניסוי. </p>" +
-      "<p align='left'> <b> אם לא תצליחו להשיב על הוראות ההבנה בפעם השלישית ייתכן שנבקש מכם לעזוב את המחקר. </b></p>"
+      "<p align='right'> מצטערים. נראה ששוב לא הצלחתם לענות נכונה על אחת או יותר משאלות ההבנה. </p>" +
+      "<p align='right'> ייתכן שלא תקבלו בונוס כספי עבור ההשתתפות בניסוי. </p>" +
+      "<p align='right'> <b> אם לא תצליחו להשיב על הוראות ההבנה בפעם השלישית ייתכן שנבקש מכם לעזוב את המחקר. </b></p>"
     ],
     show_clickable_nav: true,
     button_label_next: "הבא",
@@ -296,19 +293,69 @@
     },
   };
 
+  var final_bad = {
+    type: 'instructions',
+    pages: function(data){
+      try {
+        num_gos = jsPsych.data.get().last(3 * 4 * reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
+      }
+      catch(err) {
+        num_gos = -1;
+      }
+      return [
+        "<p align='right'> מצטערים, נראה כי עדיין אינכם מבינים לגמרי את המשימה. </p>" +
+        "<p align='right'> אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
+        "<p align='right'> לחצו על 'הבא' כדי לענות על שאלון משוב. </p>"
+      ]
+    },
+    show_clickable_nav: true,
+    button_label_next: "הבא",
+    button_label_previous: "הקודם",
+    on_finish: function(data){
+      data.primary_key =  subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      data.suspicious = true
+      data.num_gos = num_gos
+      data.num_nogos = (4*reps_in_trial)-num_gos
+      data.block = 'block_p'
+      data.exp_stage = "practice_suspicion_flag"
+      data.exp_part = "instructions"
+
+      if(num_gos == reps_in_trial*4) {
+        data.suspicious_type = 'all_one';
+      }
+      else if (num_gos == 0) {
+        data.suspicious_type = 'time_outs'
+      }
+      else {
+        data.suspicious_type = 'error_rate'
+      }
+
+      jsPsych.endExperiment('Ending experiment early due to misunderstanding.');
+      jsPsych.init({
+        timeline: [
+          fb_warning_ss, fb_q1_ss, fb_q1_eval_ss,
+          fb_q2_ss, fb_q2_eval_ss, fb_q3_ss,
+          fb_q4_ss, fb_end_exp_ss, save_data
+        ]
+      });
+    }
+  }
+
+
+
   // evaluates question responses and loops timeline if questions are incorrect (part 3)
   // Note: you need all three parts (next two follow) for this function to work
   var instructions_understood3 = {
-    timeline: [failed_instructions, instructions, instruction_questions],
+    timeline: [final_bad],
     conditional_function:   function() {
       var dat = jsPsych.data.getLastTrialData().values()[0];
       var dat1 = jsPsych.data.getLastTrialData().values()[1];
       var answer1 = JSON.parse(dat.responses).Q0;
       var answer2 = JSON.parse(dat.responses).Q1;
-      console.log(answer1);
       if(answer1.includes('הרווח') == true && answer2.includes('4') == true) {
         return false;
       } else {
+        console.log("this is test point");
         return true;
       }
     },
@@ -594,23 +641,23 @@
       num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       if (num_gos == reps_in_trial * 4) {
         return [
-          "<p align='right'> הממ... לחצת על מקש הרווח עבור כל התמונות. נראה שאינך מבין/ה לגמרי את המשימה. </p>" +
+          "<p align='right'> \לחצת על מקש הרווח עבור כל התמונות. נראה שאינך מבין/ה לגמרי את המשימה. </p>" +
           "<p align='right'> אם לא תצליח/י להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלך, וייתכן שתתבקש/י לעזוב את המחקר. </p>" +
-          "<p align='right'> אנא לחץ/י על 'המשך' כדי לחזור להוראות. </p>"
+          "<p align='right'> אנא לחץ/י על 'הבא' כדי לחזור להוראות. </p>"
         ];
       }
       else if (num_gos == 0) {
         return [
-          "<p align='right'> הממ... לא לחצת כלל על מקש הרווח במהלך התרגול. נראה שאינך מבין/ה לגמרי את המשימה. </p>" +
+          "<p align='right'> לא לחצת כלל על מקש הרווח במהלך התרגול. נראה שאינך מבין/ה לגמרי את המשימה. </p>" +
           "<p align='right'> אם לא תצליח/י להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלך, וייתכן שתתבקש/י לעזוב את המחקר. </p>" +
-          "<p align='right'> אנא לחץ/י על 'המשך' כדי לחזור להוראות. </p>"
+          "<p align='right'> אנא לחץ/י על 'הבא' כדי לחזור להוראות. </p>"
         ];
       }
       else {
         return [
-          "<p align='right'> הממ... דפוסי הלחיצה שלך על מקש הרווח (או הימנעות מהם) מעידים על כך שאולי לא הבנת לגמרי את המשימה. </p>" +
+          "<p align='right'> דפוסי הלחיצה שלך על מקש הרווח (או הימנעות מהם) מעידים על כך שאולי לא הבנת לגמרי את המשימה. </p>" +
           "<p align='right'> אם לא תצליח/י להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלך, וייתכן שתתבקש/י לעזוב את המחקר. </p>" +
-          "<p align='right'> אנא לחץ/י על 'המשך' כדי לחזור להוראות. </p>"
+          "<p align='right'> אנא לחץ/י על 'הבא' כדי לחזור להוראות. </p>"
         ];
       }
 
@@ -646,23 +693,23 @@
       num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       if (num_gos == reps_in_trial * 4) {
         return [
-          "<p align='right'> הממ... לחצתם על מקש הרווח בכל פעם שהוצגה תמונה. נראה שאינכם מבינים לגמרי את המשימה. </p>" +
+          "<p align='right'> לחצתם על מקש הרווח בכל פעם שהוצגה תמונה. נראה שאינכם מבינים לגמרי את המשימה. </p>" +
           "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-          "<p align='right'> לחצו על 'המשך' כדי לחזור להוראות. </p>"
+          "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
         ];
       }
       else if (num_gos == 0) {
         return [
-          "<p align='right'> הממ... לא לחצתם כלל על מקש הרווח במהלך הצגת התמונות. נראה שאינכם מבינים לגמרי את המשימה. </p>" +
+          "<p align='right'> לא לחצתם כלל על מקש הרווח במהלך הצגת התמונות. נראה שאינכם מבינים לגמרי את המשימה. </p>" +
           "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-          "<p align='right'> לחצו על 'המשך' כדי לחזור להוראות. </p>"
+          "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
         ];
       }
       else {
         return [
-          "<p align='right'> הממ... הבחירות שלכם מתי ללחוץ ומתי לא ללחוץ על מקש הרווח מרמזות שאינכם מבינים לגמרי את המשימה. </p>" +
+          "<p align='right'> הבחירות שלכם מתי ללחוץ ומתי לא ללחוץ על מקש הרווח מרמזות שאינכם מבינים לגמרי את המשימה. </p>" +
           "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-          "<p align='right'> לחצו על 'המשך' כדי לחזור להוראות. </p>"
+          "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
         ];
       }
 
@@ -693,39 +740,6 @@
     }
   }
 
-  var final_bad = {
-    type: 'instructions',
-    pages: function(data){
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
-      return [
-        "<p align='right'> מצטערים, נראה כי עדיין אינכם מבינים לגמרי את המשימה. </p>" +
-        "<p align='right'> אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-        "<p align='right'> לחצו על 'הבא' כדי להתחיל את המשימה המרכזית. </p>"
-      ]
-    },
-    show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
-    on_finish: function(data){
-      data.primary_key =  subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
-      data.suspicious = true
-      data.num_gos = num_gos
-      data.num_nogos = (4*reps_in_trial)-num_gos
-      data.block = 'block_p'
-      data.exp_stage = "practice_suspicion_flag"
-      data.exp_part = "instructions"
-
-      if(num_gos == reps_in_trial*4) {
-        data.suspicious_type = 'all_one';
-      }
-      else if (num_gos == 0) {
-        data.suspicious_type = 'time_outs'
-      }
-      else {
-        data.suspicious_type = 'error_rate'
-      }
-    }
-  }
 
   var sus_procedure3 = {
     timeline: [final_bad],
@@ -934,7 +948,7 @@
   stim1 = make_stimuli(false, shuffler(squares1), 'block_1')
   stim2 = make_stimuli(false, shuffler(squares2), 'block_2')
   stim3 = make_stimuli(false, shuffler(squares3), 'block_3')
-  stims = [[stim1, "one third"], [stim2, "two thirds"], [stim3]]
+  stims = [[stim1, "שליש"], [stim2, "שני שלישים"], [stim3]]
 
   // block 1
   for (i = 0; i < stims.length; i++){
@@ -1098,6 +1112,7 @@
   // first question - tech problems
   var fb_q1_ss = {
     type: 'survey-multi-choice',
+    button_label: "המשך",
     preamble: '<h4> שאלון משוב 1/4 </h4>', //+
     //"<h5 align='left'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
     questions: [
@@ -1133,6 +1148,7 @@
   // first question - tech problems - if yes, please explain
   var fb_q1_follow_ss = {
     type: 'survey-text',
+    button_label: "המשך",
     preamble: '<h4> שאלון משוב 1/4 </h4>', // +
     questions: [
       {prompt: "אנא ספרו לנו על הקשיים הטכניים שנתקלתם בהם. ",
@@ -1171,6 +1187,7 @@
   // second question - distractions
   var fb_q2_ss = {
     type: 'survey-multi-choice',
+    button_label: "המשך",
     preamble: '<h4> שאלון משוב 2/4 </h4>', // +
     questions: [{
       prompt: "האם חוויתם הסחת דעת משמעותית במהלך המשחק?\n" +
@@ -1205,6 +1222,7 @@
   // second question - distractions - if yes, please explain
   var fb_q2_follow_ss = {
     type: 'survey-text',
+    button_label: "המשך",
     preamble: '<h4> Feedback Survey 2/4 </h4>', // +
     questions: [
       {prompt: "אנא תאר אילו הסחות דעת השפיעה על הביצועים שלך, ואם אפשר, באיזה שלב במשימה חווית זאת:",
@@ -1242,6 +1260,7 @@
   // third question: engagement
   var fb_q3_ss = {
     type: 'survey-multi-choice',
+    button_label: "המשך",
     preamble: '<h4> שאלון משוב 3/4 </h4>', // +
     questions: [{
       prompt: "בסולם מ- 1 עד 4, באיזו מידה המשחק גרם לכם להיות מרוכזים בו (עד כמה הוא תפס את תשומת לבכם)?",
@@ -1266,6 +1285,7 @@
   // fourth question: anything else
   var fb_q4_ss = {
     type: 'survey-text',
+    button_label: "המשך",
     preamble: '<h4> שאלון משוב 4/4 </h4>', // +
     questions: [{
       prompt: "האם תרצו לחלוק איתנו משהו נוסף? (דאגה ספציפית, הצעה כללית לשיפור וכו')",
@@ -1349,6 +1369,7 @@
   // first question - tech problems
   var fb_q1_ns = {
     type: 'survey-multi-choice',
+    button_label: "המשך",
     preamble: '<h4> שאלון משוב 1/4 </h4>' +
     "<h5 align='left'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
     questions: [
@@ -1389,6 +1410,7 @@
     // first question - tech problems - if yes, please explain
     var fb_q1_follow_ns = {
       type: 'survey-text',
+      button_label: "המשך",
       preamble: '<h4> שאלון משוב 1/4 </h4>' +
               "<h5 align='left'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
       questions: [
@@ -1428,6 +1450,7 @@
 // second question - distractions
     var fb_q2_ns = {
       type: 'survey-multi-choice',
+      button_label: "המשך",
       preamble: '<h4> שאלון משוב 2/4 </h4>' +
               "<h5 align='left'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
       questions: [{
@@ -1463,6 +1486,7 @@
     // second question - distractions - if yes, please explain
     var fb_q2_follow_ns = {
       type: 'survey-text',
+      button_label: "המשך",
       preamble: '<h4> שאלון משוב 2/4 </h4>' +
               "<h5 align='left'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
       questions: [
@@ -1501,6 +1525,7 @@
 // third question: engagement
     var fb_q3_ns = {
       type: 'survey-multi-choice',
+      button_label: "המשך",
       preamble: '<h4> שאלון משוב 3/4 </h4>' +
               "<h5 align='left'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
       questions: [{
@@ -1526,6 +1551,7 @@
 // fourth question: anything else
     var fb_q4_ns = {
       type: 'survey-text',
+      button_label: "המשך",
       preamble: '<h4> שאלון משוב 4/4 </h4>' +
               "<h5 align='left'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
       questions: [{
@@ -1612,10 +1638,7 @@
 
     // Save data to CSV
     function saveData_csv(name, data){
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'save_data.php');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({filename: name, filedata: data}));
+    uploadDataWithRetry(true)
   }
 
   var save_data = {

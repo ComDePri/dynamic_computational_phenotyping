@@ -156,11 +156,9 @@ jsPsych.plugins['survey-multi-choice'] = (function() {
         input.setAttribute('id', input_id);
         input.setAttribute('value', trial.questions[i].options[j]);
 
-        console.log("test");
         // Position radio button based on language direction
         if (hasHebrew) {
           // Hebrew: label first, then radio button (radio button on the right)
-          console.log("hebrew");
           form.appendChild(input);
           form.appendChild(label);
         } else {

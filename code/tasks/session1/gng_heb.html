@@ -408,6 +408,7 @@
   }
 
   function make_stimuli(trial, stim, block_num) {  // generates the stimuli from the square images
+
     if (trial === true){
       stimulus = [
         {stimulus: 'img/go-nogo/stim/' + stim[0] + '.png', data: {color: stim[0], cond: 1, cond_name: 'go2win', correct_choice: [32, 49], exp_part: 'practice', block: block_num}},
@@ -1657,34 +1658,34 @@
   timeline.push(save_data);
   console.log('csv save successful')
 
-  // "dashboard"
-  var dash_to_task = {
-    type: "html-button-response",
-    stimulus:
-            '<div id="blue"> ' +
-            '<div id="title">' +
-            "<h1>DASHBOARD</h1>" +
-            "<h3>If you need to take a brief rest between tasks please do so now.</h3>" +
-            "<h2>Click the button below to proceed to the next task.</h2>" +
-            "<h4>Note: you will not be paid for the time you spend on this page.</h4>" +
-            "</div> " +
-            "</div>",
-    button_html: '<button style="height:75px;width:400px;background-color:powderblue">%choice%</button>',
-    choices: ["<h1>" + nextTask_name + "</h1>"],
-    on_finish: function(data) {
-
-      var interaction_data = jsPsych.data.getInteractionData();
-      data.screen = interaction_data.json();
-
-      jsPsych.data.addDataToLastTrial({
-        exp_stage:"dashboard",
-        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
-        task_selected: nextTask_Id,
-        exp_part: "dash"
-      })
-    }
-  }
-  timeline.push(dash_to_task)
+  // // "dashboard"
+  // var dash_to_task = {
+  //   type: "html-button-response",
+  //   stimulus:
+  //           '<div id="blue"> ' +
+  //           '<div id="title">' +
+  //           "<h1>DASHBOARD</h1>" +
+  //           "<h3>If you need to take a brief rest between tasks please do so now.</h3>" +
+  //           "<h2>Click the button below to proceed to the next task.</h2>" +
+  //           "<h4>Note: you will not be paid for the time you spend on this page.</h4>" +
+  //           "</div> " +
+  //           "</div>",
+  //   button_html: '<button style="height:75px;width:400px;background-color:powderblue">%choice%</button>',
+  //   choices: ["<h1>" + nextTask_name + "</h1>"],
+  //   on_finish: function(data) {
+  //
+  //     var interaction_data = jsPsych.data.getInteractionData();
+  //     data.screen = interaction_data.json();
+  //
+  //     jsPsych.data.addDataToLastTrial({
+  //       exp_stage:"dashboard",
+  //       primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+  //       task_selected: nextTask_Id,
+  //       exp_part: "dash"
+  //     })
+  //   }
+  // }
+  // timeline.push(dash_to_task)
 
 
 

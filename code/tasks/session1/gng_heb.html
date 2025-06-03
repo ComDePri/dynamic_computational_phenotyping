@@ -598,6 +598,7 @@
     type: 'html-keyboard-response',
     stimulus: '<p>זה סוף התרגול,</p> <p>לחץ על כל מקש להמשיך את הניסוי</p>',
     on_finish: function(data) {
+
       uploadDataWithRetry()
       block_corr = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', correct: true}).count()
       data.error_block = 1-(block_corr/(4*reps_in_trial))
@@ -618,7 +619,9 @@
   var no_sus = {
     timeline: [end_trial],
     conditional_function:   function(data) {
-      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filter({key_press: 32}).count()
+      num_gos = jsPsych.data.get().last(3 * 4 * reps_in_trial).filter(function(trial) {
+        return trial.key_press === 32 || trial.key_press === 49;
+      }).count();
       correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
       error_rate = 1 - (correct_oi/(4*reps_in_trial))
 
@@ -985,7 +988,9 @@
       on_finish: function(data) {
         uploadDataWithRetry();
         var curr_block = jsPsych.data.get().last(2).values()[0].block;
-        data.num_gos = jsPsych.data.get().filter({key_press: 32, exp_stage: 'main_choice', block: curr_block}).count()
+        data.num_gos = jsPsych.data.get().filter(function(trial) {
+          return (trial.key_press === 32 || trial.key_press === 49) && trial.exp_stage === 'main_choice' && trial.block === curr_block;
+        }).count();
         data.num_nogos = jsPsych.data.get().filter({key_press: null, exp_stage: 'main_choice', block: curr_block}).count()
         // data.num_nogos = (2*reps_in_exp)- data.num_gos
 
@@ -1043,7 +1048,9 @@
     button_label_previous: "הקודם",
     on_finish: function(data) {
       var curr_block = jsPsych.data.get().last(2).values()[0].block;
-      data.num_gos = jsPsych.data.get().filter({key_press: 32, exp_stage: 'main_choice', block: curr_block}).count()
+      data.num_gos = jsPsych.data.get().filter(function(trial) {
+        return (trial.key_press === 32 || trial.key_press === 49) && trial.exp_stage === 'main_choice' && trial.block === curr_block;
+      }).count();
       data.num_nogos = jsPsych.data.get().filter({key_press: null, exp_stage: 'main_choice', block: curr_block}).count()
       // data.num_nogos = (2*reps_in_exp)- data.num_gos
 

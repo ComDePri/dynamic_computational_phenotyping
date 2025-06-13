@@ -37,6 +37,108 @@
 </body>
 <script>
 
+  intro_1  = "<div dir=\"rtl\"><p>במסך הבא תתבקשו להעביר את הדפדפן למצב מסך מלא.</p></div>"
+  intro_2 = "<div dir=\"rtl\"><p>לאחר שתעברו למסך מלא, חשוב שלא תצאו, לא תחליפו חלוניות, תמזערו או תשנו את הדפדפן שלכם עד סוף המשחק.</p></div>"
+  intro_3 = "<div dir=\"rtl\"><p>הפעולות הללו משנות את תצוגת המשחק, אך המשחק לא עוצר מרגע שהתחיל.</p></div>"
+
+  full_screen_msg = "<p dir='rtl'>הניסוי יעבור כעת למסך מלא. לחצו על הכפתור כדי להמשיך.</p>"
+
+  inst_1 = '<div dir=\"rtl\"><p align=\'right\'>ברוכים הבאים למשחק <strong>"ללחוץ או לא ללחוץ"</strong>! המשחק אורך כ-20 דקות. לחצו על כפתור "הבא" כדי לעבור למסך הבא.</p></div>'
+  inst_2 = '<div dir=\"rtl\"><p align=\'right\'>במהלך המשחק יוצגו תמונות שונות. כל תמונה תוצג לזמן קצר ולאחריה תראו אם הרווחתם או הפסדתם נקודות.</p></div>'
+  inst_3 = '<div dir=\"rtl\"><p align=\'right\'>כדי להרוויח נקודות או להימנע מהפסד, תצטרכו להחליט במהירות אם <strong>ללחוץ</strong> על מקש הרווח או <strong>לא-ללחוץ</strong>.</p></div>'
+  inst_4 = '<div dir=\"rtl\"><p align=\'right\'>המטרה שלכם היא ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong>.</p></div> '
+  inst_5 =  "<div dir=\"rtl\"><p align='right'>לאחר כל תגובה, תקבלו משוב על הפעולה שלכם:</p></div>"
+  inst_6 =  '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
+  inst_7 = "<div dir=\"rtl\"><p align='right'> בכל סיבוב יש 4 תמונות שונות. לכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב:</p></div>"
+  inst_8 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: אם תלחצו, לרוב תרוויחו נקודות</p></div>"
+  inst_9 = "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: אם לא-תלחצו, לרוב תרוויחו נקודות</p></div>"
+  inst_10 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם תלחצו, לרוב תימנעו מהפסד </p></div>"
+  inst_11 = "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם לא-תלחצו, לרוב תימנעו מהפסד</p></div>"
+  inst_12 = "<div dir=\"rtl\"><p align='right'> שימו לב: לכל תמונה יש כלל קבוע שאינו משתנה במהלך המשחק. עם זאת, התוצאה לא תמיד קבועה - גם אם בחרתם נכון, לפעמים תקבלו משוב ניטרלי (במקום לזכות בנקודות)<br> ולפעמים תפסידו נקודות (במקום להימנע מהפסד).</p></div>"
+  inst_13 = "<div dir=\"rtl\"><p align='right'>במשחק 3 סיבובים.</p></div>"
+  inst_14 = "<div dir=\"rtl\"><p align='right'>בכל סיבוב 4 תמונות חדשות, שיוצגו בסך הכל 80 פעמים (20 פעמים לכל תמונה).</p></div>"
+  inst_15 = "<div dir=\"rtl\"><p align='right'>בכל פעם תוצג תמונה אחת מתוך 4 התמונות האפשריות.</p></div>"
+  inst_16 = "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ, לפני שהתמונה תיעלם.</p></div>"
+  inst_17 = "<div dir=\"rtl\"><p align='right'> להלן דוגמה לסוג התמונה שתראו. </p></div>"
+  inst_18 = '<td>תמונה לדוגמה</td>'
+  inst_19 = "<div dir=\"rtl\"><p align='right'> אנא השתדלו ללמוד את הפעולה המתאימה לכל תמונה ולבצע את המשימה כמיטב יכולתכם. הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>"
+  inst_20 = "<div dir=\"rtl\"><p align='right'> שימו לב כי אם תגיבו באופן אקראי, תמיד תלחצו, או לעולם לא תלחצו, אנו שומרים לעצמנו את הזכות לשלול מכם את הבונוס. </p></div>"
+  inst_21 = "<div dir=\"rtl\"><p align='right'>כעת, תשיבו על מספר שאלות בנוגע למשחק ולאחר מכן תעברו לתרגול קצר. </p></div>"
+  inst_22 = "<p>לחצו על \"הבא\" כדי לענות על שאלות הבנת ההוראות.</p></div>"
+  next_text = "הבא"
+  prev_text = "הקודם"
+  continue_text = "המשך"
+  q1_0 = "איזו פעולה תבצעו במהלך המשחק?"
+  q1_1 = "אלחץ על כפתור שיוצג על המסך או אמתין (לא אלחץ על כלום)"
+  q1_2 =         "אלחץ על מקש הרווח או אמתין (לא אלחץ על כלום)"
+  q1_3 =         "אלחץ על החצים שמאלה או ימינה במקלדת כדי לציין את בחירתי"
+  q1_4 =         "אלחץ על החץ למעלה במקלדת או אמתין (לא אלחץ על כלום)"
+  q1_5 = "בסיבוב יחיד, כמה תמונות שונות יוצגו?"
+  redo_1 = "<p align='right'> בהתבסס על אחת או יותר מתשובותיכם לשאלות הקודמות, ייתכן שאינכם מבינים את המשימה באופן מלא. </p>"
+  redo_2 = "<p align='right'> אם לא תצליחו לענות נכון על השאלות שוב, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>"
+  redo_3 = "<p align='right'> אנא לחצו על 'הבא' כדי לחזור להוראות. </p>"
+  space_text = "'הרווח'"
+  start_1 = '<p>סיבוב ניסיון,</p> <p>לחץ על כל מקש להמשך</p>'
+  end_1 = '<p>זה סוף התרגול,</p> <p>לחץ על כל מקש להמשיך את הניסוי</p>'
+  sus_1_1 = "<p align='right'> לחצתם על מקש הרווח בכל פעם שהוצגה תמונה. נראה שאינכם מבינים לגמרי את המשימה. </p>"
+  sus_1_2 = "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>"
+  sus_1_3 = "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
+  sus_1_4 = "<p align='right'> לא לחצתם כלל על מקש הרווח במהלך הצגת התמונות. נראה שאינכם מבינים לגמרי את המשימה. </p>"
+  sus_1_5 = "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>"
+  sus_1_6 = "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
+  sus_1_7 = "<p align='right'> הבחירות שלכם מתי ללחוץ ומתי לא ללחוץ על מקש הרווח מרמזות שאינכם מבינים לגמרי את המשימה. </p>"
+  sus_1_8 = "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>"
+  sus_1_9 = "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
+  between_1 = "<p>השלמתם "
+  between_2 = " מהמשחק והרווחתם <b>"
+  between_3 = "</b> נקודות בונוס בסך הכל!</p>"+
+          "<p>תוכלו לקחת הפסקה קצרה של כמה שניות, אך לא יותר מזה. </p>"+
+          "<p>לחצו על מקש כלשהו כדי להמשיך.</p>"
+  bonus_1 = '<p>הניסוי הסתיים</p>' + '<p>הרווחתם <b>'
+  bonus_2 = ' נקודת בונוס </b>!</p>' +
+          '<p>תודה רבה שהשתתפתם.</p>' +
+          '<p>לחצו <q>הבא</q> כדי לעבור לשאלון המשוב</p>'
+  fb_warn_1 = [
+    "<p align='right'> המשחק כולל מספר בדיקות מובנות שנועדו לבדוק האם השחקנים לא הצליחו להשלים את המטלה" +
+    "<p align='right> (למשל, אם הם בחרו תמיד באותה פעולה או לא בחרו באף פעולה). " +
+    "<p align='right'>  משהו בתגובות שלך עבור חלק או כל המשימה הזו הפעיל אחת מההתראות האלה." ,
+
+    "<p align='right'>  הבונוס שלך יבוטל עד שנסיין יוכל לבדוק ידנית את התשובות שלך כדי לבדוק אם הייתה טעות מצדנו" +
+    "<p align='right'>  בשאלון המשוב הבא תוכלו להסביר אם קרה משהו שבגללו תגובותיכם עלולות להיראות שגויות. " +
+    "<p align='right'>  במקרה של טעות או של שגיאה מצדנו, תקבלו את הבונוס כמתכונן." +
+    "<p align='right'>  עם זאת, אם יתברר שניסיתם \"לעבוד\" על המערכת, אנחנו שומרים על הזכות לא להעניק בונוס."
+  ]
+  yes_text = "כן "
+  not_sure_text = "לא בטוח "
+  no_text = 'לא '
+  q1_head = "<h4> שאלון משוב 1/4 </h4>"
+  q1_prompt = "האם נתקלתם בקושי טכני במהלך המשחק? (למשל, האם הניסוי נתקע, נסגר באמצע וכו').\n" +
+          "אם תבחרו \"כן\" או \"לא בטוח\" תינתן לכם האפשרות לפרט.\n"
+  q1_prompt_2 = "אנא ספרו לנו על הקשיים הטכניים שנתקלתם בהם. "
+  q2_head = "<h4> שאלון משוב 2/4 </h4>"
+  q2_prompt =  "האם חוויתם הסחת דעת משמעותית במהלך המשחק?\n" +
+          "אם תבחרו \"כן\" תינתן לכם האפשרות לפרט.\n"
+  q2_prompt_2 = "אנא תאר אילו הסחות דעת השפיעה על הביצועים שלך, ואם אפשר, באיזה שלב במשימה חווית זאת:"
+  q3_head = "<h4> שאלון משוב 3/4 </h4>"
+  q3_prompt = "בסולם מ- 1 עד 4, באיזו מידה המשחק גרם לכם להיות מרוכזים בו (עד כמה הוא תפס את תשומת לבכם)?"
+  q3_answers = [" 1. כלל לא גרם לריכוז", " 2. יחסית לא גרם לריכוז", " 3. גרם למידה מסוימת של ריכוז", " 4. גרם לריכוז רב"]
+  q4_head = '<h4> שאלון משוב 4/4 </h4>'
+  q4_prompt = "אנא תארו בכמה משפטים את האסטרטגיה שבה השתמשתם על מנת להשלים את המטלה"
+  end_exp_1 = '<p>תודה! שאלון המשוב הסתיים.</p>' +
+          ' <p>לחצו על מקש כלשהו כדי לסיים את הניסוי.</p>'
+  ns_warn_1 = [
+    "<p align='right'> המשחק כולל מספר בדיקות מובנות שנועדו לבדוק האם השחקנים לא הצליחו להשלים את המטלה" +
+    "<p align='right'> (למשל, אם הם בחרו תמיד באותה פעולה או לא בחרו באף פעולה). " +
+
+    "<p align='right'>  תגובותיך ייבדקו על ידי החוקרים, אך נראה שהתאמצת להשלים את המטלה. תודה רבה!" +
+    "<p align='right'>  בשאלון המשוב הבא תוכלו להסביר אם קרה משהו שבגללו תגובותיכם עלולות להיראות שגויות. " +
+    "<p align='right'>  במקרה של טעות או של שגיאה מצדנו, תקבלו את הבונוס כמתכונן." +
+    "<p align='right'>  עם זאת, אם יתברר שניסיתם \"לעבוד\" על המערכת, אנחנו שומרים על הזכות לא להעניק בונוס."
+  ]
+  honstly_prompt = "<h5 align='right'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>"
+  tech_issue_1 = "אנא ספרו לנו על הקשיים הטכניים שנתקלתם בהם. "
+  please_wait_1 = '<p> אנא המתן כ30 שניות לשמירת הנתונים.</p>'
+
 
   // quick change variables
   const BUCKET_NAME = 'gonogo-experiment-2025';
@@ -122,14 +224,10 @@
 
   var fullscreen_intro = {
     type: 'instructions',
-    pages: [
-      "<div dir=\"rtl\"><p>במסך הבא תתבקשו להעביר את הדפדפן למצב מסך מלא.</p></div>" +
-      "<div dir=\"rtl\"><p>לאחר שתעברו למסך מלא, חשוב שלא תצאו, לא תחליפו חלוניות, תמזערו או תשנו את הדפדפן שלכם עד סוף המשחק.</p></div>" +
-      "<div dir=\"rtl\"><p>הפעולות הללו משנות את תצוגת המשחק, אך המשחק לא עוצר מרגע שהתחיל.</p></div>"
-    ],
+    pages: [intro_1 + intro_2 + intro_3],
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data) {
       jsPsych.data.addDataToLastTrial({
         exp_stage:"fullscreen",
@@ -143,8 +241,8 @@
   var fullscreen = {
     type: 'fullscreen',
     fullscreen_mode: true,
-    message: "<p dir='rtl'>הניסוי יעבור כעת למסך מלא. לחצו על הכפתור כדי להמשיך.</p>",
-    button_label: "המשך",
+    message: full_screen_msg,
+    button_label: continue_text,
     on_finish: function(data) {
       jsPsych.data.addDataToLastTrial({
         exp_stage:"fullscreen",
@@ -160,54 +258,42 @@
   var instructions = {
     type: 'instructions',
     pages: [ // page 1
-            '<div dir=\"rtl\"><p align=\'right\'>ברוכים הבאים למשחק <strong>"ללחוץ או לא ללחוץ"</strong>! המשחק אורך כ-20 דקות. לחצו על כפתור "הבא" כדי לעבור למסך הבא.</p></div>',
-
+            inst_1,
             // page 2
-            '<div dir=\"rtl\"><p align=\'right\'>במהלך המשחק יוצגו תמונות שונות. כל תמונה תוצג לזמן קצר ולאחריה תראו אם הרווחתם או הפסדתם נקודות.</p></div>' +
-            '<div dir=\"rtl\"><p align=\'right\'>כדי להרוויח נקודות או להימנע מהפסד, תצטרכו להחליט במהירות אם <strong>ללחוץ</strong> על מקש הרווח או <strong>לא-ללחוץ</strong>.</p></div>' +
-            '<div dir=\"rtl\"><p align=\'right\'>המטרה שלכם היא ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong>.</p></div> ',
+            inst_2 + inst_3 + inst_4,
 
             // page 3
-            "<div dir=\"rtl\"><p align='right'>לאחר כל תגובה, תקבלו משוב על הפעולה שלכם:</p></div>"+
+            inst_5+
             // win/lose/maintain feedback images
             '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
             '<td><img src=' + win_fb + ' style="width: 200px;"></td>' +
             '<td><img src=' + neutral_fb + ' style="height: 200px; "></td>' +
             '<td><img src=' + lose_fb + ' style="height: 200px; "></td>' +
             '</tr><tr>' +
-            '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>' +
+            inst_6 +
             '</tr></table><br>',
 
             //page 4
-            "<div dir=\"rtl\"><p align='right'> בכל סיבוב יש 4 תמונות שונות. לכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב:</p></div>"+
-            "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: אם תלחצו, לרוב תרוויחו נקודות</p></div>" +
-            "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: אם לא-תלחצו, לרוב תרוויחו נקודות</p></div>" +
-            "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם תלחצו, לרוב תימנעו מהפסד </p></div>" +
-            "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם לא-תלחצו, לרוב תימנעו מהפסד</p></div>"+
-            "<div dir=\"rtl\"><p align='right'> שימו לב: לכל תמונה יש כלל קבוע שאינו משתנה במהלך המשחק. עם זאת, התוצאה לא תמיד קבועה - גם אם בחרתם נכון, לפעמים תקבלו משוב ניטרלי (במקום לזכות בנקודות)<br> ולפעמים תפסידו נקודות (במקום להימנע מהפסד).</p></div>",
+            inst_7 + inst_8 + inst_9 + inst_10 + inst_11 + inst_12,
 
             // page 5
-            "<div dir=\"rtl\"><p align='right'>במשחק 3 סיבובים.</p></div>"+
-            "<div dir=\"rtl\"><p align='right'>בכל סיבוב 4 תמונות חדשות, שיוצגו בסך הכל 80 פעמים (20 פעמים לכל תמונה).</p></div>"+
-            "<div dir=\"rtl\"><p align='right'>בכל פעם תוצג תמונה אחת מתוך 4 התמונות האפשריות.</p></div>"+
-            "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ, לפני שהתמונה תיעלם.</p></div>"+
-            "<div dir=\"rtl\"><p align='right'> להלן דוגמה לסוג התמונה שתראו. </p></div>" +
+            inst_13 + inst_14 + inst_15 + inst_16 + inst_17 +
             // example squares
             '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
             '<td><img src="img/go-nogo/stim/fsamp_1.png" style="width: 200px;"></td>' +
             '</tr><tr>' +
-            '<td>תמונה לדוגמה</td>' +
+            inst_18 +
             '</tr></table>',
 
-            "<div dir=\"rtl\"><p align='right'> אנא השתדלו ללמוד את הפעולה המתאימה לכל תמונה ולבצע את המשימה כמיטב יכולתכם. הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>" +
-            "<div dir=\"rtl\"><p align='right'> שימו לב כי אם תגיבו באופן אקראי, תמיד תלחצו, או לעולם לא תלחצו, אנו שומרים לעצמנו את הזכות לשלול מכם את הבונוס. </p></div>",
-
-            "<div dir=\"rtl\"><p align='right'>כעת, תשיבו על מספר שאלות בנוגע למשחק ולאחר מכן תעברו לתרגול קצר. </p></div>" +
-            "<p>לחצו על \"הבא\" כדי לענות על שאלות הבנת ההוראות.</p></div>"
+            // page 6
+            inst_19 + inst_20,
+            
+            // page 7
+            inst_21 + inst_22,
     ],
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data) {
       jsPsych.data.addDataToLastTrial({
         exp_stage:"instructions",
@@ -222,19 +308,14 @@
   // instruction comprehension questions
   var instruction_questions = {
     type: 'survey-multi-choice',
-    button_label: "המשך",
+    button_label: continue_text,
     questions: [
       {
-        prompt: "איזו פעולה תבצעו במהלך המשחק?",
-        options: [
-          "אלחץ על כפתור שיוצג על המסך או אמתין (לא אלחץ על כלום)",
-          "אלחץ על מקש הרווח או אמתין (לא אלחץ על כלום)",
-          "אלחץ על החצים שמאלה או ימינה במקלדת כדי לציין את בחירתי",
-          "אלחץ על החץ למעלה במקלדת או אמתין (לא אלחץ על כלום)"
-        ]
+        prompt: q1_0,
+        options: [ q1_1, q1_2, q1_3, q1_4]
       },
       {
-        prompt: "בסיבוב יחיד, כמה תמונות שונות יוצגו?",
+        prompt: q1_5,
         options: ["1", "2", "3", "4"]
       }
     ],
@@ -255,15 +336,10 @@
   // what they see if they answered one or both questions incorrectly the first time
   var redo_instructions = {
     type: 'instructions',
-    pages: [
-      "<p align='right'> בהתבסס על אחת או יותר מתשובותיכם לשאלות הקודמות, ייתכן שאינכם מבינים את המשימה באופן מלא. </p>" +
-      "<p align='right'> אם לא תצליחו לענות נכון על השאלות שוב, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-      "<p align='right'> אנא לחצו על 'הבא' כדי לחזור להוראות. </p>"
-
-    ],
+    pages: [redo_1 + redo_2 + redo_3],
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data) {
       jsPsych.data.addDataToLastTrial({
         exp_stage:"instruction_fail_first",
@@ -282,8 +358,8 @@
       "<p align='right'> <b> אם לא תצליחו להשיב על הוראות ההבנה בפעם השלישית ייתכן שנבקש מכם לעזוב את המחקר. </b></p>"
     ],
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data) {
       jsPsych.data.addDataToLastTrial({
         exp_stage:"instruction_fail_again",
@@ -309,8 +385,8 @@
       ]
     },
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data){
       data.primary_key =  subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
       data.suspicious = true
@@ -352,7 +428,7 @@
       var dat1 = jsPsych.data.getLastTrialData().values()[1];
       var answer1 = JSON.parse(dat.responses).Q0;
       var answer2 = JSON.parse(dat.responses).Q1;
-      if(answer1.includes('הרווח') == true && answer2.includes('4') == true) {
+      if(answer1.includes(space_text) == true && answer2.includes('4') == true) {
         return false;
       } else {
         console.log("this is test point");
@@ -369,7 +445,7 @@
       var dat1 = jsPsych.data.getLastTrialData().values()[1];
       var answer1 = JSON.parse(dat.responses).Q0;
       var answer2 = JSON.parse(dat.responses).Q1;
-      if(answer1.includes('הרווח') == true && answer2.includes('4') == true) {
+      if(answer1.includes(space_text) == true && answer2.includes('4') == true) {
         return false;
       } else {
         return true;
@@ -385,7 +461,7 @@
       var dat1 = jsPsych.data.getLastTrialData().values()[1];
       var answer1 = JSON.parse(dat.responses).Q0;
       var answer2 = JSON.parse(dat.responses).Q1;
-      if(answer1.includes('הרווח') == true && answer2.includes('4') == true) {
+      if(answer1.includes(space_text) == true && answer2.includes('4') == true) {
         return false;
       } else {
         return true;
@@ -432,7 +508,7 @@
 
   var start_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<p>סיבוב ניסיון,</p> <p>לחץ על כל מקש להמשך</p>',
+    stimulus: start_1,
     on_finish: function(data) {
       jsPsych.data.addDataToLastTrial({
         exp_stage:"practice_start",
@@ -596,7 +672,7 @@
   // end of practice trial
   var end_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<p>זה סוף התרגול,</p> <p>לחץ על כל מקש להמשיך את הניסוי</p>',
+    stimulus: end_1,
     on_finish: function(data) {
 
       uploadDataWithRetry()
@@ -644,32 +720,22 @@
     pages: function(data){
       num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       if (num_gos == reps_in_trial * 4) {
-        return [
-          "<p align='right'> \לחצת על מקש הרווח עבור כל התמונות. נראה שאינך מבין/ה לגמרי את המשימה. </p>" +
-          "<p align='right'> אם לא תצליח/י להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלך, וייתכן שתתבקש/י לעזוב את המחקר. </p>" +
-          "<p align='right'> אנא לחץ/י על 'הבא' כדי לחזור להוראות. </p>"
-        ];
+        return [sus_1_1 + sus_1_2 + sus_1_3];
       }
       else if (num_gos == 0) {
         return [
-          "<p align='right'> לא לחצת כלל על מקש הרווח במהלך התרגול. נראה שאינך מבין/ה לגמרי את המשימה. </p>" +
-          "<p align='right'> אם לא תצליח/י להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלך, וייתכן שתתבקש/י לעזוב את המחקר. </p>" +
-          "<p align='right'> אנא לחץ/י על 'הבא' כדי לחזור להוראות. </p>"
+          sus_1_4 + sus_1_5 + sus_1_6
         ];
       }
       else {
-        return [
-          "<p align='right'> דפוסי הלחיצה שלך על מקש הרווח (או הימנעות מהם) מעידים על כך שאולי לא הבנת לגמרי את המשימה. </p>" +
-          "<p align='right'> אם לא תצליח/י להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלך, וייתכן שתתבקש/י לעזוב את המחקר. </p>" +
-          "<p align='right'> אנא לחץ/י על 'הבא' כדי לחזור להוראות. </p>"
-        ];
+        return [ sus_1_7, sus_1_8 + sus_1_9];
       }
 
 
     },
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data){
       data.primary_key =  subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
       data.suspicious = true
@@ -696,33 +762,21 @@
     pages: function(data){
       num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
       if (num_gos == reps_in_trial * 4) {
-        return [
-          "<p align='right'> לחצתם על מקש הרווח בכל פעם שהוצגה תמונה. נראה שאינכם מבינים לגמרי את המשימה. </p>" +
-          "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-          "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
-        ];
+        return [sus_1_1 + sus_1_2 + sus_1_3];
       }
       else if (num_gos == 0) {
-        return [
-          "<p align='right'> לא לחצתם כלל על מקש הרווח במהלך הצגת התמונות. נראה שאינכם מבינים לגמרי את המשימה. </p>" +
-          "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-          "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
-        ];
+        return [sus_1_4 + sus_1_5 + sus_1_6];
       }
       else {
-        return [
-          "<p align='right'> הבחירות שלכם מתי ללחוץ ומתי לא ללחוץ על מקש הרווח מרמזות שאינכם מבינים לגמרי את המשימה. </p>" +
-          "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>" +
-          "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
-        ];
+        return [sus_1_7 + sus_1_8 + sus_1_9];
       }
 
 
 
     },
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data){
       data.primary_key =  subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
       data.suspicious = true
@@ -979,9 +1033,7 @@
         var bonus = jsPsych.data.get().last(2).values()[0].curr_bonus;
         var rounded_bonus = Math.round(bonus)
 
-        return ["<p>השלמתם " + percent + " מהמשחק והרווחתם <b>"+ rounded_bonus + "</b> נקודות בונוס בסך הכל!</p>"+
-        "<p>תוכלו לקחת הפסקה קצרה של כמה שניות, אך לא יותר מזה. </p>"+
-        "<p>לחצו על מקש כלשהו כדי להמשיך.</p>"];
+        return [between_1 + percent + between_2 + rounded_bonus + between_3];
       },
       trial_duration: 60000,
       response_ends_trial: true,
@@ -1038,14 +1090,11 @@
         rounded_bonus = fixed_bonus
       }
 
-      return ['<p>הניסוי הסתיים</p>' +
-      '<p>הרווחתם <b>' + rounded_bonus + ' נקודת בונוס </b>!</p>' +
-      '<p>תודה רבה שהשתתפתם.</p>' +
-      '<p>לחצו <q>הבא</q> כדי לעבור לשאלון המשוב</p>'];
+      return [bonus_1 + rounded_bonus + bonus_2];
     },
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data) {
       var curr_block = jsPsych.data.get().last(2).values()[0].block;
       data.num_gos = jsPsych.data.get().filter(function(trial) {
@@ -1094,19 +1143,10 @@
 
   var fb_warning_ss = {
     type: 'instructions',
-    pages: [
-      "<p align='right'> המשחק כולל מספר בדיקות מובנות שנועדו לבדוק האם השחקנים לא הצליחו להשלים את המטלה" +
-      "<p align='right> (למשל, אם הם בחרו תמיד באותה פעולה או לא בחרו באף פעולה). " +
-      "<p align='right'>  משהו בתגובות שלך עבור חלק או כל המשימה הזו הפעיל אחת מההתראות האלה." ,
-
-      "<p align='right'>  הבונוס שלך יבוטל עד שנסיין יוכל לבדוק ידנית את התשובות שלך כדי לבדוק אם הייתה טעות מצדנו" +
-      "<p align='right'>  בשאלון המשוב הבא תוכלו להסביר אם קרה משהו שבגללו תגובותיכם עלולות להיראות שגויות. " +
-      "<p align='right'>  במקרה של טעות או של שגיאה מצדנו, תקבלו את הבונוס כמתכונן." +
-      "<p align='right'>  עם זאת, אם יתברר שניסיתם \"לעבוד\" על המערכת, אנחנו שומרים על הזכות לא להעניק בונוס."
-    ],
+    pages: fb_warn_1,
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data) {
       jsPsych.data.addDataToLastTrial({
         fb_type: "suspicious",
@@ -1120,13 +1160,12 @@
   // first question - tech problems
   var fb_q1_ss = {
     type: 'survey-multi-choice',
-    button_label: "המשך",
-    preamble: "<h4> שאלון משוב 1/4 </h4>", //+
+    button_label: continue_text,
+    preamble: q1_head, //+
     //"<h5 align='left'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
     questions: [
-      {prompt: "האם נתקלתם בקושי טכני במהלך המשחק? (למשל, האם הניסוי נתקע, נסגר באמצע וכו').\n" +
-                "אם תבחרו \"כן\" או \"לא בטוח\" תינתן לכם האפשרות לפרט.\n",
-        options: [" כן", " לא", " לא בטוח"],
+      {prompt: q1_prompt,
+        options: [yes_text, no_text, not_sure_text],
         // horizontal: true,
         required: true,
         name: 'tech problems'},
@@ -1134,7 +1173,7 @@
     on_finish: function(data){
       var dat1 = jsPsych.data.getLastTrialData().values()[0];
       var answer1 = JSON.parse(dat1.responses).Q0;
-      if(answer1.includes('כן') == true || answer1.includes('לא בטוח')) {
+      if(answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
         jsPsych.data.addDataToLastTrial({
           fb_type: "suspicious",
           fb_issue:'tech',
@@ -1156,10 +1195,10 @@
   // first question - tech problems - if yes, please explain
   var fb_q1_follow_ss = {
     type: 'survey-text',
-    button_label: "המשך",
-    preamble: "<h4> שאלון משוב 1/4 </h4>", // +
+    button_label: continue_text,
+    preamble: q1_head, // +
     questions: [
-      {prompt: "אנא ספרו לנו על הקשיים הטכניים שנתקלתם בהם. ",
+      {prompt: q1_prompt_2,
         required: true,
         name: 'tech problems follow up'},
     ],
@@ -1183,7 +1222,7 @@
     conditional_function:   function() {
       var dat1 = jsPsych.data.getLastTrialData().values()[0];
       var answer1 = JSON.parse(dat1.responses).Q0;
-      if(answer1.includes('כן') == true || answer1.includes('לא בטוח')) {
+      if(answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
         return true;
       } else {
         return false;
@@ -1195,12 +1234,11 @@
   // second question - distractions
   var fb_q2_ss = {
     type: 'survey-multi-choice',
-    button_label: "המשך",
-    preamble: "<h4> שאלון משוב 2/4 </h4>", // +
+    button_label: continue_text,
+    preamble: q2_head, // +
     questions: [{
-      prompt: "האם חוויתם הסחת דעת משמעותית במהלך המשחק?\n" +
-              "אם תבחרו \"כן\" תינתן לכם האפשרות לפרט.\n",
-      options: [" כן", " לא"],
+      prompt:q2_prompt,
+      options: [yes_text, no_text],
       required: true,
       name: 'distractions'
     },
@@ -1208,7 +1246,7 @@
     on_finish: function(data){
       var dat2 = jsPsych.data.getLastTrialData().values()[0];
       var answer2 = JSON.parse(dat2.responses).Q0;
-      if(answer2.includes('כן') == true) {
+      if(answer2.includes(yes_text) == true) {
         jsPsych.data.addDataToLastTrial({
           fb_type: "suspicious",
           fb_issue:'distraction',
@@ -1230,10 +1268,10 @@
   // second question - distractions - if yes, please explain
   var fb_q2_follow_ss = {
     type: 'survey-text',
-    button_label: "המשך",
-    preamble: "<h4> שאלון משוב  2/4 </h4>", // +
+    button_label: continue_text,
+    preamble: q2_head, // +
     questions: [
-      {prompt: "אנא תאר אילו הסחות דעת השפיעה על הביצועים שלך, ואם אפשר, באיזה שלב במשימה חווית זאת:",
+      {prompt: q2_prompt_2,
         name: 'tech problems follow up'},
     ],
     on_finish: function(data){
@@ -1268,11 +1306,11 @@
   // third question: engagement
   var fb_q3_ss = {
     type: 'survey-multi-choice',
-    button_label: "המשך",
-    preamble: "<h4> שאלון משוב 3/4 </h4>", // +
+    button_label: continue_text,
+    preamble: q3_head, // +
     questions: [{
-      prompt: "בסולם מ- 1 עד 4, באיזו מידה המשחק גרם לכם להיות מרוכזים בו (עד כמה הוא תפס את תשומת לבכם)?",
-      options: [" 1. כלל לא גרם לריכוז", " 2. יחסית לא גרם לריכוז", " 3. גרם למידה מסוימת של ריכוז", " 4. גרם לריכוז רב"],
+      prompt: q3_prompt,
+      options: q3_answers,
       required: true,
       name: 'engagement'
     },
@@ -1293,10 +1331,10 @@
   // fourth question: anything else
   var fb_q4_ss = {
     type: 'survey-text',
-    button_label: "המשך",
-    preamble: '<h4> שאלון משוב 4/4 </h4>', // +
+    button_label: continue_text,
+    preamble: q4_head , // +
     questions: [{
-      prompt: "אנא תארו בכמה משפטים את האסטרטגיה שבה השתמשתם על מנת להשלים את המטלה",
+      prompt: q4_prompt,
       name: 'anything else'
     },
     ],
@@ -1331,8 +1369,7 @@
   // conclusion
   var fb_end_exp_ss = {
     type: 'html-keyboard-response',
-    stimulus: '<p>תודה! שאלון המשוב הסתיים.</p>' +
-            ' <p>לחצו על מקש כלשהו כדי לסיים את הניסוי.</p>',
+    stimulus: end_exp_1,
     on_finish: function(data) {
 
       var interaction_data = jsPsych.data.getInteractionData();
@@ -1352,18 +1389,10 @@
 
   var fb_warning_ns = {
     type: 'instructions',
-    pages: [
-      "<p align='right'> המשחק כולל מספר בדיקות מובנות שנועדו לבדוק האם השחקנים לא הצליחו להשלים את המטלה" +
-      "<p align='right'> (למשל, אם הם בחרו תמיד באותה פעולה או לא בחרו באף פעולה). " +
-
-      "<p align='right'>  תגובותיך ייבדקו על ידי החוקרים, אך נראה שהתאמצת להשלים את המטלה. תודה רבה!" +
-      "<p align='right'>  בשאלון המשוב הבא תוכלו להסביר אם קרה משהו שבגללו תגובותיכם עלולות להיראות שגויות. " +
-      "<p align='right'>  במקרה של טעות או של שגיאה מצדנו, תקבלו את הבונוס כמתכונן." +
-      "<p align='right'>  עם זאת, אם יתברר שניסיתם \"לעבוד\" על המערכת, אנחנו שומרים על הזכות לא להעניק בונוס."
-    ],
+    pages: ns_warn_1,
     show_clickable_nav: true,
-    button_label_next: "הבא",
-    button_label_previous: "הקודם",
+    button_label_next: next_text,
+    button_label_previous: prev_text,
     on_finish: function(data) {
       jsPsych.data.addDataToLastTrial({
         fb_type: "nonsuspicious",
@@ -1377,14 +1406,13 @@
   // first question - tech problems
   var fb_q1_ns = {
     type: 'survey-multi-choice',
-    button_label: "המשך",
-    preamble: '<h4> שאלון משוב 1/4 </h4>' +
-    "<h5 align='right'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
+    button_label: continue_text,
+    preamble: q1_head + honstly_prompt
+    ,
     questions: [
       {
-        prompt: "האם נתקלתם בקושי טכני במהלך המשחק? (למשל, האם הניסוי נתקע, נסגר באמצע וכו').\n" +
-                "אם תבחרו \"כן\" או \"לא בטוח\" תינתן לכם האפשרות לפרט.\n",
-        options: [" כן", " לא", " לא בטוח"],
+        prompt:q1_prompt,
+        options: [yes_text, no_text, not_sure_text],
         // horizontal: true,
         required: true,
         name: 'tech problems'
@@ -1393,8 +1421,8 @@
     on_finish: function (data) {
       var dat1 = jsPsych.data.getLastTrialData().values()[0];
       var answer1 = JSON.parse(dat1.responses).Q0;
-      if (answer1.includes('כן') == true || answer1.includes('לא בטוח')) {
-        if (answer1.includes('כן') == true || answer1.includes('לא בטוח')) {
+      if (answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
+        if (answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
           jsPsych.data.addDataToLastTrial({
             fb_type: "nonsuspicious",
             fb_issue: 'tech',
@@ -1418,11 +1446,10 @@
     // first question - tech problems - if yes, please explain
     var fb_q1_follow_ns = {
       type: 'survey-text',
-      button_label: "המשך",
-      preamble: '<h4> שאלון משוב 1/4 </h4>' +
-              "<h5 align='right'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
+      button_label: continue_text,
+      preamble: q1_head + honstly_prompt,
       questions: [
-        {prompt: "אנא ספרו לנו על הקשיים הטכניים שנתקלתם בהם. ",
+        {prompt: tech_issue_1,
           required: true,
           name: 'tech problems follow up'},
       ],
@@ -1446,7 +1473,7 @@
       conditional_function:   function() {
         var dat1 = jsPsych.data.getLastTrialData().values()[0];
         var answer1 = JSON.parse(dat1.responses).Q0;
-        if(answer1.includes('כן') == true || answer1.includes('לא בטוח')) {
+        if(answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
           return true;
         } else {
           return false;
@@ -1458,13 +1485,11 @@
 // second question - distractions
     var fb_q2_ns = {
       type: 'survey-multi-choice',
-      button_label: "המשך",
-      preamble: "<h4> שאלון משוב 2/4 </h4>" +
-              "<h5 align='right'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
+      button_label: continue_text,
+      preamble: q2_head + honstly_prompt,
       questions: [{
-        prompt: "האם חוויתם הסחת דעת משמעותית במהלך המשחק?\n" +
-                "אם תבחרו \"כן\" תינתן לכם האפשרות לפרט.\n",
-        options: [" כן", " לא"],
+        prompt: q2_prompt,
+        options: [yes_text, no_text],
         required: true,
         name: 'distractions'
       },
@@ -1472,7 +1497,7 @@
       on_finish: function(data){
         var dat2 = jsPsych.data.getLastTrialData().values()[0];
         var answer2 = JSON.parse(dat2.responses).Q0;
-        if(answer2.includes('כן') == true) {
+        if(answer2.includes(yes_text) == true) {
           jsPsych.data.addDataToLastTrial({
             fb_type: "nonsuspicious",
             fb_issue:'distraction',
@@ -1494,11 +1519,10 @@
     // second question - distractions - if yes, please explain
     var fb_q2_follow_ns = {
       type: 'survey-text',
-      button_label: "המשך",
-      preamble: "<h4> שאלון משוב 2/4 </h4>" +
-              "<h5 align='right'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
+      button_label: continue_text,
+      preamble: q2_head + honstly_prompt,
       questions: [
-        {prompt: "אנא תאר אילו הסחות דעת השפיעה על הביצועים שלך, ואם אפשר, באיזה שלב במשימה חווית זאת:",
+        {prompt: q2_prompt_2,
           name: 'tech problems follow up'},
       ],
       on_finish: function(data){
@@ -1533,12 +1557,11 @@
 // third question: engagement
     var fb_q3_ns = {
       type: 'survey-multi-choice',
-      button_label: "המשך",
-      preamble: "<h4> שאלון משוב 3/4 </h4>" +
-              "<h5 align='right'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
+      button_label: continue_text,
+      preamble: q3_head + honstly_prompt,
       questions: [{
-        prompt: "בסולם מ- 1 עד 4, באיזו מידה המשחק גרם לכם להיות מרוכזים בו (עד כמה הוא תפס את תשומת לבכם)?",
-        options: [" 1. כלל לא גרם לריכוז", " 2. יחסית לא גרם לריכוז", " 3. גרם למידה מסוימת של ריכוז", " 4. גרם לריכוז רב"],
+        prompt: q3_prompt,
+        options: q3_answers,
         required: true,
         name: 'engagement'
       },
@@ -1559,11 +1582,10 @@
 // fourth question: anything else
     var fb_q4_ns = {
       type: 'survey-text',
-      button_label: "המשך",
-      preamble: "<h4> שאלון משוב 4/4 </h4>" +
-              "<h5 align='right'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
+      button_label: continue_text,
+      preamble: q4_head + honstly_prompt,
       questions: [{
-        prompt: "אנא תארו בכמה משפטים את האסטרטגיה שבה השתמשתם על מנת להשלים את המטלה",
+        prompt: q4_prompt,
         name: 'anything else'
       },
       ],
@@ -1597,8 +1619,7 @@
 // conclusion - if its not the last experiment in the battery
     var fb_end_exp_ns = {
       type: 'html-keyboard-response',
-      stimulus: '<p>תודה! שאלון המשוב הסתיים.</p>' +
-              ' <p>לחצו על מקש כלשהו כדי לסיים את הניסוי.</p>',
+      stimulus: end_exp_1,
       on_finish: function(data) {
 
         var interaction_data = jsPsych.data.getInteractionData();
@@ -1733,7 +1754,7 @@
   // data saving + compensation code
   var save_wait_1 = {
     type: 'html-keyboard-response',
-    stimulus: '<p> אנא המתן כ30 שניות לשמירת הנתונים.</p>',
+    stimulus: please_wait_1,
     choices: [jsPsych.NO_KEYS],
     trial_duration: 30000,
     response_ends_trial: false,
@@ -1798,7 +1819,6 @@
       attemptUpload(retryCount);
     });
   }
-
 </script>
 
 </html>

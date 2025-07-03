@@ -78,7 +78,7 @@
   redo_2 = "<p align='right'> אם לא תצליחו לענות נכון על השאלות שוב, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>"
   redo_3 = "<p align='right'> אנא לחצו על 'הבא' כדי לחזור להוראות. </p>"
   space_text = "הרווח"
-  start_1 = '<p>סיבוב ניסיון,</p> <p>לחץ על כל מקש להמשך</p>'
+  start_1 = '<p>מיד נתחיל סיבוב ניסיון מלא,</p> <p>לחץ על כל מקש להמשך</p>'
   end_1 = '<p>זה סוף התרגול,</p> <p>לחץ על כל מקש להמשיך את הניסוי</p>'
   sus_1_1 = "<p align='right'> לחצתם על מקש הרווח בכל פעם שהוצגה תמונה. נראה שאינכם מבינים לגמרי את המשימה. </p>"
   sus_1_2 = "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>"
@@ -504,6 +504,275 @@
     return stimulus
   };
 
+  function make_single_stim_tutorial_block({
+                                             stim,              // e.g., "f1_1"
+                                             cond,              // e.g., 1
+                                             cond_name,         // e.g., "go2win"
+                                             correct_choice,    // e.g., 32 (space) or null
+                                             feedback_win,      // image shown on correct, e.g., win_fb
+                                             feedback_lose      // image shown on incorrect, e.g., lose_fb
+                                           }) {
+    // Instruction screen
+    const tutorial_intro = {
+      type: 'html-keyboard-response',
+      stimulus: function() {
+        let explanation = "";
+        if (cond_name === 'go2win') {
+          explanation = "בדוגמה הבאה עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
+        } else if (cond_name === 'noGo2win') {
+          explanation = "בדוגמה הבאה עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
+        } else if (cond_name === 'go2avoidPun') {
+          explanation = "בדוגמה הבאה עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
+        } else if (cond_name === 'noGo2avoidPun') {
+          explanation = "בדוגמה הבאה עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
+        } else {
+          explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
+        }
+
+        return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>`;
+      }
+    };
+
+    // Fixation
+    const tutorial_fixation = {
+      type: 'html-keyboard-response-gng',
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 1000
+    };
+
+    // Stimulus trial
+    const tutorial_test = {
+      type: "image-keyboard-response",
+      stimulus: 'img/go-nogo/stim/' + stim + '.png',
+      choices: [32, 49],
+      data: {
+        cond: cond,
+        cond_name: cond_name,
+        correct_choice: correct_choice,
+        block: 'tutorial',
+        exp_part: 'tutorial'
+      },
+      trial_duration: square_duration,
+      on_finish: function(data) {
+        const key = data.key_press;
+        data.choice = (key === 32 || key === 49) ? "go" : "nogo";
+        data.correct = (
+                correct_choice === 32
+                        ? (key === 32 || key === 49)
+                        : key === correct_choice
+        );
+      }
+    };
+
+    // Feedback screen
+    const tutorial_feedback = {
+      type: "image-keyboard-response",
+      choices: jsPsych.NO_KEYS,
+      trial_duration: feedback_duration,
+      stimulus: function() {
+        const last = jsPsych.data.get().last(1).values()[0];
+        return last.correct ? feedback_win : feedback_lose;
+      }
+    };
+
+    // Repeat stimulus until correct
+    const tutorial_loop = {
+      timeline: [tutorial_fixation, tutorial_test, tutorial_feedback],
+      loop_function: function() {
+        const last = jsPsych.data.get().last(2).values()[0];
+        return !last.correct;
+      }
+    };
+
+    const tutorial_end = {
+      type: 'html-keyboard-response',
+      stimulus: function() {
+        let explanation = "";
+        if (cond_name === 'go2win') {
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+        } else if (cond_name === 'noGo2win') {
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+        } else if (cond_name === 'go2avoidPun') {
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
+        } else if (cond_name === 'noGo2avoidPun') {
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
+        } else {
+          explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
+        }
+
+        return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>`;
+      }
+    };
+
+    // Final tutorial block timeline
+    return {
+      timeline: [tutorial_intro, tutorial_loop, tutorial_end]
+    };
+  }
+
+  function make_tutorial_block_v2({
+                                    stim,
+                                    cond,
+                                    cond_name,
+                                    correct_choice,
+                                    feedback_win,
+                                    feedback_lose,
+                                    feedback_neutral
+                                  }) {
+    // Intro explanation screen
+
+    const tutorial_intro0 = {
+      type: 'html-keyboard-response',
+      stimulus: `<p dir="rtl" align="right">שימו לב שבמשחק האמיתי התוצאה לא תמיד קבועה -  גם אם פעלתם נכון, לפעמים תקבלו משוב ניטרלי (במקום לזכות בנקודות).</p>
+                <p dir="rtl" align="right">בדוגמא הבא תופיעה אותה התמונה מספר פעמים, פעלו בהתאם להנחיות.</p>`
+    };
+    const tutorial_intro = {
+      type: 'html-keyboard-response',
+      stimulus: function () {
+        let explanation = "";
+        if (cond_name === 'go2win') {
+          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
+        } else if (cond_name === 'noGo2win') {
+          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
+        } else if (cond_name === 'go2avoidPun') {
+          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
+        } else if (cond_name === 'noGo2avoidPun') {
+          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
+        } else {
+          explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
+        }
+
+        return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">נזכיר: גם אם תפעלו נכון, לפעמים תקבלו תוצאה ניטרלית.</p><p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>`;
+      }
+    };
+
+    // Create the 5 repetitions
+    const trials = [];
+    const neutralIndex = jsPsych.randomization.sampleWithoutReplacement([0, 1, 2, 3, 4], 1)[0];
+
+    for (let i = 0; i < 5; i++) {
+      const isNeutralTrial = (i === neutralIndex);
+      trials.push({
+        timeline: [
+          {
+            type: 'html-keyboard-response-gng',
+            stimulus: '<div style="font-size:60px;">+</div>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 1000
+          },
+          {
+            type: "image-keyboard-response",
+            stimulus: 'img/go-nogo/stim/' + stim + '.png',
+            choices: [32, 49],
+            data: {
+              cond: cond,
+              cond_name: cond_name,
+              correct_choice: correct_choice,
+              block: 'tutorial_v2',
+              exp_part: 'tutorial_v2',
+              trial_index_in_tutorial: i,
+              force_neutral: isNeutralTrial
+            },
+            trial_duration: square_duration,
+            on_finish: function (data) {
+              const key = data.key_press;
+              data.choice = (key === 32 || key === 49) ? "go" : "nogo";
+              data.correct = (
+                      correct_choice === 32
+                              ? (key === 32 || key === 49)
+                              : key === correct_choice
+              );
+            }
+          },
+          {
+            type: "image-keyboard-response",
+            choices: jsPsych.NO_KEYS,
+            trial_duration: feedback_duration,
+            stimulus: function () {
+              const trial = jsPsych.data.get().last(1).values()[0];
+              if (!trial.correct) return feedback_lose;
+              if (trial.force_neutral) return feedback_neutral;
+              return feedback_win;
+            }
+          }
+        ]
+      });
+    }
+
+    // Loop until all 5 trials were correct
+    const tutorial_loop = {
+      timeline: trials,
+      loop_function: function () {
+        const last5 = jsPsych.data.get().last(15).filter({ exp_part: 'tutorial_v2' }).filter(trial => trial.correct !== undefined);
+        return last5.count() < 5 || last5.filter({ correct: false }).count() > 0;
+      }
+    };
+
+    const tutorial_end = {
+      type: 'html-keyboard-response',
+      stimulus: function() {
+        let explanation = "";
+        if (cond_name === 'go2win') {
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+        } else if (cond_name === 'noGo2win') {
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+        } else if (cond_name === 'go2avoidPun') {
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
+        } else if (cond_name === 'noGo2avoidPun') {
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
+        } else {
+          explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
+        }
+
+        return `<p dir="rtl" align="right">${explanation}</p>
+                <p dir="rtl" align="right">לעיתים קיבלתם משוב נייטרלי, אך גם בחירות אלו היו נכונות.</p>
+                <p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>`;
+      }
+    };
+
+    // Final wrapper
+    return {
+      timeline: [tutorial_intro0, tutorial_intro, tutorial_loop, tutorial_end]
+    };
+  }
+
+
+  const tutorial_block_go2win = make_single_stim_tutorial_block({
+    stim: 'f1_1',
+    cond: 5,
+    cond_name: 'go2win',
+    correct_choice: 32,
+    feedback_win: win_fb,
+    feedback_lose: neutral_fb
+  });
+
+  timeline.push(tutorial_block_go2win);
+
+  const tutorial_block_noGo2win = make_single_stim_tutorial_block({
+    stim: 'f1_2',                 // the image file for noGo2win
+    cond: 5,                      // numerical condition code
+    cond_name: 'noGo2avoidPun',        // string label
+    correct_choice: null,         // participant must NOT press a key
+    feedback_win: neutral_fb,         // image shown when correct
+    feedback_lose: lose_fb        // image shown when wrong
+  });
+
+  timeline.push(tutorial_block_noGo2win);
+
+  const tutorial_block_go2win_v2 = make_tutorial_block_v2({
+    stim: 'f1_1',
+    cond: 1,
+    cond_name: 'go2win',
+    correct_choice: 32,
+    feedback_win: win_fb,
+    feedback_lose: lose_fb,
+    feedback_neutral: neutral_fb
+  });
+
+  timeline.push(tutorial_block_go2win_v2);
+
+
   // practice trial
 
   var start_trial = {
@@ -517,7 +786,6 @@
       })
     }
   }
-  timeline.push(start_trial);
   timeline.push(start_trial);
 
   // fixation pause

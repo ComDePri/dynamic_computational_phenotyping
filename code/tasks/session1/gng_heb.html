@@ -342,6 +342,8 @@
                                              feedback_lose
                                            }) {
     let failed_last_tutorial = false;
+    
+    let block_name = "tutorial_single_" + cond_name;
 
     const tutorial_intro = {
       type: 'html-keyboard-response',
@@ -385,8 +387,8 @@
         cond: cond,
         cond_name: cond_name,
         correct_choice: correct_choice,
-        block: 'tutorial',
-        exp_part: 'tutorial'
+        block: block_name,
+        exp_part: block_name
       },
       trial_duration: square_duration,
       on_finish: function (data) {
@@ -413,7 +415,7 @@
     const tutorial_end = {
       type: 'html-keyboard-response',
       stimulus: function () {
-        const last_trials = jsPsych.data.get().filter({ exp_part: 'tutorial' }).values();
+        const last_trials = jsPsych.data.get().filter({ exp_part: block_name }).values();
         const last = last_trials.length > 0 ? last_trials[last_trials.length - 1] : null;
         const failed = !last || !last.correct;
 
@@ -443,7 +445,7 @@
     const tutorial_loop = {
       timeline: [tutorial_intro, tutorial_fixation, tutorial_test, tutorial_feedback, tutorial_end],
       loop_function: function () {
-        const last_trials = jsPsych.data.get().filter({ exp_part: 'tutorial' }).values();
+        const last_trials = jsPsych.data.get().filter({ exp_part: block_name }).values();
         const last = last_trials.length > 0 ? last_trials[last_trials.length - 1] : null;
         return !last || !last.correct;
 
@@ -466,6 +468,7 @@
                                   }) {
     // Intro explanation screen
 
+    let block_name = 'tutorial_5_trials_' + cond_name;
     const tutorial_intro0 = {
       type: 'html-keyboard-response',
       stimulus: `<p dir="rtl" align="right">שימו לב שבמשחק האמיתי התוצאה לא תמיד קבועה -  גם אם פעלתם נכון, לפעמים תקבלו משוב ניטרלי (במקום לזכות בנקודות).</p>
@@ -513,8 +516,8 @@
               cond: cond,
               cond_name: cond_name,
               correct_choice: correct_choice,
-              block: 'tutorial_5_go2win',
-              exp_part: 'tutorial_5_go2win',
+              block: block_name,
+              exp_part: block_name,
               trial_index_in_tutorial: i,
               force_neutral: isNeutralTrial
             },
@@ -551,7 +554,7 @@
       stimulus: function() {
 
         const last5 = jsPsych.data.get().last(15)
-                .filter({ exp_part: 'tutorial_5_go2win' })
+                .filter({ exp_part: block_name })
                 .filter(trial => trial.correct !== undefined);
 
         const failed = last5.count() < 5 || last5.filter({ correct: false }).count() > 0;
@@ -587,7 +590,7 @@
       timeline: [tutorial_intro0, tutorial_intro, ...trials, tutorial_end],
       loop_function: function () {
         const last5 = jsPsych.data.get().last(15)
-                .filter({ exp_part: 'tutorial_5_go2win' })
+                .filter({ exp_part: block_name })
                 .filter(trial => trial.correct !== undefined);
 
         failed_last_tutorial = last5.count() < 5 || last5.filter({ correct: false }).count() > 0;

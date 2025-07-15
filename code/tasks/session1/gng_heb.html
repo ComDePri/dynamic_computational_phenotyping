@@ -56,10 +56,10 @@
   inst_10 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם תלחצו, לרוב תימנעו מהפסד </p></div>"
   inst_11 = "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם לא-תלחצו, לרוב תימנעו מהפסד (את הכלל הזה כבר תרגלתם)</p></div>"
   inst_11_1 = "<div dir=\"rtl\"><p align='right'></p></div>"
-  inst_12 = "<div dir=\"rtl\"><p align='right'>כפי שראיתם בתרגול, המשוב שתקבלו לא תמיד יהיה קבוע\n</p>" +
-            "<p align='right'>גם אם בחרתם נכון, לפעמים תקבלו משוב ניטרלי (גם אם הייתם אמורים לזכות בנקודות) \n</p>" +
-            "<p align='right'>באופן דומה, גם אם בחרתם נכון, לפעמים תפסידו נקודות (גם אם הייתם אמורים לקבל משוב ניטרלי) \n</p>" +
-            "<p align='right'>מטרתכם היא למוד את הכלל הנכון לכל תמונה. \n</p>"
+  inst_12 = "<div dir=\"rtl\"><p align='right'>כפי שראיתם בתרגול, הכלל לכל תמונה הוא קבוע. עם זאת, לעתים תקבלו משוב אחר מהצפוי.\n</p>" +
+            "<p align='right'>גם אם בחרתם נכון, לפעמים תקבלו משוב ניטרלי (גם אם הייתם אמורים לזכות בנקודות). \n</p>" +
+            "<p align='right'>באופן דומה, גם אם בחרתם נכון, לפעמים תפסידו נקודות (גם אם הייתם אמורים לקבל משוב ניטרלי). \n</p>" +
+            "<p align='right'>מטרתכם היא ללמוד את הכלל הנכון לכל תמונה. \n</p>"
   inst_13 = "<div dir=\"rtl\"><p align='right'>במשחק 3 סיבובים.</p></div>"
   inst_14 = "<div dir=\"rtl\"><p align='right'>בכל סיבוב 4 תמונות חדשות, שיוצגו בסך הכל 80 פעמים (20 פעמים לכל תמונה).</p></div>"
   inst_15 = "<div dir=\"rtl\"><p align='right'>בכל פעם תוצג תמונה אחת מתוך 4 התמונות האפשריות.</p></div>"
@@ -90,7 +90,7 @@
   redo_3 = "<p align='right'> אנא לחצו על 'הבא' כדי לחזור להוראות. </p>"
   space_text = "הרווח"
   start_1 = '<p>מיד נתחיל סיבוב ניסיון מלא,</p> <p>לחץ על כל מקש להמשך</p>'
-  end_1 = '<p>זה סוף התרגול,</p> <p>לחץ על כל מקש להמשיך את הניסוי</p>'
+  end_1 = '<p>התרגול הסתיים, וכעת תתחילו בניסוי. ,</p> <p>לחץ על כל מקש כדי להתחיל</p>'
   sus_1_1 = "<p align='right'> לחצתם על מקש הרווח בכל פעם שהוצגה תמונה. נראה שאינכם מבינים לגמרי את המשימה. </p>"
   sus_1_2 = "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>"
   sus_1_3 = "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
@@ -334,57 +334,42 @@
   };
 
   function make_single_stim_tutorial_block({
-                                             stim,              // e.g., "f1_1"
-                                             cond,              // e.g., 1
-                                             cond_name,         // e.g., "go2win"
-                                             correct_choice,    // e.g., 32 (space) or null
-                                             feedback_win,      // image shown on correct, e.g., win_fb
-                                             feedback_lose      // image shown on incorrect, e.g., lose_fb
+                                             stim,
+                                             cond,
+                                             cond_name,
+                                             correct_choice,
+                                             feedback_win,
+                                             feedback_lose
                                            }) {
-    // Instruction screen
+    let failed_last_tutorial = false;
+
     const tutorial_intro = {
       type: 'html-keyboard-response',
-      stimulus: function() {
-
+      stimulus: function () {
         let exmp = inst_17 +
-                // example squares
                 '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
-                '<td><img src="img/go-nogo/stim/'+ stim + '.png" style="width: 200px;"></td>' +
-                '</tr><tr>' +
+                `<td><img src="img/go-nogo/stim/${stim}.png" style="width: 200px;"></td>` +
                 '</tr></table>';
 
-        let role = "";
+        let role = "", explanation = "";
         if (cond_name === 'go2win') {
           role = "לצורך התרגול, הכלל עבורה יהיה:  <strong style='color:green'>ללחוץ כדי לזכות</strong>.";
+          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
         } else if (cond_name === 'noGo2win') {
           role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:green'>לא-ללחוץ כדי לזכות</strong>.";
+          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
         } else if (cond_name === 'go2avoidPun') {
           role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:darkred;'>ללחוץ כדי למנוע מהפסד</strong>.";
+          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
         } else if (cond_name === 'noGo2avoidPun') {
           role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:darkred;'>לא-ללחוץ כדי למנוע הפסד</strong>.";
-        } else {
-          role = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
+          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
         }
 
-        let explanation = "";
-        if (cond_name === 'go2win') {
-          explanation = "התמונה תופיע לזמן קצר. כשתופיע התמונה, עליכם <strong>ללחוץ</strong> על מקש הרווח כדי <strong style='color:green'>לזכות בנקודות</strong>.";
-        } else if (cond_name === 'noGo2win') {
-          explanation = "התמונה תופיע לזמן קצר. כשתופיע התמונה, עליכם <strong>לא ללחוץ</strong> על מקש הרווח כדי <strong style='color:green'>לזכות בנקודות</strong>.";
-        } else if (cond_name === 'go2avoidPun') {
-          explanation = "התמונה תופיע לזמן קצר. כשתופיע התמונה, עליכם <strong>ללחוץ</strong> על מקש הרווח כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
-        } else if (cond_name === 'noGo2avoidPun') {
-          explanation = "התמונה תופיע לזמן קצר. כשתופיע התמונה, עליכם <strong>לא ללחוץ</strong> על מקש הרווח כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
-        } else {
-          explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
-        }
-
-        return exmp +  `<p dir="rtl" align="right">${role}</p>
-                        <p dir="rtl" align="right">${explanation}</p>`;
+        return exmp + `<p dir="rtl" align="right">${role}</p><p dir="rtl" align="right">${explanation}</p>`;
       }
     };
 
-    // Fixation
     const tutorial_fixation = {
       type: 'html-keyboard-response-gng',
       stimulus: '<div style="font-size:60px;">+</div>',
@@ -392,7 +377,6 @@
       trial_duration: 1000
     };
 
-    // Stimulus trial
     const tutorial_test = {
       type: "image-keyboard-response",
       stimulus: 'img/go-nogo/stim/' + stim + '.png',
@@ -405,7 +389,7 @@
         exp_part: 'tutorial'
       },
       trial_duration: square_duration,
-      on_finish: function(data) {
+      on_finish: function (data) {
         const key = data.key_press;
         data.choice = (key === 32 || key === 49) ? "go" : "nogo";
         data.correct = (
@@ -416,29 +400,31 @@
       }
     };
 
-    // Feedback screen
     const tutorial_feedback = {
       type: "image-keyboard-response",
       choices: jsPsych.NO_KEYS,
       trial_duration: feedback_duration,
-      stimulus: function() {
+      stimulus: function () {
         const last = jsPsych.data.get().last(1).values()[0];
         return last.correct ? feedback_win : feedback_lose;
       }
     };
 
-    // Repeat stimulus until correct
-    const tutorial_loop = {
-      timeline: [tutorial_fixation, tutorial_test, tutorial_feedback],
-      loop_function: function() {
-        const last = jsPsych.data.get().last(2).values()[0];
-        return !last.correct;
-      }
-    };
-
     const tutorial_end = {
       type: 'html-keyboard-response',
-      stimulus: function() {
+      stimulus: function () {
+        const last_trials = jsPsych.data.get().filter({ exp_part: 'tutorial' }).values();
+        const last = last_trials.length > 0 ? last_trials[last_trials.length - 1] : null;
+        const failed = !last || !last.correct;
+
+        if (failed) {
+          return `
+      <p dir="rtl" align="right">נראה שלא הבנתם את ההוראות היטב.</p>
+      <p dir="rtl" align="right">ההוראות יוצגו שוב, ולאחר מכן תנסו שוב.</p>
+      <p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>
+    `;
+        }
+
         let explanation = "";
         if (cond_name === 'go2win') {
           explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
@@ -448,17 +434,24 @@
           explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
         } else if (cond_name === 'noGo2avoidPun') {
           explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
-        } else {
-          explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
         }
 
         return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>`;
       }
     };
 
-    // Final tutorial block timeline
+    const tutorial_loop = {
+      timeline: [tutorial_intro, tutorial_fixation, tutorial_test, tutorial_feedback, tutorial_end],
+      loop_function: function () {
+        const last_trials = jsPsych.data.get().filter({ exp_part: 'tutorial' }).values();
+        const last = last_trials.length > 0 ? last_trials[last_trials.length - 1] : null;
+        return !last || !last.correct;
+
+      }
+    };
+
     return {
-      timeline: [tutorial_intro, tutorial_loop, tutorial_end]
+      timeline: [tutorial_loop]
     };
   }
 
@@ -520,8 +513,8 @@
               cond: cond,
               cond_name: cond_name,
               correct_choice: correct_choice,
-              block: 'tutorial_v2',
-              exp_part: 'tutorial_v2',
+              block: 'tutorial_5_go2win',
+              exp_part: 'tutorial_5_go2win',
               trial_index_in_tutorial: i,
               force_neutral: isNeutralTrial
             },
@@ -551,18 +544,26 @@
       });
     }
 
-    // Loop until all 5 trials were correct
-    const tutorial_loop = {
-      timeline: trials,
-      loop_function: function () {
-        const last5 = jsPsych.data.get().last(15).filter({ exp_part: 'tutorial_v2' }).filter(trial => trial.correct !== undefined);
-        return last5.count() < 5 || last5.filter({ correct: false }).count() > 0;
-      }
-    };
+    let failed_last_tutorial = false;
 
     const tutorial_end = {
       type: 'html-keyboard-response',
       stimulus: function() {
+
+        const last5 = jsPsych.data.get().last(15)
+                .filter({ exp_part: 'tutorial_5_go2win' })
+                .filter(trial => trial.correct !== undefined);
+
+        const failed = last5.count() < 5 || last5.filter({ correct: false }).count() > 0;
+
+        if (failed) {
+          return `
+      <p dir="rtl" align="right">נראה שלא הבנתם את ההוראות היטב.</p>
+      <p dir="rtl" align="right">ההוראות יוצגו שוב, ולאחר מכן תנסו שוב.</p>
+      <p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>
+    `;
+        }
+
         let explanation = "";
         if (cond_name === 'go2win') {
           explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
@@ -582,9 +583,22 @@
       }
     };
 
+    const tutorial_loop = {
+      timeline: [tutorial_intro0, tutorial_intro, ...trials, tutorial_end],
+      loop_function: function () {
+        const last5 = jsPsych.data.get().last(15)
+                .filter({ exp_part: 'tutorial_5_go2win' })
+                .filter(trial => trial.correct !== undefined);
+
+        failed_last_tutorial = last5.count() < 5 || last5.filter({ correct: false }).count() > 0;
+        console.log(last5.count());
+        console.log("failed", failed_last_tutorial)
+        return failed_last_tutorial;
+      }
+    };
     // Final wrapper
     return {
-      timeline: [tutorial_intro0, tutorial_intro, tutorial_loop, tutorial_end]
+      timeline: [tutorial_loop]
     };
   }
 
@@ -617,7 +631,7 @@
     cond_name: 'go2win',
     correct_choice: 32,
     feedback_win: win_fb,
-    feedback_lose: lose_fb,
+    feedback_lose: neutral_fb,
     feedback_neutral: neutral_fb
   });
 

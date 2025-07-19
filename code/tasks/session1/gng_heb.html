@@ -356,16 +356,16 @@
         let role = "", explanation = "";
         if (cond_name === 'go2win') {
           role = "לצורך התרגול, הכלל עבורה יהיה:  <strong style='color:green'>ללחוץ כדי לזכות</strong>.";
-          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.<br>לחצו על כל מקש כדי להמשיך.";
+          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.<br><br>לחצו על כל מקש כדי להמשיך.";
         } else if (cond_name === 'noGo2win') {
           role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:green'>לא-ללחוץ כדי לזכות</strong>.";
-          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.<br>לחצו על כל מקש כדי להמשיך.";
+          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.<br><br>לחצו על כל מקש כדי להמשיך.";
         } else if (cond_name === 'go2avoidPun') {
           role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:darkred;'>ללחוץ כדי למנוע מהפסד</strong>.";
-          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.<br>לחצו על כל מקש כדי להמשיך.";
+          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.<br><br>לחצו על כל מקש כדי להמשיך.";
         } else if (cond_name === 'noGo2avoidPun') {
           role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:darkred;'>לא-ללחוץ כדי למנוע הפסד</strong>.";
-          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.<br>לחצו על כל מקש כדי להמשיך.";
+          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.<br><br>לחצו על כל מקש כדי להמשיך.";
         }
 
         return exmp + `<p dir="rtl" align="right">${role}</p><p dir="rtl" align="right">${explanation}</p>`;

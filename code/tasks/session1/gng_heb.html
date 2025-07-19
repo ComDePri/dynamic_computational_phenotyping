@@ -628,7 +628,7 @@ stimulus: `
 
   timeline.push(tutorial_block_go2win);
 
-  const tutorial_block_noGo2win = make_single_stim_tutorial_block({
+  const tutorial_block_noGo2avoid = make_single_stim_tutorial_block({
     stim: 'f1_2',                 // the image file for noGo2win
     cond: 5,                      // numerical condition code
     cond_name: 'noGo2avoidPun',        // string label
@@ -637,7 +637,7 @@ stimulus: `
     feedback_lose: lose_fb        // image shown when wrong
   });
 
-  timeline.push(tutorial_block_noGo2win);
+  timeline.push(tutorial_block_noGo2avoid);
 
   const tutorial_block_go2win_v2 = make_tutorial_block_v2({
     stim: 'f1_1',

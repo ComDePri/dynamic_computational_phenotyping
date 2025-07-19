@@ -356,16 +356,16 @@
         let role = "", explanation = "";
         if (cond_name === 'go2win') {
           role = "לצורך התרגול, הכלל עבורה יהיה:  <strong style='color:green'>ללחוץ כדי לזכות</strong>.";
-          explanation = "<p>עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.</p><p>לחצו על כל מקש כדי להמשיך.</p>";
+          explanation = "<p dir="rtl" style="text-align: right;">עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>";
         } else if (cond_name === 'noGo2win') {
           role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:green'>לא-ללחוץ כדי לזכות</strong>.";
-          explanation = "<p>עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.</p><p>לחצו על כל מקש כדי להמשיך.</p>";
+          explanation = "<p dir="rtl" style="text-align: right;">עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>";
         } else if (cond_name === 'go2avoidPun') {
           role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:darkred;'>ללחוץ כדי למנוע מהפסד</strong>.";
-          explanation = "<p>עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.</p><p>לחצו על כל מקש כדי להמשיך.</p>";
+          explanation = "<p dir="rtl" style="text-align: right;">עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>";
         } else if (cond_name === 'noGo2avoidPun') {
           role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:darkred;'>לא-ללחוץ כדי למנוע הפסד</strong>.";
-          explanation = "<p>עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.</p><p>לחצו על כל מקש כדי להמשיך.</p>";
+          explanation = "<p dir="rtl" style="text-align: right;">עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>";
         }
 
         return exmp + `<p dir="rtl" align="right">${role}</p><p dir="rtl" align="right">${explanation}</p>`;
@@ -476,8 +476,9 @@ stimulus: `
 שימו לב שבמשחק האמיתי התוצאה לא תמיד קבועה:<br>
 אם פעלתם נכון, בדרך כלל תזכו בנקודות או תצליחו למנוע הפסד.<br>
 עם זאת, גם אם פעלתם נכון, לפעמים תקבלו משוב ניטרלי (במקום לזכות בנקודות).<br>
-באופן דומה, לפעמים תפסידו נקודות (במקום לקבל משוב ניטרלי).<br>
-בדוגמה הבאה תופיע אותה התמונה מספר פעמים. פעלו בהתאם להנחיות.
+באופן דומה, לפעמים תפסידו נקודות (במקום לקבל משוב ניטרלי).<br><br>
+בדוגמה הבאה תופיע אותה התמונה מספר פעמים. פעלו בהתאם להנחיות.<br>
+לחצו על כל מקש כדי להמשיך.<br>
 </p>
 `
 

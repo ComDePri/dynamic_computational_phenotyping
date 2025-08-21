@@ -56,8 +56,6 @@
   inst_6 =  '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
   inst_7 = "<div dir=\"rtl\"><p align='right'> במהלך המשחק תראו 4 תמונות שונות שיוצגו שוב ושוב.\n\n" +
           "זכרו שלכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב."
-  inst_7_short = "<div dir=\"rtl\"><p align='right'> בכל סיבוב תראו 4 תמונות שונות שיוצגו שוב ושוב.\n\n" +
-          "זכרו שלכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב."
   inst_8 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: רק אם תלחצו תקבלו נקודות (את הכלל הזה כבר תרגלתם)</p></div>"
   inst_9 = "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: רק אם לא-תלחצו תקבלו נקודות</p></div>"
   inst_10 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם תלחצו, לרוב תימנעו מהפסד </p></div>"
@@ -68,8 +66,9 @@
             "<p align='right'>באופן דומה, גם אם בחרתם נכון, לפעמים תפסידו נקודות (גם אם הייתם אמורים לקבל משוב ניטרלי). \n</p>" +
             "<p align='right'>מטרתכם היא ללמוד את הכלל הנכון לכל תמונה. \n</p>"
   inst_13_short = "<div dir=\"rtl\"><p align='right'>במשחק 3 סיבובים. כל סיבוב אורך כ- 4:00 דקות וכולל 4 תמונות שאותן עליכם ללמוד.</p></div>"
-  inst_14_short = "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ, לפני שהתמונה תיעלם.</p></div>"
-  inst_15_short = "<div dir=\"rtl\"><p align='right'>הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>"
+  inst_14_short = "<div dir=\"rtl\"><p align='right'>זכרו שלכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב:\n\n"
+  inst_15_short = "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ, לפני שהתמונה תיעלם.</p></div>"
+  inst_16_short = "<div dir=\"rtl\"><p align='right'>הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>"
   inst_13 = "<div dir=\"rtl\"><p align='right'>במשחק 3 סיבובים.</p></div>"
   inst_14 = "<div dir=\"rtl\"><p align='right'>בכל סיבוב 4 תמונות חדשות, שיוצגו בסך הכל 80 פעמים (20 פעמים לכל תמונה).</p></div>"
   inst_15 = "<div dir=\"rtl\"><p align='right'>בכל פעם תוצג תמונה אחת מתוך 4 התמונות האפשריות.</p></div>"
@@ -735,7 +734,7 @@
       //inst_19 + inst_20,
 
       // page 5
-      inst_7_short + inst_8 + inst_9 + inst_10 + inst_11,
+      inst_13_short + inst_14_short + inst_8 + inst_9 + inst_10 + inst_11 + inst_15_short,
 
       // page 6
       inst_21 + inst_22,

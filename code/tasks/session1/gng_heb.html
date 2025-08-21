@@ -56,6 +56,8 @@
   inst_6 =  '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
   inst_7 = "<div dir=\"rtl\"><p align='right'> במהלך המשחק תראו 4 תמונות שונות שיוצגו שוב ושוב.\n\n" +
           "זכרו שלכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב."
+  inst_7_short = "<div dir=\"rtl\"><p align='right'> בכל סיבוב תראו 4 תמונות שונות שיוצגו שוב ושוב.\n\n" +
+          "זכרו שלכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב."
   inst_8 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: רק אם תלחצו תקבלו נקודות (את הכלל הזה כבר תרגלתם)</p></div>"
   inst_9 = "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: רק אם לא-תלחצו תקבלו נקודות</p></div>"
   inst_10 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם תלחצו, לרוב תימנעו מהפסד </p></div>"
@@ -732,7 +734,10 @@
       // page 6
       //inst_19 + inst_20,
 
-      // page 5 (was 7 in the longer commented version)
+      // page 5
+      inst_7_short + inst_8 + inst_9 + inst_10 + inst_11,
+
+      // page 6
       inst_21 + inst_22,
     ],
     show_clickable_nav: true,

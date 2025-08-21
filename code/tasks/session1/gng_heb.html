@@ -43,7 +43,12 @@
 
   full_screen_msg = "<p dir='rtl'>הניסוי יעבור כעת למסך מלא. לחצו על הכפתור כדי להמשיך.</p>"
 
-  inst_1 = '<div dir=\"rtl\"><p align=\'right\'>ברוכים הבאים למשחק <strong>"ללחוץ או לא ללחוץ"</strong>! המשחק אורך כ-12 דקות. לחצו על כפתור "הבא" כדי לעבור למסך הבא.</p></div>'
+  inst_1 = `<div dir="rtl">
+    <p align="right">ברוכים הבאים למשחק <strong>"ללחוץ או לא ללחוץ"</strong>!</p>
+    <p align="right">המשחק אורך כ-12 דקות.</p>
+    <p align="right">לחצו על כפתור "הבא" כדי לעבור למסך הבא.</p>
+  </div>`;
+
   inst_2 = '<div dir=\"rtl\"><p align=\'right\'>במהלך המשחק יוצגו תמונות שונות. כל תמונה תוצג לזמן קצר ולאחריה תראו אם הרווחתם או הפסדתם נקודות.</p></div>'
   inst_3 = '<div dir=\"rtl\"><p align=\'right\'>כדי להרוויח נקודות או להימנע מהפסד, תצטרכו להחליט במהירות אם <strong>ללחוץ</strong> על מקש הרווח או <strong>לא-ללחוץ</strong>.</p></div>'
   inst_4 = '<div dir=\"rtl\"><p align=\'right\'>המטרה שלכם היא ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong>.</p></div> '
@@ -67,7 +72,7 @@
   inst_14 = "<div dir=\"rtl\"><p align='right'>בכל סיבוב 4 תמונות חדשות, שיוצגו בסך הכל 80 פעמים (20 פעמים לכל תמונה).</p></div>"
   inst_15 = "<div dir=\"rtl\"><p align='right'>בכל פעם תוצג תמונה אחת מתוך 4 התמונות האפשריות.</p></div>"
   inst_16 = "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ, לפני שהתמונה תיעלם.</p></div>"
-  inst_17 = "<div dir=\"rtl\"><p align='right'> במסך הבא תופיע התמונה הבאה:</p></div>"
+  inst_17 = "<div dir=\"rtl\"><p align='right'> במסך הבא תופיע התמונה הזו:</p></div>"
   inst_18 = "<div dir=\"rtl\"><p align='right'>נעבור על מספר דוגמאות:</p></div>"
   inst_19 = "<div dir=\"rtl\"><p align='right'> אנא השתדלו ללמוד את הפעולה המתאימה לכל תמונה ולבצע את המשימה כמיטב יכולתכם. הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>"
   inst_20 = "<div dir=\"rtl\"><p align='right'> שימו לב כי אם תגיבו באופן אקראי, תמיד תלחצו, או לעולם לא תלחצו, אנו שומרים לעצמנו את הזכות לשלול מכם את הבונוס. </p></div>"
@@ -469,7 +474,7 @@
                                     feedback_win,
                                     feedback_lose,
                                     feedback_neutral,
-                                    instructions_type = 1 / default is 1
+                                    instructions_type = 1 // default is 1
                                   }) {
     // Intro explanation screen
 

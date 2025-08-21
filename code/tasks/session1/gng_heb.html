@@ -468,26 +468,37 @@
                                     correct_choice,
                                     feedback_win,
                                     feedback_lose,
-                                    feedback_neutral
+                                    feedback_neutral,
+                                    instructions_type = 1 / default is 1
                                   }) {
     // Intro explanation screen
 
     let block_name = 'tutorial_5_trials_' + cond_name;
     const tutorial_intro0 = {
-      type: 'html-keyboard-response',
-stimulus: `
-<p dir="rtl" style="text-align: right;">
-שימו לב שבמשחק האמיתי התוצאה לא תמיד קבועה:<br>
-אם פעלתם נכון, בדרך כלל תזכו בנקודות או תצליחו למנוע הפסד.<br>
-עם זאת, גם אם פעלתם נכון, לפעמים תקבלו משוב ניטרלי (במקום לזכות בנקודות).<br>
-באופן דומה, לפעמים תפסידו נקודות (במקום לקבל משוב ניטרלי).<br><br>
-בדוגמה הבאה תופיע אותה התמונה מספר פעמים. פעלו בהתאם להנחיות.<br>
-לחצו על כל מקש כדי להמשיך.<br>
-</p>
-`
+  type: 'html-keyboard-response',
+  stimulus: function () {
+    if (instructions_type === 2) {
+      return `
+        <p dir="rtl" style="text-align: right;">
+        בדוגמה הבאה תופיע תמונה אחרת מספר פעמים. פעלו בהתאם להנחיות.<br>
+        לחצו על כל מקש כדי להמשיך.<br>
+        </p>
+      `;
+    } else {
+      return `
+        <p dir="rtl" style="text-align: right;">
+        שימו לב שבמשחק האמיתי התוצאה לא תמיד קבועה:<br>
+        אם פעלתם נכון, בדרך כלל תזכו בנקודות או תצליחו למנוע הפסד.<br>
+        עם זאת, גם אם פעלתם נכון, לפעמים תקבלו משוב ניטרלי (במקום לזכות בנקודות).<br>
+        באופן דומה, לפעמים תפסידו נקודות (במקום לקבל משוב ניטרלי).<br><br>
+        בדוגמה הבאה תופיע אותה התמונה מספר פעמים. פעלו בהתאם להנחיות.<br>
+        לחצו על כל מקש כדי להמשיך.<br>
+        </p>
+      `;
+    }
+  }
+};
 
-
-    };
     const tutorial_intro = {
       type: 'html-keyboard-response',
       stimulus: function () {
@@ -649,7 +660,8 @@ stimulus: `
     correct_choice: 32,
     feedback_win: win_fb,
     feedback_lose: neutral_fb,
-    feedback_neutral: neutral_fb
+    feedback_neutral: neutral_fb,
+    instructions_type: 1
   });
 
   timeline.push(tutorial_block_go2win_v2);
@@ -662,7 +674,8 @@ stimulus: `
     correct_choice: null,
     feedback_win: win_fb,
     feedback_lose: lose_fb,
-    feedback_neutral: neutral_fb
+    feedback_neutral: neutral_fb,
+    instructions_type: 2
   });
 
   timeline.push(tutorial_block_nogo2avoid_v2);

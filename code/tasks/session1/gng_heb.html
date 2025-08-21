@@ -373,7 +373,7 @@
         explanation = '<p dir="rtl" style="text-align: right;">עליכם <strong>ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
       } else if (cond_name === 'noGo2avoidPun') {
         role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">לא-ללחוץ כדי למנוע הפסד</strong>.';
-        explanation = '<p dir="rtl" style="text-align: right;">עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
+        explanation = '<p dir="rtl" style="text-align: right;"אם תלחצו תפסידו נקודות.<br> >עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
       }
 
 
@@ -568,10 +568,26 @@
             trial_duration: feedback_duration,
             stimulus: function () {
               const trial = jsPsych.data.get().last(1).values()[0];
+          
+              // Incorrect → lose in all conditions
               if (!trial.correct) return feedback_lose;
-              if (trial.force_neutral) return feedback_neutral;
-              return feedback_win;
+          
+              // Correct: choose by condition family
+              if (cond_name === 'go2win' || cond_name === 'noGo2win') {
+                // In win conditions, mostly reward; occasionally neutral
+                if (trial.force_neutral) return feedback_neutral;
+                return feedback_win;
+              }
+          
+              if (cond_name === 'go2avoidPun' || cond_name === 'noGo2avoidPun') {
+                // In avoid-punishment conditions, correct is neutral (no reward)
+                return feedback_neutral;
+              }
+          
+              // Fallback (neutral if unknown)
+              return feedback_neutral;
             }
+                      
           }
         ]
       });

@@ -654,7 +654,20 @@ stimulus: `
 
   timeline.push(tutorial_block_go2win_v2);
 
+  // Roey test: Trying to add a tutorial block with 5 trials for NoGo to Avoid punishment, so have a more balanced practice for the subjects (not introduce a Go bias)
+  const tutorial_block_nogo2avoid_v2 = make_tutorial_block_v2({
+    stim: 'f1_2',
+    cond: 5,
+    cond_name: 'noGo2avoidPun',
+    correct_choice: null,
+    feedback_win: win_fb,
+    feedback_lose: lose_fb,
+    feedback_neutral: neutral_fb
+  });
 
+  timeline.push(tutorial_block_nogo2avoid_v2);
+  // End of Roey test
+  
   var instructions = {
     type: 'instructions',
     pages: [

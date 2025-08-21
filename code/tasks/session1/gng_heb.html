@@ -526,10 +526,10 @@
 
     // Create the 5 repetitions
     const trials = [];
-    const neutralIndex = jsPsych.randomization.sampleWithoutReplacement([0, 1, 2, 3, 4], 1)[0];
+    const flipIndex = jsPsych.randomization.sampleWithoutReplacement([0,1,2,3,4], 1)[0];
 
     for (let i = 0; i < 5; i++) {
-      const isNeutralTrial = (i === neutralIndex);
+      const isFlipTrial = (i === flipIndex);
       trials.push({
         timeline: [
           {
@@ -549,18 +549,26 @@
               block: block_name,
               exp_part: block_name,
               trial_index_in_tutorial: i,
-              force_neutral: isNeutralTrial
+              force_flip: isFlipTrial
             },
             trial_duration: square_duration,
             on_finish: function (data) {
               const key = data.key_press;
-              data.choice = (key === 32 || key === 49) ? "go" : "nogo";
-              data.correct = (
-                      correct_choice === 32
-                              ? (key === 32 || key === 49)
-                              : key === correct_choice
-              );
+              const pressed = (key === 32 || key === 49); // space or '1'
+              data.choice = pressed ? "go" : "nogo";
+            
+              if (correct_choice === 32) {
+                // Go correct
+                data.correct = pressed;
+              } else if (correct_choice === 'nogo') {
+                // NoGo correct
+                data.correct = !pressed;
+              } else {
+                // Fallback for other specific-key conditions
+                data.correct = (key === correct_choice);
+              }
             }
+
           },
           {
             type: "image-keyboard-response",
@@ -571,21 +579,22 @@
           
               // Incorrect → lose in all conditions
               if (!trial.correct) return feedback_lose;
-          
-              // Correct: choose by condition family
-              if (cond_name === 'go2win' || cond_name === 'noGo2win') {
-                // In win conditions, mostly reward; occasionally neutral
-                if (trial.force_neutral) return feedback_neutral;
-                return feedback_win;
+            
+              const isWinFamily   = (cond_name === 'go2win' || cond_name === 'noGo2win');
+              const isAvoidFamily = (cond_name === 'go2avoidPun' || cond_name === 'noGo2avoidPun');
+            
+              // One “flip” trial per block (set elsewhere as force_flip / force_neutral)
+              if (isWinFamily) {
+                // default-correct = WIN; flipped = NEUTRAL
+                return trial.force_flip ? feedback_neutral : feedback_win;
               }
-          
-              if (cond_name === 'go2avoidPun' || cond_name === 'noGo2avoidPun') {
-                // In avoid-punishment conditions, correct is neutral (no reward)
-                return feedback_neutral;
+              if (isAvoidFamily) {
+                // default-correct = NEUTRAL; flipped = LOSE
+                return trial.force_flip ? feedback_lose : feedback_neutral;
               }
-          
-              // Fallback (neutral if unknown)
+            
               return feedback_neutral;
+
             }
                       
           }
@@ -616,18 +625,22 @@
         let explanation = "";
         if (cond_name === 'go2win') {
           explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+          explanation2 = "לעיתים קיבלתם משוב נייטרלי, אך גם בחירות אלו היו נכונות.";
         } else if (cond_name === 'noGo2win') {
           explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+          explanation2 = "לעיתים קיבלתם משוב נייטרלי, אך גם בחירות אלו היו נכונות.";
         } else if (cond_name === 'go2avoidPun') {
           explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
+          explanation2 = "לעיתים הפסדתם נקודות, אך גם בחירות אלו היו נכונות.";
         } else if (cond_name === 'noGo2avoidPun') {
           explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
         } else {
           explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
+          explanation2 = "לעיתים הפסדתם נקודות, אך גם בחירות אלו היו נכונות.";
         }
 
         return `<p dir="rtl" align="right">${explanation}</p>
-                <p dir="rtl" align="right">לעיתים קיבלתם משוב נייטרלי, אך גם בחירות אלו היו נכונות.</p>
+                <p dir="rtl" align="right">${explanation2}</p>
                 <p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>`;
       }
     };

@@ -276,26 +276,29 @@
   timeline.push(fullscreen)
 
   // instructions block
+var page3 =
+  inst_6 +
+  '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
+    '<tr>' +
+      '<td><img src="' + win_fb     + '" style="height:200px;"></td>' +
+      '<td><img src="' + neutral_fb + '" style="height:200px;"></td>' +
+      '<td><img src="' + lose_fb    + '" style="height:200px;"></td>' +
+    '</tr>' +
+    '<tr>' + inst_6a + '</tr>' +
+  '</table><br>' +
+  inst_6b; // now safely outside the table
 
   var instructions1 = {
     type: 'instructions',
-    pages: [ // page 1
-            inst_1,
-            // page 2
-            inst_2 + inst_3 + inst_4 + inst_5,
-
-            // page 3
-            inst_6+
-            // win/lose/maintain feedback images
-            '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
-            '<td><img src=' + win_fb + ' style="width: 200px;"></td>' +
-            '<td><img src=' + neutral_fb + ' style="height: 200px; "></td>' +
-            '<td><img src=' + lose_fb + ' style="height: 200px; "></td>' +
-            '</tr><tr>' +
-            inst_6a +
-            inst_6b +
-            '</tr></table><br>',
-            inst_18
+    pages: [
+      // page 1
+      inst_1,
+      // page 2
+      inst_2 + inst_3 + inst_4 + inst_5,
+      // page 3
+      page3,
+      // page 4
+      inst_18
 
     ],
     show_clickable_nav: true,

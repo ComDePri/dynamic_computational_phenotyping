@@ -75,6 +75,8 @@ inst_6b = (
     "<td style='text-align:center;'>הפסדתם נקודות</td>"
     "</tr>"
 )
+
+  
   
   inst_7 = "<div dir=\"rtl\"><p align='right'> במהלך המשחק תראו 4 תמונות שונות שיוצגו שוב ושוב.\n\n" +
           "זכרו שלכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב."
@@ -308,11 +310,11 @@ inst_6b = (
             inst_6 +
             inst_6a +
             // win/lose/maintain feedback images
-            '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
-            '<td><img src=' + win_fb + ' style="width: 200px;"></td>' +
-            '<td><img src=' + neutral_fb + ' style="height: 200px; "></td>' +
-            '<td><img src=' + lose_fb + ' style="height: 200px; "></td>' +
-            '</tr>' +
+          '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;"><tr>' +
+            '<td><img src="' + win_fb     + '" style="height:200px;"></td>' +
+            '<td><img src="' + neutral_fb + '" style="height:200px;"></td>' +
+            '<td><img src="' + lose_fb    + '" style="height:200px;"></td>' +
+          '</tr>' +
             inst_6b +
             '</table><br>',
             inst_18

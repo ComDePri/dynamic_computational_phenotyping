@@ -53,9 +53,9 @@
   inst_3 = '<div dir=\"rtl\"><p align=\'right\'>כל תמונה תוצג לזמן קצר, ועליכם יהיה להחליט במהירות אם <strong>לא-ללחוץ</strong> על מקש הרווח בתגובה אליה או <strong>ללחוץ</strong>.</p></div>'
   inst_4 = '<div dir=\"rtl\"><p align=\'right\'>בחירה נכונה תזכה אתכם בנקודות (ולפעמים תמנע מכם אובדן נקודות).</p></div>'
   inst_5 = '<div dir=\"rtl\"><p align=\'right\'>בחירה שגויה תוביל להפסד של נקודות.</p></div>'
-  inst_6 = '<div dir=\"rtl\"><p align=\'right\'>מיד לאחר שתלחצו (או לא) על מקש הרווח, תוצג בפניכם התוצאה: האם פעלתם נכון וזכיתם בנקודות, האם טעיתם והפסדתם נקודות, או האם נותרתם ללא שינוי:</p></div>'
-  inst_6a = '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
-  inst_6b = '<div dir=\"rtl\"><p align=\'right\'>המטרה שלכם היא ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong>.</p></div>'
+  inst_6 = '<div dir=\"rtl\"><p align=\'right\'>המטרה שלכם היא ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong>.</p></div>'
+  inst_6a = '<div dir=\"rtl\"><p align=\'right\'>מיד לאחר שתלחצו (או לא) על מקש הרווח, תוצג בפניכם התוצאה: האם פעלתם נכון וזכיתם בנקודות, האם טעיתם והפסדתם נקודות, או האם נותרתם ללא שינוי:</p></div>'
+  inst_6b = '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
   inst_7 = "<div dir=\"rtl\"><p align='right'> במהלך המשחק תראו 4 תמונות שונות שיוצגו שוב ושוב.\n\n" +
           "זכרו שלכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב."
   inst_8 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: רק אם תלחצו תקבלו נקודות (את הכלל הזה כבר תרגלתם)</p></div>"
@@ -278,15 +278,15 @@
   // instructions block
 var page3 =
   inst_6 +
+  inst_6a +
   '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
     '<tr>' +
       '<td><img src="' + win_fb     + '" style="height:200px;"></td>' +
       '<td><img src="' + neutral_fb + '" style="height:200px;"></td>' +
       '<td><img src="' + lose_fb    + '" style="height:200px;"></td>' +
     '</tr>' +
-    '<tr>' + inst_6a + '</tr>' +
-  '</table><br>' +
-  inst_6b; // now safely outside the table
+    '<tr>' + inst_6b + '</tr>' +
+  '</table><br>'
 
   var instructions1 = {
     type: 'instructions',

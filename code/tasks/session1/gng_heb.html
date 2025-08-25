@@ -419,7 +419,7 @@ var page3 =
 
     if (s_cond === 'go2win') {
       role = 'לצורך התרגול, הכלל עבורה יהיה:  <strong style="color:green">ללחוץ כדי לזכות</strong>.';
-      explanation = '<p dir="rtl" style="text-align: right;">ברגע שתופיע התמונה עליכם <strong>ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>.</p>';
+      explanation = 'ברגע שתופיע התמונה עליכם <strong>ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>.';
       fbTable =
         '<table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">' +
           '<tr>' +
@@ -433,7 +433,7 @@ var page3 =
         '</table><br>';
     } else if (s_cond === 'noGo2win') {
       role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:green">לא-ללחוץ כדי לזכות</strong>.';
-      explanation = '<p dir="rtl" style="text-align: right;">ברגע שתופיע התמונה עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>.</p>';
+      explanation = 'ברגע שתופיע התמונה עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>.';
       fbTable =
         '<table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">' +
           '<tr>' +
@@ -447,7 +447,7 @@ var page3 =
         '</table><br>';
     } else if (s_cond === 'go2avoidPun') {
       role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">ללחוץ כדי למנוע הפסד</strong>.';
-      explanation = '<p dir="rtl" style="text-align: right;">ברגע שתופיע התמונה עליכם <strong>ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.</p>';
+      explanation = 'ברגע שתופיע התמונה עליכם <strong>ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.';
       fbTable =
         '<table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">' +
           '<tr>' +
@@ -461,7 +461,7 @@ var page3 =
         '</table><br>';
     } else if (s_cond === 'noGo2avoidPun') {
       role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">לא-ללחוץ כדי למנוע הפסד</strong>.';
-      explanation = '<p dir="rtl" style="text-align: right;">אם תלחצו ברגע שתופיע התמונה תפסידו נקודות.<br> עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.</p>';      
+      explanation = 'אם תלחצו ברגע שתופיע התמונה תפסידו נקודות.<br> עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.';
       fbTable =
         '<table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">' +
           '<tr>' +
@@ -477,12 +477,15 @@ var page3 =
 
     var continue_statement = '<p dir="rtl" style="text-align:right;">לחצו על כל מקש כדי להמשיך.</p>';
 
+    
     return (
-      exmp +
-      '<p dir="rtl" align="right">' + role + explanation + '</p>' +
-      fbTable + 
-      continue_statement
-    );
+    exmp +
+    '<p dir="rtl" style="text-align:right;">' +
+    '<span>' + role + ' </span>' +
+    '<span>' + explanation + '</span>' +
+    '</p>' +
+    fbTable +
+    continue_statement    );
   }
 };
 

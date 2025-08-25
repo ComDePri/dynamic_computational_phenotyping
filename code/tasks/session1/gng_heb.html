@@ -393,82 +393,81 @@ var page3 =
 const tutorial_intro = {
   type: 'html-keyboard-response',
   stimulus: function () {
-    let exmp = inst_17 +
+    const exmp =
+      inst_17 +
       '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
       `<td><img src="img/go-nogo/stim/${stim}.png" style="width: 200px;"></td>` +
       '</tr></table>';
 
-    let role = "", explanation = "", fbTable = "";
-    explanation = '<p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
+    let role = '';
+    // explanation already includes <p>, so don't wrap again later
+    let explanation = '<p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
+    let fbTable = '';
 
     if (cond_name === 'go2win') {
       role = 'לצורך התרגול, הכלל עבורה יהיה:  <strong style="color:green">ללחוץ כדי לזכות</strong>.';
-      
-    fbTable = `
-    <table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">
-      <tr>
-        <td><img src="${win_fb}" style="height:200px;" alt="זכיתם בנקודות"></td>
-        <td><img src="${neutral_fb}" style="height:200px;" alt="משוב ניטרלי"></td>
-      </tr>
-      <tr>
-        <td>אם תלחצו,<br>תזכו בנקודות</td>
-        <td>אם לא תלחצו,<br>תקבלו משוב ניטרלי</td>
-      </tr>
-    </table><br>`;
-
-
+      fbTable = `
+        <table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">
+          <tr>
+            <td><img src="${win_fb}" style="height:200px;" alt="זכיתם בנקודות"></td>
+            <td><img src="${neutral_fb}" style="height:200px;" alt="משוב ניטרלי"></td>
+          </tr>
+          <tr>
+            <td>אם תלחצו,<br>תזכו בנקודות</td>
+            <td>אם לא תלחצו,<br>תקבלו משוב ניטרלי</td>
+          </tr>
+        </table><br>`;
     } else if (cond_name === 'noGo2win') {
       role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:green">לא-ללחוץ כדי לזכות</strong>.';
-      
-      fbTable =
-        '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
-          '<tr>' +
-            `<td><img src="${win_fb}" style="height:200px;"></td>` +
-            `<td><img src="${neutral_fb}" style="height:200px;"></td>` +
-          '</tr>' +
-          '<tr>' + inst_6win + '</tr>' +
-        '</table><br>';
-
+      fbTable = `
+        <table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">
+          <tr>
+            <td><img src="${win_fb}" style="height:200px;" alt="זכיתם בנקודות"></td>
+            <td><img src="${neutral_fb}" style="height:200px;" alt="משוב ניטרלי"></td>
+          </tr>
+          <tr>
+            <td>אם לא תלחצו,<br>תזכו בנקודות</td>
+            <td>אם תלחצו,<br>תקבלו משוב ניטרלי</td>
+          </tr>
+        </table><br>`;
     } else if (cond_name === 'go2avoidPun') {
       role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">ללחוץ כדי למנוע הפסד</strong>.';
-      
-      fbTable =
-        '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
-          '<tr>' +
-            `<td><img src="${lose_fb}" style="height:200px;"></td>` +
-            `<td><img src="${neutral_fb}" style="height:200px;"></td>` +
-          '</tr>' +
-          '<tr>' + inst_6lose + '</tr>' +
-        '</table><br>';
-
+      fbTable = `
+        <table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">
+          <tr>
+            <td><img src="${lose_fb}" style="height:200px;" alt="הפסדתם נקודות"></td>
+            <td><img src="${neutral_fb}" style="height:200px;" alt="משוב ניטרלי"></td>
+          </tr>
+          <tr>
+            <td>אם לא תלחצו,<br>תפסידו נקודות</td>
+            <td>אם תלחצו,<br>תקבלו משוב ניטרלי</td>
+          </tr>
+        </table><br>`;
     } else if (cond_name === 'noGo2avoidPun') {
       role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">לא-ללחוץ כדי למנוע הפסד</strong>.';
-      
-    fbTable = `
-    <table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">
-      <tr>
-        <td><img src="${lose_fb}" style="height:200px;" alt="הפסדתם נקודות"></td>
-        <td><img src="${neutral_fb}" style="height:200px;" alt="משוב ניטרלי"></td>
-      </tr>
-      <tr>
-        <td>אם תלחצו,<br>תפסידו נקודות</td>
-        <td>אם לא תלחצו,<br>תקבלו משוב ניטרלי</td>
-      </tr>
-    </table><br>`;
-
+      fbTable = `
+        <table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">
+          <tr>
+            <td><img src="${lose_fb}" style="height:200px;" alt="הפסדתם נקודות"></td>
+            <td><img src="${neutral_fb}" style="height:200px;" alt="משוב ניטרלי"></td>
+          </tr>
+          <tr>
+            <td>אם תלחצו,<br>תפסידו נקודות</td>
+            <td>אם לא תלחצו,<br>תקבלו משוב ניטרלי</td>
+          </tr>
+        </table><br>`;
     }
 
-    return exmp + `<p dir="rtl" align="right">${role}</p>` +
-                  fbTable +
-                 `<p dir="rtl" align="right">${explanation}</p>;
+    // Table first, then explanation below it
+    return (
+      exmp +
+      `<p dir="rtl" align="right">${role}</p>` +
+      fbTable +
+      explanation
+    );
   }
-  return (
-  exmp +
-  `<p dir="rtl" align="right">${role}</p>` +
-  fbTable +
-  explanation
-);
 };
+
 
 
 

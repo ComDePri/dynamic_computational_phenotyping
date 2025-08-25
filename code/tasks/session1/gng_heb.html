@@ -56,6 +56,8 @@
   inst_6 = '<div dir=\"rtl\"><p align=\'right\'>המטרה שלכם היא ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong>.</p></div>'
   inst_6a = '<div dir=\"rtl\"><p align=\'right\'>מיד לאחר שתלחצו (או לא) על מקש הרווח, תוצג בפניכם התוצאה: האם פעלתם נכון וזכיתם בנקודות, האם טעיתם והפסדתם נקודות, או האם נותרתם ללא שינוי:</p></div>'
   inst_6b = '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
+  inst_6win = '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td>'
+  inst_6lose = '<td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
   inst_7 = "<div dir=\"rtl\"><p align='right'> במהלך המשחק תראו 4 תמונות שונות שיוצגו שוב ושוב.\n\n" +
           "זכרו שלכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב."
   inst_8 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: רק אם תלחצו תקבלו נקודות (את הכלל הזה כבר תרגלתם)</p></div>"
@@ -360,7 +362,7 @@ var page3 =
     
     let block_name = "tutorial_single_" + cond_name;
 
-    const tutorial_intro = {
+    const tutorial_intro_OLD = {
       type: 'html-keyboard-response',
       stimulus: function () {
         let exmp = inst_17 +
@@ -387,6 +389,79 @@ var page3 =
         return exmp + `<p dir="rtl" align="right">${role}</p><p dir="rtl" align="right">${explanation}</p>`;
       }
     };
+
+const tutorial_intro = {
+  type: 'html-keyboard-response',
+  stimulus: function () {
+    let exmp = inst_17 +
+      '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
+      `<td><img src="img/go-nogo/stim/${stim}.png" style="width: 200px;"></td>` +
+      '</tr></table>';
+
+    let role = "", explanation = "", fbTable = "";
+
+    if (cond_name === 'go2win') {
+      role = 'לצורך התרגול, הכלל עבורה יהיה:  <strong style="color:green">ללחוץ כדי לזכות</strong>.';
+      explanation = '<p dir="rtl" style="text-align: right;">עליכם <strong>ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>. אם לא תלחצו, תקבלו משוב ניטרלי.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
+
+      fbTable =
+        '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
+          '<tr>' +
+            `<td><img src="${win_fb}" style="height:200px;"></td>` +
+            `<td><img src="${neutral_fb}" style="height:200px;"></td>` +
+          '</tr>' +
+          '<tr>' + inst_6win + '</tr>' +
+        '</table><br>';
+
+    } else if (cond_name === 'noGo2win') {
+      role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:green">לא-ללחוץ כדי לזכות</strong>.';
+      explanation = '<p dir="rtl" style="text-align: right;">עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>.אם תלחצו, תקבלו משוב ניטרלי.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
+
+      fbTable =
+        '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
+          '<tr>' +
+            `<td><img src="${win_fb}" style="height:200px;"></td>` +
+            `<td><img src="${neutral_fb}" style="height:200px;"></td>` +
+          '</tr>' +
+          '<tr>' + inst_6win + '</tr>' +
+        '</table><br>';
+
+    } else if (cond_name === 'go2avoidPun') {
+      role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">ללחוץ כדי למנוע הפסד</strong>.';
+      explanation = '<p dir="rtl" style="text-align: right;">עליכם <strong>ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>. אם תלחצו, תפסידו נקודות.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
+
+      fbTable =
+        '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
+          '<tr>' +
+            `<td><img src="${lose_fb}" style="height:200px;"></td>` +
+            `<td><img src="${neutral_fb}" style="height:200px;"></td>` +
+          '</tr>' +
+          '<tr>' + inst_6lose + '</tr>' +
+        '</table><br>';
+
+    } else if (cond_name === 'noGo2avoidPun') {
+      role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">לא-ללחוץ כדי למנוע הפסד</strong>.';
+      explanation = '<p dir="rtl" style="text-align: right;">אם תלחצו תפסידו נקודות.<br> עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>. אם תלחצו, תפסידו נקודות.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
+
+      fbTable =
+        '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
+          '<tr>' +
+            `<td><img src="${lose_fb}" style="height:200px;"></td>` +
+            `<td><img src="${neutral_fb}" style="height:200px;"></td>` +
+          '</tr>' +
+          '<tr>' + inst_6lose + '</tr>' +
+        '</table><br>';
+    }
+
+    return exmp + `<p dir="rtl" align="right">${role}</p>` +
+                  `<p dir="rtl" align="right">${explanation}</p>` +
+                  fbTable;
+  }
+};
+
+
+
+    
 
     const tutorial_fixation = {
       type: 'html-keyboard-response-gng',

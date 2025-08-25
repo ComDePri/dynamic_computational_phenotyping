@@ -404,14 +404,18 @@ const tutorial_intro = {
       role = 'לצורך התרגול, הכלל עבורה יהיה:  <strong style="color:green">ללחוץ כדי לזכות</strong>.';
       explanation = '<p dir="rtl" style="text-align: right;">עליכם <strong>ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>. אם לא תלחצו, תקבלו משוב ניטרלי.</p><p dir="rtl" style="text-align: right;">לחצו על כל מקש כדי להמשיך.</p>';
 
-      fbTable =
-        '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
-          '<tr>' +
-            `<td><img src="${win_fb}" style="height:200px;"></td>` +
-            `<td><img src="${neutral_fb}" style="height:200px;"></td>` +
-          '</tr>' +
-          '<tr>' + inst_6win + '</tr>' +
-        '</table><br>';
+    fbTable = `
+    <table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">
+      <tr>
+        <td><img src="${win_fb}" style="height:200px;" alt="זכיתם בנקודות"></td>
+        <td><img src="${neutral_fb}" style="height:200px;" alt="משוב ניטרלי"></td>
+      </tr>
+      <tr>
+        <td>אם תלחצו,<br>תזכו בנקודות</td>
+        <td>אם לא תלחצו,<br>תקבלו משוב ניטרלי</td>
+      </tr>
+    </table><br>`;
+
 
     } else if (cond_name === 'noGo2win') {
       role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:green">לא-ללחוץ כדי לזכות</strong>.';
@@ -454,8 +458,8 @@ const tutorial_intro = {
     }
 
     return exmp + `<p dir="rtl" align="right">${role}</p>` +
-                  `<p dir="rtl" align="right">${explanation}</p>` +
-                  fbTable;
+                  fbTable +
+                 `<p dir="rtl" align="right">${explanation}</p>;
   }
 };
 

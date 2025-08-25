@@ -730,20 +730,19 @@ var page3 =
         }
 
         let explanation = "";
+        let explanation2 = "";
         if (cond_name === 'go2win') {
-          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם לרוב בנקודות</strong>.";
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>לרוב זכיתם בנקודות</strong>.";
           explanation2 = "לעתים בחרתם נכון, ובכל זאת קיבלתם דווקא משוב ניטרלי.";
         } else if (cond_name === 'noGo2win') {
-          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>לרוב זכיתם בנקודות</strong>.";
           explanation2 = "לעתים בחרתם נכון, ובכל זאת קיבלתם דווקא משוב ניטרלי.";
         } else if (cond_name === 'go2avoidPun') {
-          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לרוב לא איבדתם נקודות</strong>.";
           explanation2 = "לעתים בחרתם נכון, ובכל זאת הפסדתם נקודות.";
         } else if (cond_name === 'noGo2avoidPun') {
-          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
-        } else {
-          explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
-          explanation2 = "עתים בחרתם נכון, ובכל זאת הפסדתם נקודות.";
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לרוב לא איבדתם נקודות</strong>.";
+          explanation2 = "לעתים בחרתם נכון, ובכל זאת הפסדתם נקודות.";
         }
 
         return `<p dir="rtl" align="right">${explanation}</p>

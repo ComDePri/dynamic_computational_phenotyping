@@ -80,7 +80,7 @@
   inst_15 = "<div dir=\"rtl\"><p align='right'>בכל פעם תוצג תמונה אחת מתוך 4 התמונות האפשריות.</p></div>"
   inst_16 = "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ על מקש הרווח, לפני שהתמונה תיעלם.</p></div>"
   inst_17 = "<div dir=\"rtl\"><p align='right'> במסך הבא תופיע התמונה הזו:</p></div>"
-  inst_18 = "<div dir=\"rtl\"><p align='right'>נעבור על מספר דוגמאות:</p></div>"
+  inst_18 = "<div dir=\"rtl\"><p align='right'>נראה כעת מספר דוגמאות:</p></div>"
   inst_19 = "<div dir=\"rtl\"><p align='right'> אנא השתדלו ללמוד את הפעולה המתאימה לכל תמונה ולבצע את המשימה כמיטב יכולתכם. הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>"
   inst_20 = "<div dir=\"rtl\"><p align='right'> שימו לב כי אם תגיבו באופן אקראי, תמיד תלחצו, או לעולם לא תלחצו, אנו שומרים לעצמנו את הזכות לשלול מכם את הבונוס. </p></div>"
   inst_21 = "<div dir=\"rtl\"><p align='right'>כעת, תשיבו על מספר שאלות בנוגע למשחק ולאחר מכן תעברו לתרגול קצר. </p></div>"
@@ -606,16 +606,39 @@ var page3 =
         </p>
       `;
     } else {
-      return `
-        <p dir="rtl" style="text-align: right;">
-        שימו לב - אמנם לכל תמונה יש כלל קבוע, אך כדי להפוך את המשחק למאתגר, המשוב שתקבלו לא תמיד יהיה קבוע. לדוגמה:<br>
-        אם פעלתם נכון, <strong>בדרך כלל</strong> תזכו בנקודות או תצליחו למנוע הפסד.<br><br>
-        גם כאשר פעלתם נכון ואתם אמורים לזכות בנקודות, <strong>לפעמים</strong> תקבלו משוב ניטרלי.<br>
-        באופן דומה, גם כאשר פעלתם נכון ואתם אמורים לקבל משוב ניטרלי, <strong>לפעמים</strong> תפסידו נקודות.<br><br>
-        נראה זאת בדוגמה הבאה, שבה תופיע אותה תמונה 5 פעמים.<br>
-        לחצו על מקש הרווח כדי להמשיך.<br>
-        </p>
-      `;
+const s_stim = 'f1_1';
+const stimSrc = `img/go-nogo/stim/${s_stim}.png`;
+const neutral_fb = 'img/no_points.jpg';
+
+return `
+  <div dir="rtl" lang="he" class="instr">
+    <p>שימו לב - אמנם לכל תמונה יש כלל קבוע, אך כדי להפוך את המשחק למאתגר, המשוב שתקבלו לא תמיד יהיה קבוע. לדוגמה:</p>
+    <ul class="bullets">
+      <li>
+        <span class="nowrap">
+          גם אם פעלתם נכון ולחצתם על רווח עבור התמונה הזו
+          <img src="${stimSrc}" alt="תמונת גירוי" class="inline-img">
+          , לעתים תקבלו דווקא משוב ניטרלי
+          <img src="${neutral_fb}" alt="משוב ניטרלי" class="inline-img">.
+        </span>
+      </li>
+    </ul>
+    <p>לחצו על מקש הרווח כדי להמשיך.</p>
+  </div>
+
+  <style>
+    .instr { text-align: right; }
+    .bullets { list-style-position: inside; padding: 0; margin: 0 0 0 1em; }
+    .inline-img {
+      height: 1.4em;        /* controls how small the images are (relative to text) */
+      width: auto;
+      vertical-align: -0.2em; /* nudge to align nicely with Hebrew text; try "middle" if you prefer */
+      margin: 0 0.25em;
+    }
+    .nowrap { white-space: nowrap; } /* keeps the text and images on one line */
+  </style>
+`;
+
     }
   }
 };

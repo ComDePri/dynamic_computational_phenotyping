@@ -606,10 +606,11 @@ var page3 =
         </p>
       `;
     } else {
-const s_stim = 'f1_1';
-const stimSrc = `img/go-nogo/stim/${s_stim}.png`;
+const stimSrc1 = `img/go-nogo/stim/f1_1.png`;
+const stimSrc2 = `img/go-nogo/stim/f1_2.png`;
 const neutral_fb = 'img/no_points.jpg';
-
+const lose_fb = "img/minus_points.jpg"
+  
 return `
   <div dir="rtl" lang="he" class="instr">
     <p>שימו לב - אמנם לכל תמונה יש כלל קבוע, אך כדי להפוך את המשחק למאתגר, המשוב שתקבלו לא תמיד יהיה קבוע. לדוגמה:</p>
@@ -617,9 +618,17 @@ return `
       <li>
         <span class="nowrap">
           גם אם פעלתם נכון ולחצתם על רווח עבור התמונה הזו
-          <img src="${stimSrc}" alt="תמונת גירוי" class="inline-img">
+          <img src="${stimSrc1}" alt="תמונת גירוי" class="inline-img">
           , לעתים תקבלו דווקא משוב ניטרלי
           <img src="${neutral_fb}" alt="משוב ניטרלי" class="inline-img">.
+        </span>
+      </li>
+    <li>
+        <span class="nowrap">
+          גם אם פעלתם נכון ולא-לחצתם על רווח עבור התמונה הזו
+          <img src="${stimSrc2}" alt="תמונת גירוי" class="inline-img">
+          , לעתים תקבלו דווקא תפסידו נקודות
+          <img src="${lose_fb}" alt="משוב ניטרלי" class="inline-img">.
         </span>
       </li>
     </ul>
@@ -630,7 +639,7 @@ return `
     .instr { text-align: right; }
     .bullets { list-style-position: inside; padding: 0; margin: 0 0 0 1em; }
     .inline-img {
-      height: 1.4em;        /* controls how small the images are (relative to text) */
+      height: 5.6em;        /* controls how small the images are (relative to text) */
       width: auto;
       vertical-align: -0.2em; /* nudge to align nicely with Hebrew text; try "middle" if you prefer */
       margin: 0 0.25em;

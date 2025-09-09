@@ -29,6 +29,9 @@
       direction: rtl;
       display: inline-block;
     }
+    li {
+    margin-bottom: 10px; /* Adds 10 pixels of space below each list item */
+    }
   </style>
 
 
@@ -37,35 +40,50 @@
 </body>
 <script>
 
-  intro_1  = "<div dir=\"rtl\"><p>במסך הבא תתבקשו להעביר את הדפדפן למצב מסך מלא.</p></div>"
-  intro_2 = "<div dir=\"rtl\"><p>לאחר שתעברו למסך מלא, חשוב שלא תצאו, לא תחליפו חלוניות, תמזערו או תשנו את הדפדפן שלכם עד סוף המשחק.</p></div>"
-  intro_3 = "<div dir=\"rtl\"><p>הפעולות הללו משנות את תצוגת המשחק, אך המשחק לא עוצר מרגע שהתחיל.</p></div>"
+  intro_1  = "<div dir=\"rtl\"><p>אנא שחקו באמצעות מחשב, ולא דרך הטלפון הנייד.<br><br></p><p>במסך הבא הדפדפן יעבור למצב מסך מלא.</p></div>"
+  intro_2 = "<div dir=\"rtl\"><p>גם אם תצאו ממצב מסך מלא, המשחק לא יעצור.</p></div>"
+  intro_3 = "<div dir=\"rtl\"><p>לכן חשוב שלא תחליפו חלוניות, תמזערו או תשנו את תצוגת הדפדפן עד סוף המשחק.</p></div>"
 
   full_screen_msg = "<p dir='rtl'>הניסוי יעבור כעת למסך מלא. לחצו על הכפתור כדי להמשיך.</p>"
 
-  inst_1 = '<div dir=\"rtl\"><p align=\'right\'>ברוכים הבאים למשחק <strong>"ללחוץ או לא ללחוץ"</strong>! המשחק אורך כ-20 דקות. לחצו על כפתור "הבא" כדי לעבור למסך הבא.</p></div>'
-  inst_2 = '<div dir=\"rtl\"><p align=\'right\'>במהלך המשחק יוצגו תמונות שונות. כל תמונה תוצג לזמן קצר ולאחריה תראו אם הרווחתם או הפסדתם נקודות.</p></div>'
-  inst_3 = '<div dir=\"rtl\"><p align=\'right\'>כדי להרוויח נקודות או להימנע מהפסד, תצטרכו להחליט במהירות אם <strong>ללחוץ</strong> על מקש הרווח או <strong>לא-ללחוץ</strong>.</p></div>'
-  inst_4 = '<div dir=\"rtl\"><p align=\'right\'>המטרה שלכם היא ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong>.</p></div> '
-  inst_5 =  "<div dir=\"rtl\"><p align='right'>לאחר כל תגובה, תקבלו משוב על הפעולה שלכם:</p></div>"
-  inst_6 =  '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
+  inst_1 = `<div dir="rtl">
+    <p align="right">ברוכים הבאים למשחק <strong>"ללחוץ או לא ללחוץ"</strong>!</p>
+    <p align="right">המשחק אורך כ-12 דקות.</p>
+    <p align="right">לחצו על "הבא" כדי לעבור להוראות.</p>
+  </div>`;
+
+  inst_2 = '<div dir=\"rtl\"><p align=\'right\'>בכל סבב של המשחק יוצגו בפניכם לסירוגין ארבע תמונות.</p></div>'
+  inst_3 = '<div dir=\"rtl\"><p align=\'right\'>כל תמונה תוצג לזמן קצר, ועליכם להחליט במהירות אם <strong>ללחוץ</strong> על מקש הרווח בתגובה אליה או <strong>לא-ללחוץ</strong>.</p></div>'
+  inst_4 = '<div dir=\"rtl\"><p align=\'right\'>המטרה שלכם היא לצבור כמה שיותר נקודות. <br>בחירה נכונה תזכה אתכם בנקודות או תמנע הפסד של נקודות, תלוי בתמונה שהוצגה.</p></div>'
+  inst_5 = '<div dir=\"rtl\"><p align=\'right\'>לכל תמונה יש כלל קבוע (<strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong> על מקש הרווח) שאותו תצטרכו ללמוד.</p></div>'
+  inst_5_old = '<div dir=\"rtl\"><p align=\'right\'>בחירה שגויה תוביל להפסד של נקודות.</p></div>'
+  inst_6 = '<div dir=\"rtl\"><p align=\'right\'>לכל תמונה שתראו במשחק כלל קבוע משלה, שאינו משתנה.</p></div>'
+  inst_6 = '<div dir=\"rtl\"><p align=\'right\'>במהלך המשחק עליכם ללמוד כיצד נכון להגיב עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong> על מקש הרווח.</p></div>'
+  inst_6a = '<div dir=\"rtl\"><p align=\'right\'>מיד לאחר שתלחצו (או לא) על מקש הרווח, יוצג בפניכם המשוב - האם זכיתם בנקודות, האם הפסדתם נקודות, או האם נותרתם ללא שינוי:</p></div>'
+  inst_6b = '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
+  inst_6win = '<td>זכיתם בנקודות</td><td>לא קרה כלום (ניטרלי)</td>'
+  inst_6lose = '<td>לא קרה כלום (ניטרלי)</td><td>הפסדתם נקודות</td>'
   inst_7 = "<div dir=\"rtl\"><p align='right'> במהלך המשחק תראו 4 תמונות שונות שיוצגו שוב ושוב.\n\n" +
           "זכרו שלכל תמונה יש כלל שונה, שאותו תצטרכו ללמוד לפי המשוב."
-  inst_8 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: רק אם תלחצו תקבלו נקודות (את הכלל הזה כבר תרגלתם)</p></div>"
-  inst_9 = "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>:רק אם לא-תלחצו תקבלו נקודות</p></div>"
-  inst_10 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם תלחצו, לרוב תימנעו מהפסד </p></div>"
-  inst_11 = "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: אם לא-תלחצו, לרוב תימנעו מהפסד (את הכלל הזה כבר תרגלתם)</p></div>"
+  inst_8 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: רק אם תלחצו תקבלו נקודות&nbsp;&nbsp;&nbsp;(את הכלל הזה כבר תרגלתם)</p></div>"
+  inst_9 = "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:green'>לזכות</strong>: רק אם לא-תלחצו תקבלו נקודות</p></div>"
+  inst_10 = "<div dir=\"rtl\"><p align='right'>    ● <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: רק אם תלחצו, תימנעו מהפסד </p></div>"
+  inst_11 = "<div dir=\"rtl\"><p align='right'>    ● <strong>לא-ללחוץ</strong> כדי <strong style='color:darkred;'>למנוע הפסד</strong>: רק אם לא-תלחצו, תימנעו מהפסד&nbsp;&nbsp;&nbsp;(את הכלל הזה כבר תרגלתם)</p></div>"
   inst_11_1 = "<div dir=\"rtl\"><p align='right'></p></div>"
   inst_12 = "<div dir=\"rtl\"><p align='right'>כפי שראיתם בתרגול, הכלל לכל תמונה הוא קבוע. עם זאת, לעתים תקבלו משוב אחר מהצפוי.\n</p>" +
             "<p align='right'>גם אם בחרתם נכון, לפעמים תקבלו משוב ניטרלי (גם אם הייתם אמורים לזכות בנקודות). \n</p>" +
             "<p align='right'>באופן דומה, גם אם בחרתם נכון, לפעמים תפסידו נקודות (גם אם הייתם אמורים לקבל משוב ניטרלי). \n</p>" +
             "<p align='right'>מטרתכם היא ללמוד את הכלל הנכון לכל תמונה. \n</p>"
+  inst_13_short = "<div dir=\"rtl\"><p align='right'>במשחק 3 סיבובים. כל סיבוב אורך כ- 4:00 דקות וכולל 4 תמונות שאותן עליכם ללמוד.<br>מטרתכם היא לצבור כמה שיותר נקודות.<br></p></div>"
+  inst_14_short = "<div dir=\"rtl\"><p align='right'>זכרו שלכל תמונה יש כלל שונה וקבוע לאורך המשחק, שאותו תצטרכו ללמוד לפי המשוב:<br><br>\n\n"
+  inst_15_short = "<div dir=\"rtl\"><p align='right'> כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ על מקש הרווח, <strong>לפני שהתמונה תיעלם</strong>.</p></div>"
+  inst_16_short = "<div dir=\"rtl\"><p align='right'>הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>"
   inst_13 = "<div dir=\"rtl\"><p align='right'>במשחק 3 סיבובים.</p></div>"
   inst_14 = "<div dir=\"rtl\"><p align='right'>בכל סיבוב 4 תמונות חדשות, שיוצגו בסך הכל 80 פעמים (20 פעמים לכל תמונה).</p></div>"
   inst_15 = "<div dir=\"rtl\"><p align='right'>בכל פעם תוצג תמונה אחת מתוך 4 התמונות האפשריות.</p></div>"
-  inst_16 = "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ, לפני שהתמונה תיעלם.</p></div>"
-  inst_17 = "<div dir=\"rtl\"><p align='right'> במסך הבא תופיע התמונה הבאה:</p></div>"
-  inst_18 = "<div dir=\"rtl\"><p align='right'>נעבור על מספר דוגמאות:</p></div>"
+  inst_16 = "<div dir=\"rtl\"><p align='right'>כל תמונה תוצג למשך זמן קצר, לכן עליכם להחליט מהר אם ללחוץ או לא-ללחוץ על מקש הרווח, לפני שהתמונה תיעלם.</p></div>"
+  inst_17 = "<div dir=\"rtl\"><p align='right'> במסך הבא תופיע התמונה הזו:</p></div>"
+  inst_18 = "<div dir=\"rtl\"><p align='right'>נראה כעת מספר דוגמאות:</p></div>"
   inst_19 = "<div dir=\"rtl\"><p align='right'> אנא השתדלו ללמוד את הפעולה המתאימה לכל תמונה ולבצע את המשימה כמיטב יכולתכם. הבונוס הכספי שתקבלו ייקבע בהתאם לנקודות שתצברו במהלך המשחק.</p></div>"
   inst_20 = "<div dir=\"rtl\"><p align='right'> שימו לב כי אם תגיבו באופן אקראי, תמיד תלחצו, או לעולם לא תלחצו, אנו שומרים לעצמנו את הזכות לשלול מכם את הבונוס. </p></div>"
   inst_21 = "<div dir=\"rtl\"><p align='right'>כעת, תשיבו על מספר שאלות בנוגע למשחק ולאחר מכן תעברו לתרגול קצר. </p></div>"
@@ -78,19 +96,19 @@
   q1_2 =         "אלחץ על מקש הרווח או אמתין (לא אלחץ על כלום)"
   q1_3 =         "אלחץ על החצים שמאלה או ימינה במקלדת כדי לציין את בחירתי"
   q1_4 =         "אלחץ על החץ למעלה במקלדת או אמתין (לא אלחץ על כלום)"
-  q1_5 = "בסיבוב יחיד, כמה תמונות שונות יוצגו?"
+  q1_5 = "בסיבוב יחיד של 4:00 דקות, כמה תמונות שונות יוצגו?"
   q1_6 = "לכל תמונה יש כלל קבוע שאינו משתנה במהלך המשחק."
   q1_7 = "נכון"
   q1_8 = "לא נכון"
   q1_9 = "נניח שעל המסך מופיעה תמונה שהכלל שלה הוא \"ללחוץ כדי לזכות\". לחצתם על מקש הרווח בזמן. לכן, בוודאות תקבלו נקודות."
-  q1_10 = "נכון. המשוב שמקבלים גם הוא קבוע. אם לחצתי על תמונת \"ללחוץ כדי לזכות\" בטוח אקבל נקודות."
-  q1_11 = "לא נכון. אף על פי שהכלל קבוע, המשוב משתנה לפעמים. לכן יש סיכוי לקבל משוב נייטרלי במקום נקודות גם אם פועלים נכון."
+  q1_10 = "נכון. המשוב שמקבלים גם הוא קבוע. אם לחצתי על תמונת \"ללחוץ כדי לזכות\", בטוח אקבל נקודות."
+  q1_11 = "לא נכון. אף על פי שהכלל קבוע, המשוב משתנה לפעמים. לכן יש סיכוי לקבל משוב ניטרלי במקום נקודות גם אם פועלים נכון."
   redo_1 = "<p align='right'> בהתבסס על אחת או יותר מתשובותיכם לשאלות הקודמות, ייתכן שאינכם מבינים את המשימה באופן מלא. </p>"
   redo_2 = "<p align='right'> אם לא תצליחו לענות נכון על השאלות שוב, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>"
   redo_3 = "<p align='right'> אנא לחצו על 'הבא' כדי לחזור להוראות. </p>"
   space_text = "הרווח"
-  start_1 = '<p>מיד נתחיל סיבוב ניסיון מלא,</p> <p>לחץ על כל מקש להמשך</p>'
-  end_1 = '<p>התרגול הסתיים, וכעת תתחילו בניסוי. ,</p> <p>לחץ על כל מקש כדי להתחיל</p>'
+  start_1 = '<p>מיד נתחיל סיבוב ניסיון מלא.</p> <p>המטרה שלכם היא לצבור כמה שיותר נקודות.</p> <p>עליכם ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong> על מקש הרווח.</p> <p>לחצו על מקש הרווח להמשך.</p>'
+  end_1 = '<p>התרגול הסתיים, וכעת תתחילו בניסוי ובו תמונות שטרם ראיתם. </p> <p>המטרה שלכם היא ללמוד את התגובה הנכונה עבור כל תמונה - האם <strong>ללחוץ</strong> או <strong>לא-ללחוץ</strong> על מקש הרווח.</p> <p>אם בחרתם ללחוץ, עשו זאת לפני שהתמונה תיעלם.</p> <p>לחצו על מקש הרווח כדי להתחיל. בהצלחה!</p>'
   sus_1_1 = "<p align='right'> לחצתם על מקש הרווח בכל פעם שהוצגה תמונה. נראה שאינכם מבינים לגמרי את המשימה. </p>"
   sus_1_2 = "<p align='right'> אם לא תצליחו להשתפר בסיבוב התרגול הבא, אנו שומרים לעצמנו את הזכות לשלול את הבונוס שלכם, וייתכן שתתבקשו לעזוב את המחקר. </p>"
   sus_1_3 = "<p align='right'> לחצו על 'הבא' כדי לחזור להוראות. </p>"
@@ -104,7 +122,7 @@
   between_2 = " מהמשחק והרווחתם <b>"
   between_3 = "</b> נקודות בונוס בסך הכל!</p>"+
           "<p>תוכלו לקחת הפסקה קצרה של כמה שניות, אך לא יותר מזה. </p>"+
-          "<p>לחצו על מקש כלשהו כדי להמשיך.</p>"
+          "<p>לחצו על מקש הרווח כדי להמשיך.</p>"
   bonus_1 = '<p>הניסוי הסתיים</p>' + '<p>הרווחתם <b>'
   bonus_2 = ' נקודת בונוס </b>!</p>' +
           '<p>תודה רבה שהשתתפתם.</p>' +
@@ -136,7 +154,7 @@
   q4_head = '<h4> שאלון משוב 4/4 </h4>'
   q4_prompt = "אנא תארו בכמה משפטים את האסטרטגיה שבה השתמשתם על מנת להשלים את המטלה"
   end_exp_1 = '<p>תודה! שאלון המשוב הסתיים.</p>' +
-          ' <p>לחצו על מקש כלשהו כדי לסיים את הניסוי.</p>'
+          ' <p>לחצו על מקש הרווח כדי לסיים את הניסוי.</p>'
   ns_warn_1 = [
     "<p align='right'> המשחק כולל מספר בדיקות מובנות שנועדו לבדוק האם השחקנים לא הצליחו להשלים את המטלה" +
     "<p align='right'> (למשל, אם הם בחרו תמיד באותה פעולה או לא בחרו באף פעולה). " +
@@ -169,7 +187,7 @@
   neutral_fb = "img/no_points.jpg"
 
   prob_outcome = 80   // keep it a whole number
-  reps_in_trial = 12  //reps_in_trial * 4 = actual number of reps in the trial/practice block (i.e. 15*4 = 60 )
+  reps_in_trial = 6  //reps_in_trial * 4 = actual number of reps in the trial/practice block (i.e. 15*4 = 60 )
   reps_in_exp = 20    // reps_in_exp * 4 = actual number of reps in the experimental blocks
   bonus_percent = 20/(reps_in_exp*2*4)// // 4*30*.8*0.33 --> max ~32
   fixed_bonus = 0     // 0
@@ -266,25 +284,29 @@
   timeline.push(fullscreen)
 
   // instructions block
+var page3 =
+  inst_6 +
+  inst_6a +
+  '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
+    '<tr>' +
+      '<td><img src="' + win_fb     + '" style="height:200px;"></td>' +
+      '<td><img src="' + neutral_fb + '" style="height:200px;"></td>' +
+      '<td><img src="' + lose_fb    + '" style="height:200px;"></td>' +
+    '</tr>' +
+    '<tr>' + inst_6b + '</tr>' +
+  '</table><br>'
 
   var instructions1 = {
     type: 'instructions',
-    pages: [ // page 1
-            inst_1,
-            // page 2
-            inst_2 + inst_3 + inst_4,
-
-            // page 3
-            inst_5+
-            // win/lose/maintain feedback images
-            '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
-            '<td><img src=' + win_fb + ' style="width: 200px;"></td>' +
-            '<td><img src=' + neutral_fb + ' style="height: 200px; "></td>' +
-            '<td><img src=' + lose_fb + ' style="height: 200px; "></td>' +
-            '</tr><tr>' +
-            inst_6 +
-            '</tr></table><br>',
-            inst_18
+    pages: [
+      // page 1
+      inst_1,
+      // page 2
+      inst_2 + inst_3 + inst_4 +inst_5,
+      // page 3
+      page3,
+      // page 4
+      inst_18
 
     ],
     show_clickable_nav: true,
@@ -346,7 +368,7 @@
     
     let block_name = "tutorial_single_" + cond_name;
 
-    const tutorial_intro = {
+    const tutorial_intro_OLD = {
       type: 'html-keyboard-response',
       stimulus: function () {
         let exmp = inst_17 +
@@ -356,22 +378,127 @@
 
         let role = "", explanation = "";
         if (cond_name === 'go2win') {
-          role = "לצורך התרגול, הכלל עבורה יהיה:  <strong style='color:green'>ללחוץ כדי לזכות</strong>.";
-          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
-        } else if (cond_name === 'noGo2win') {
-          role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:green'>לא-ללחוץ כדי לזכות</strong>.";
-          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
-        } else if (cond_name === 'go2avoidPun') {
-          role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:darkred;'>ללחוץ כדי למנוע מהפסד</strong>.";
-          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
-        } else if (cond_name === 'noGo2avoidPun') {
-          role = "לצורך התרגול, הכלל עבורה יהיה: <strong style='color:darkred;'>לא-ללחוץ כדי למנוע הפסד</strong>.";
-          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
-        }
+        role = 'לצורך התרגול, הכלל עבורה יהיה:  <strong style="color:green">ללחוץ כדי לזכות</strong>.';
+        explanation = '<p dir="rtl" style="text-align: right;">ברגע שתופיע התמונה עליכם <strong>ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על מקש הרווח כדי להמשיך.</p>';
+      } else if (cond_name === 'noGo2win') {
+        role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:green">לא-ללחוץ כדי לזכות</strong>.';
+        explanation = '<p dir="rtl" style="text-align: right;">ברגע שתופיע התמונה עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על מקש הרווח כדי להמשיך.</p>';
+      } else if (cond_name === 'go2avoidPun') {
+        role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">ללחוץ כדי למנוע הפסד</strong>.';
+        explanation = '<p dir="rtl" style="text-align: right;">ברגע שתופיע התמונה עליכם <strong>ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על מקש הרווח כדי להמשיך.</p>';
+      } else if (cond_name === 'noGo2avoidPun') {
+        role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">לא-ללחוץ כדי למנוע הפסד</strong>.';
+        explanation = '<p dir="rtl" style="text-align: right;">אם תלחצו ברגע שתופיע התמונה תפסידו נקודות.<br> עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.</p><p dir="rtl" style="text-align: right;">לחצו על מקש הרווח כדי להמשיך.</p>';
+      }
+
 
         return exmp + `<p dir="rtl" align="right">${role}</p><p dir="rtl" align="right">${explanation}</p>`;
       }
     };
+
+
+
+
+
+    const tutorial_intro = {
+  type: 'html-keyboard-response',
+  stimulus: function () {
+
+    // Safe getters to avoid ReferenceError if something isn't defined yet
+    const val = (x, fallback = '') => (typeof x !== 'undefined' && x != null ? x : fallback);
+
+    const s_stim    = val(stim, 'placeholder');
+    const s_inst17  = val(inst_17, '');
+    const s_cond    = val(cond_name, 'go2win');
+    const s_win     = val(win_fb, 'img/go-nogo/fb/win.png');
+    const s_neutral = val(neutral_fb, 'img/go-nogo/fb/neutral.png');
+    const s_lose    = val(lose_fb, 'img/go-nogo/fb/lose.png');
+
+    var exmp =
+      s_inst17 +
+      '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important;width:650px;"><tr>' +
+        '<td><img src="img/go-nogo/stim/' + s_stim + '.png" style="width:200px;" alt="stimulus"></td>' +
+      '</tr></table>';
+
+    var role = '';
+    var fbTable = '';
+
+    if (s_cond === 'go2win') {
+      role = 'לצורך התרגול, הכלל עבורה יהיה:  <strong style="color:green">ללחוץ כדי לזכות</strong>.';
+      explanation = 'ברגע שתופיע התמונה עליכם <strong>ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>.';
+      fbTable =
+        '<table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">' +
+          '<tr>' +
+            '<td><img src="' + s_win + '" style="height:200px;" alt="זכיתם בנקודות"></td>' +
+            '<td><img src="' + s_neutral + '" style="height:200px;" alt="משוב ניטרלי"></td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td>אם תלחצו ברגע שתופיע התמונה,<br>תזכו בנקודות</td>' +
+            '<td>אם לא תלחצו ברגע שתופיע התמונה,<br>תקבלו משוב ניטרלי</td>' +
+          '</tr>' +
+        '</table><br>';
+    } else if (s_cond === 'noGo2win') {
+      role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:green">לא-ללחוץ כדי לזכות</strong>.';
+      explanation = 'ברגע שתופיע התמונה עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:green">לזכות בנקודות</strong>.';
+      fbTable =
+        '<table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">' +
+          '<tr>' +
+            '<td><img src="' + s_win + '" style="height:200px;" alt="זכיתם בנקודות"></td>' +
+            '<td><img src="' + s_neutral + '" style="height:200px;" alt="משוב ניטרלי"></td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td>אם לא תלחצו,<br>תזכו בנקודות</td>' +
+            '<td>אם תלחצו,<br>תקבלו משוב ניטרלי</td>' +
+          '</tr>' +
+        '</table><br>';
+    } else if (s_cond === 'go2avoidPun') {
+      role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">ללחוץ כדי למנוע הפסד</strong>.';
+      explanation = 'ברגע שתופיע התמונה עליכם <strong>ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.';
+      fbTable =
+        '<table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">' +
+          '<tr>' +
+            '<td><img src="' + s_lose + '" style="height:200px;" alt="הפסדתם נקודות"></td>' +
+            '<td><img src="' + s_neutral + '" style="height:200px;" alt="משוב ניטרלי"></td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td>אם לא תלחצו,<br>תפסידו נקודות</td>' +
+            '<td>אם תלחצו,<br>תקבלו משוב ניטרלי</td>' +
+          '</tr>' +
+        '</table><br>';
+    } else if (s_cond === 'noGo2avoidPun') {
+      role = 'לצורך התרגול, הכלל עבורה יהיה: <strong style="color:darkred;">לא-ללחוץ כדי למנוע הפסד</strong>.';
+      explanation = 'אם תלחצו ברגע שתופיע התמונה תפסידו נקודות.<br> עליכם <strong>לא ללחוץ</strong> כדי <strong style="color:darkred;">להימנע מהפסד</strong>.';
+      fbTable =
+        '<table dir="rtl" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:right;">' +
+          '<tr>' +
+            '<td><img src="' + s_lose + '" style="height:200px;" alt="הפסדתם נקודות"></td>' +
+            '<td><img src="' + s_neutral + '" style="height:200px;" alt="משוב ניטרלי"></td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td>אם תלחצו ברגע שתופיע התמונה,<br>תפסידו נקודות</td>' +
+            '<td>אם לא תלחצו ברגע שתופיע התמונה,<br>תקבלו משוב ניטרלי ותימנעו מהפסד</td>' +
+          '</tr>' +
+        '</table><br>';
+    }
+
+    var continue_statement = '<p dir="rtl" style="text-align:right;">לחצו על מקש הרווח כדי להמשיך.</p>';
+
+    
+    return (
+    exmp +
+    '<p dir="rtl" style="text-align:right;">' +
+    '<span>' + role + ' </span>' +
+    '</p>' +
+    fbTable +
+    continue_statement    );
+  }
+};
+
+
+
+
+
+    
 
     const tutorial_fixation = {
       type: 'html-keyboard-response-gng',
@@ -424,22 +551,22 @@
           return `
       <p dir="rtl" align="right">נראה שלא הבנתם את ההוראות היטב.</p>
       <p dir="rtl" align="right">ההוראות יוצגו שוב, ולאחר מכן תנסו שוב.</p>
-      <p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>
+      <p dir="rtl" align="right">לחצו על מקש הרווח כדי להמשיך.</p>
     `;
         }
 
         let explanation = "";
         if (cond_name === 'go2win') {
-          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong>זכיתם בנקודות</strong>.";
         } else if (cond_name === 'noGo2win') {
-          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong>זכיתם בנקודות</strong>.";
         } else if (cond_name === 'go2avoidPun') {
-          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong>לא הפסדתם נקודות</strong>.";
         } else if (cond_name === 'noGo2avoidPun') {
-          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong>לא הפסדתם נקודות</strong>.";
         }
 
-        return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>`;
+        return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">לחצו על מקש הרווח כדי להמשיך.</p>`;
       }
     };
 
@@ -465,42 +592,96 @@
                                     correct_choice,
                                     feedback_win,
                                     feedback_lose,
-                                    feedback_neutral
+                                    feedback_neutral,
+                                    instructions_type = 1 // default is 1
                                   }) {
     // Intro explanation screen
 
     let block_name = 'tutorial_5_trials_' + cond_name;
     const tutorial_intro0 = {
-      type: 'html-keyboard-response',
-      stimulus: `<p dir="rtl" align="right">שימו לב שבמשחק האמיתי התוצאה לא תמיד קבועה -  גם אם פעלתם נכון, לפעמים תקבלו משוב ניטרלי (במקום לזכות בנקודות).</p>
-                <p dir="rtl" align="right">בדוגמא הבא תופיעה אותה התמונה מספר פעמים, פעלו בהתאם להנחיות.</p>`
-    };
+  type: 'html-keyboard-response',
+  stimulus: function () {
+    if (instructions_type === 2) {
+      return `
+        <p dir="rtl" style="text-align: right;">
+        כעת נראה דוגמה אחרת לכך שהמשוב אינו תמיד קבוע.<br>
+        בדוגמה הבאה תופיע תמונה אחרת 5 פעמים.<br>
+        לחצו על מקש הרווח כדי להמשיך.<br>
+        </p>
+      `;
+    } else {
+const stimSrc1 = `img/go-nogo/stim/f1_1.png`;
+const stimSrc2 = `img/go-nogo/stim/f1_2.png`;
+const neutral_fb = 'img/no_points.jpg';
+const lose_fb = "img/minus_points.jpg"
+  
+return `
+  <div dir="rtl" lang="he" class="instr">
+    <p>שימו לב - אמנם לכל תמונה יש כלל קבוע, אך כדי להפוך את המשחק למאתגר, המשוב שתקבלו לא תמיד יהיה קבוע.<br> לדוגמה:</p>
+    <ul class="bullets">
+      <li>
+        <span class="nowrap">
+          גם אם פעלתם נכון ולחצתם על רווח עבור התמונה הזו
+          <img src="${stimSrc1}" alt="תמונת גירוי" class="inline-img">
+          , לעתים תקבלו דווקא משוב ניטרלי
+          <img src="${neutral_fb}" alt="משוב ניטרלי" class="inline-img">.<br>
+        </span>
+      </li>
+    <li>
+        <span class="nowrap">
+          גם אם פעלתם נכון ולא-לחצתם על רווח עבור התמונה הזו
+          <img src="${stimSrc2}" alt="תמונת גירוי" class="inline-img">
+          , לעתים דווקא תפסידו נקודות
+          <img src="${lose_fb}" alt="משוב ניטרלי" class="inline-img">.
+        </span>
+      </li>
+    </ul>
+    <p><br>לחצו על מקש הרווח כדי להמשיך.</p>
+  </div>
+
+  <style>
+    .instr { text-align: right; }
+    .bullets { list-style-position: inside; padding: 0; margin: 0 0 0 1em; }
+    .inline-img {
+      height: 3.0em;        /* controls how small the images are (relative to text) */
+      width: auto;
+      vertical-align: -1.5em; /* nudge to align nicely with Hebrew text; try "middle" if you prefer */
+      margin: 0 0.25em;
+    }
+    .nowrap { white-space: nowrap; } /* keeps the text and images on one line */
+  </style>
+`;
+
+    }
+  }
+};
+
     const tutorial_intro = {
       type: 'html-keyboard-response',
       stimulus: function () {
         let explanation = "";
         if (cond_name === 'go2win') {
-          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
+          explanation = "עבור התמונה שתוצג עליכם <strong>ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
         } else if (cond_name === 'noGo2win') {
-          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
+          explanation = "עבור התמונה שתוצג עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:green'>לזכות בנקודות</strong>.";
         } else if (cond_name === 'go2avoidPun') {
-          explanation = "עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
+          explanation = "עבור התמונה שתוצג עליכם <strong>ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
         } else if (cond_name === 'noGo2avoidPun') {
-          explanation = "עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
+          explanation = "עבור התמונה שתוצג עליכם <strong>לא ללחוץ</strong> כדי <strong style='color:darkred;'>להימנע מהפסד</strong>.";
         } else {
           explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
         }
 
-        return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>`;
+        return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">לחצו על מקש הרווח כדי להמשיך.</p>`;
       }
     };
 
     // Create the 5 repetitions
     const trials = [];
-    const neutralIndex = jsPsych.randomization.sampleWithoutReplacement([0, 1, 2, 3, 4], 1)[0];
+    const flipIndex = jsPsych.randomization.sampleWithoutReplacement([1,2,3], 1)[0]; // Flip the feedback in one of the middle trials, not trials 0 or 4
 
     for (let i = 0; i < 5; i++) {
-      const isNeutralTrial = (i === neutralIndex);
+      const isFlipTrial = (i === flipIndex);
       trials.push({
         timeline: [
           {
@@ -520,18 +701,26 @@
               block: block_name,
               exp_part: block_name,
               trial_index_in_tutorial: i,
-              force_neutral: isNeutralTrial
+              force_flip: isFlipTrial
             },
             trial_duration: square_duration,
             on_finish: function (data) {
               const key = data.key_press;
-              data.choice = (key === 32 || key === 49) ? "go" : "nogo";
-              data.correct = (
-                      correct_choice === 32
-                              ? (key === 32 || key === 49)
-                              : key === correct_choice
-              );
+              const pressed = (key === 32 || key === 49); // space or '1'
+              data.choice = pressed ? "go" : "nogo";
+            
+              if (correct_choice === 32) {
+                // Go correct
+                data.correct = pressed;
+              } else if (correct_choice === 'nogo') {
+                // NoGo correct
+                data.correct = !pressed;
+              } else {
+                // Fallback for other specific-key conditions
+                data.correct = (key === correct_choice);
+              }
             }
+
           },
           {
             type: "image-keyboard-response",
@@ -539,10 +728,27 @@
             trial_duration: feedback_duration,
             stimulus: function () {
               const trial = jsPsych.data.get().last(1).values()[0];
+          
+              // Incorrect → lose in all conditions
               if (!trial.correct) return feedback_lose;
-              if (trial.force_neutral) return feedback_neutral;
-              return feedback_win;
+            
+              const isWinFamily   = (cond_name === 'go2win' || cond_name === 'noGo2win');
+              const isAvoidFamily = (cond_name === 'go2avoidPun' || cond_name === 'noGo2avoidPun');
+            
+              // One “flip” trial per block (set elsewhere as force_flip / force_neutral)
+              if (isWinFamily) {
+                // default-correct = WIN; flipped = NEUTRAL
+                return trial.force_flip ? feedback_neutral : feedback_win;
+              }
+              if (isAvoidFamily) {
+                // default-correct = NEUTRAL; flipped = LOSE
+                return trial.force_flip ? feedback_lose : feedback_neutral;
+              }
+            
+              return feedback_neutral;
+
             }
+                      
           }
         ]
       });
@@ -564,26 +770,29 @@
           return `
       <p dir="rtl" align="right">נראה שלא הבנתם את ההוראות היטב.</p>
       <p dir="rtl" align="right">ההוראות יוצגו שוב, ולאחר מכן תנסו שוב.</p>
-      <p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>
+      <p dir="rtl" align="right">לחצו על מקש הרווח כדי להמשיך.</p>
     `;
         }
 
         let explanation = "";
+        let explanation2 = "";
         if (cond_name === 'go2win') {
-          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong>לרוב זכיתם בנקודות</strong>.";
+          explanation2 = "לעתים בחרתם נכון, ובכל זאת קיבלתם דווקא משוב ניטרלי.";
         } else if (cond_name === 'noGo2win') {
-          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:green'>זכיתם בנקודות</strong>.";
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong>לרוב זכיתם בנקודות</strong>.";
+          explanation2 = "לעתים בחרתם נכון, ובכל זאת קיבלתם דווקא משוב ניטרלי.";
         } else if (cond_name === 'go2avoidPun') {
-          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
+          explanation = "מעולה! <strong>לחצתם</strong> כשהופיעה התמונה ולכן <strong>לרוב לא הפסדתם נקודות</strong>.";
+          explanation2 = "לעתים בחרתם נכון, ובכל זאת הפסדתם נקודות.";
         } else if (cond_name === 'noGo2avoidPun') {
-          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong style='color:darkred;'>לא איבדתם נקודות</strong>.";
-        } else {
-          explanation = "בדוגמה הבאה מוצגת תמונה. בצעו את הפעולה המתאימה.";
+          explanation = "מעולה! <strong>לא לחצתם</strong> כשהופיעה התמונה ולכן <strong>לרוב לא הפסדתם נקודות</strong>.";
+          explanation2 = "לעתים בחרתם נכון, ובכל זאת הפסדתם נקודות.";
         }
 
         return `<p dir="rtl" align="right">${explanation}</p>
-                <p dir="rtl" align="right">לעיתים קיבלתם משוב נייטרלי, אך גם בחירות אלו היו נכונות.</p>
-                <p dir="rtl" align="right">לחצו על מקש כלשהו כדי להמשיך.</p>`;
+                <p dir="rtl" align="right">${explanation2}</p>
+                <p dir="rtl" align="right">לחצו על מקש הרווח כדי להמשיך.</p>`;
       }
     };
 
@@ -618,7 +827,7 @@
 
   timeline.push(tutorial_block_go2win);
 
-  const tutorial_block_noGo2win = make_single_stim_tutorial_block({
+  const tutorial_block_noGo2avoid = make_single_stim_tutorial_block({
     stim: 'f1_2',                 // the image file for noGo2win
     cond: 5,                      // numerical condition code
     cond_name: 'noGo2avoidPun',        // string label
@@ -627,7 +836,7 @@
     feedback_lose: lose_fb        // image shown when wrong
   });
 
-  timeline.push(tutorial_block_noGo2win);
+  timeline.push(tutorial_block_noGo2avoid);
 
   const tutorial_block_go2win_v2 = make_tutorial_block_v2({
     stim: 'f1_1',
@@ -636,26 +845,45 @@
     correct_choice: 32,
     feedback_win: win_fb,
     feedback_lose: neutral_fb,
-    feedback_neutral: neutral_fb
+    feedback_neutral: neutral_fb,
+    instructions_type: 1
   });
 
   timeline.push(tutorial_block_go2win_v2);
 
+  // Roey test: Trying to add a tutorial block with 5 trials for NoGo to Avoid punishment, so have a more balanced practice for the subjects (not introduce a Go bias)
+  const tutorial_block_nogo2avoid_v2 = make_tutorial_block_v2({
+    stim: 'f1_2',
+    cond: 5,
+    cond_name: 'noGo2avoidPun',
+    correct_choice: null,
+    feedback_win: win_fb,
+    feedback_lose: lose_fb,
+    feedback_neutral: neutral_fb,
+    instructions_type: 2
+  });
 
+  timeline.push(tutorial_block_nogo2avoid_v2);
+  // End of Roey test
+  
   var instructions = {
     type: 'instructions',
     pages: [
+      // Roey - this was the previous version:
       //page 4
-      inst_7 + inst_8 + inst_9 + inst_10 + inst_11  + inst_11_1,
-      inst_12,
+      //inst_7 + inst_8 + inst_9 + inst_10 + inst_11  + inst_11_1,
+      //inst_12,
 
       // page 5
-      inst_13 + inst_14 + inst_15 + inst_16,
+      //inst_13 + inst_14 + inst_15 + inst_16,
 
       // page 6
-      inst_19 + inst_20,
+      //inst_19 + inst_20,
 
-      // page 7
+      // page 4
+      inst_13_short + inst_14_short + inst_8 + inst_9 + inst_10 + inst_11,
+
+      // page 5
       inst_21 + inst_22,
     ],
     show_clickable_nav: true,
@@ -1113,7 +1341,8 @@
 
   // shuffler(squares)
   squares0 = ['f1_1', 'f1_2', 'f1_3', 'f1_4']
-  stim0 = make_stimuli(true, shuffler(squares0), 'block_p')
+  // stim0 = make_stimuli(true, shuffler(squares0), 'block_p') // Note: We used to shuffle the stimuli here, but now we want to be consistent with the images the subjects already practiced
+  stim0 = make_stimuli(true, ['f1_1', 'f1_3', 'f1_4', 'f1_2'], 'block_p')
   // practice trial all together
   var trial_procedure = {
     timeline: [practice_fixation, practice_test, practice_feedback],

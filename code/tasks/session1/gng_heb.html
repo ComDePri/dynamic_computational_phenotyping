@@ -153,6 +153,7 @@
 
   // quick change variables
   const BUCKET_NAME = 'gonogo-experiment-2025';
+  const START_TIME = Date.now();
   var nextTask_name = "Escaping Dots Game";
   var nextTask_Id = "rdm";
 
@@ -2247,7 +2248,7 @@
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify({
-            "subject_id": `${subject}_${week}`,
+            "subject_id": `${subject}_${week}_${START_TIME}`,
             "bucket": `${BUCKET_NAME}`,
             "exp_data": JSON.stringify(results, null, 2)
           }),

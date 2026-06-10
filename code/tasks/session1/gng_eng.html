@@ -572,8 +572,6 @@ return `<p dir="ltr" align="left">${explanation}</p><p dir="ltr" align="left">Pr
     };
 
     const tutorial_loop = {
-
-    const tutorial_loop = {
       timeline: [tutorial_intro, tutorial_fixation, tutorial_test, tutorial_feedback, tutorial_end],
       loop_function: function () {
         const last_trials = jsPsych.data.get().filter({ exp_part: block_name }).values();

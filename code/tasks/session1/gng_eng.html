@@ -550,9 +550,9 @@ var page3 =
 
         if (failed) {
   return `
-    <p dir="rtl" align="right">It seems that you did not understand the instructions well.</p>
-    <p dir="rtl" align="right">The instructions will be shown again, and then you will try once more.</p>
-    <p dir="rtl" align="right">Press the space bar to continue.</p>
+    <p dir="ltr" align="right">It seems that you did not understand the instructions well.</p>
+    <p dir="ltr" align="right">The instructions will be shown again, and then you will try once more.</p>
+    <p dir="ltr" align="right">Press the space bar to continue.</p>
   `;
 }
 
@@ -607,9 +607,9 @@ return `<p dir="ltr" align="left">${explanation}</p><p dir="ltr" align="left">Pr
     if (instructions_type === 2) {
       return `
         <p dir="rtl" style="text-align: right;">
-        כעת נראה דוגמה אחרת לכך שהמשוב אינו תמיד קבוע.<br>
-        בדוגמה הבאה תופיע תמונה אחרת 5 פעמים.<br>
-        לחצו על מקש הרווח כדי להמשיך.<br>
+        Let's see another example for a non-fixed feedback<br>
+        In the next example a different image will appear 5 times.<br>
+        Press the space-bar to continue.<br>
         </p>
       `;
     } else {

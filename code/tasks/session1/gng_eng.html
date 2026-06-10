@@ -567,8 +567,11 @@ if (cond_name === 'go2win') {
   explanation = "Excellent! You <strong>did not press the key</strong> when the image appeared, and therefore <strong>did not lose points</strong>.";
 }
 
-return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">Press the space bar to continue.</p>`;
+return `<p dir="ltr" align="left">${explanation}</p><p dir="ltr" align="left">Press the space bar to continue.</p>`;
+      }
+    };
 
+    const tutorial_loop = {
 
     const tutorial_loop = {
       timeline: [tutorial_intro, tutorial_fixation, tutorial_test, tutorial_feedback, tutorial_end],

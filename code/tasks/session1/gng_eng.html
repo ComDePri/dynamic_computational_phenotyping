@@ -22,11 +22,11 @@
 
   <style>
     .rtl-questions .jspsych-survey-multi-choice-question {
-      direction: rtl;
-      text-align: right;
+      direction: ltr;
+      text-align: left;
     }
     .rtl-questions label {
-      direction: rtl;
+      direction: ltr;
       display: inline-block;
     }
     li {
@@ -36,7 +36,7 @@
 
 
 </head>
-<body dir="rtl">
+<body dir="ltr">
 </body>
 <script>
 
@@ -393,7 +393,7 @@ var page3 =
       }
 
 
-        return exmp + `<p dir="rtl" align="right">${role}</p><p dir="rtl" align="right">${explanation}</p>`;
+        return exmp + `<p dir="ltr" align="left">${role}</p><p dir="ltr" align="left">${explanation}</p>`;
       }
     };
 
@@ -487,7 +487,7 @@ var page3 =
     
     return (
     exmp +
-    '<p dir="rtl" style="text-align:right;">' +
+    '<p dir="ltr" style="text-align:left;">' +
     '<span>' + role + ' </span>' +
     '</p>' +
     fbTable +
@@ -604,8 +604,8 @@ return `<p dir="ltr" align="left">${explanation}</p><p dir="ltr" align="left">Pr
   stimulus: function () {
     if (instructions_type === 2) {
       return `
-        <p dir="rtl" style="text-align: right;">
-        Let's see another example for a non-fixed feedback<br>
+        <p dir="ltr" style="text-align: left;">
+        Let's see another example for a non-consistent feedback<br>
         In the next example a different image will appear 5 times.<br>
         Press the space-bar to continue.<br>
         </p>
@@ -617,7 +617,7 @@ const neutral_fb = 'img/no_points.jpg';
 const lose_fb = "img/minus_points.jpg"
   
 return `
-<div dir="rtl" lang="he" class="instr">
+<div dir="ltr" lang="he" class="instr">
   <p>Please note: although each image has a fixed rule, to make the game more challenging, the feedback you receive will not always be consistent.<br>For example:</p>
 
   <ul class="bullets">
@@ -772,9 +772,9 @@ return `<p dir="ltr" align="left">${explanation}</p><p dir="ltr" align="left">Pr
 
 if (failed) {
   return `
-    <p dir="rtl" align="right">It seems that you did not understand the instructions well.</p>
-    <p dir="rtl" align="right">The instructions will be shown again, and then you will try once more.</p>
-    <p dir="rtl" align="right">Press the space bar to continue.</p>
+    <p dir="ltr" align="left">It seems that you did not understand the instructions well.</p>
+    <p dir="ltr" align="left">The instructions will be shown again, and then you will try once more.</p>
+    <p dir="ltr" align="left">Press the space bar to continue.</p>
   `;
 }
 
@@ -795,9 +795,9 @@ if (cond_name === 'go2win') {
   explanation2 = "Sometimes you made the correct choice, yet still lost points.";
 }
 
-return `<p dir="rtl" align="right">${explanation}</p>
-        <p dir="rtl" align="right">${explanation2}</p>
-        <p dir="rtl" align="right">Press the space bar to continue.</p>`;
+return `<p dir="ltr" align="left">${explanation}</p>
+        <p dir="ltr" align="left">${explanation2}</p>
+        <p dir="ltr" align="left">Press the space bar to continue.</p>`;
       }
     };
 
@@ -1147,7 +1147,7 @@ return `<p dir="rtl" align="right">${explanation}</p>
       var dat1 = jsPsych.data.getLastTrialData().values()[1];
       var answer1 = JSON.parse(dat.responses).Q0;
       var answer2 = JSON.parse(dat.responses).Q1;
-      if(answer1.includes("לא") !== true && answer2.includes('לא') === true) {
+      if(answer1.includes("False") !== true && answer2.includes('False') === true) {
         return false;
       } else {
         console.log("this is test point");
@@ -1164,7 +1164,7 @@ return `<p dir="rtl" align="right">${explanation}</p>
       var dat1 = jsPsych.data.getLastTrialData().values()[1];
       var answer1 = JSON.parse(dat.responses).Q0;
       var answer2 = JSON.parse(dat.responses).Q1;
-      if(answer1.includes("לא") !== true && answer2.includes('לא') === true) {
+      if(answer1.includes("False") !== true && answer2.includes('False') === true) {
         return false;
       } else {
         return true;
@@ -1180,7 +1180,7 @@ return `<p dir="rtl" align="right">${explanation}</p>
       var dat1 = jsPsych.data.getLastTrialData().values()[1];
       var answer1 = JSON.parse(dat.responses).Q0;
       var answer2 = JSON.parse(dat.responses).Q1;
-      if(answer1.includes("לא") !== true && answer2.includes('לא') === true) {
+      if(answer1.includes("False") !== true && answer2.includes('False') === true) {
         return false;
       } else {
         return true;
@@ -1982,7 +1982,7 @@ return `<p dir="rtl" align="right">${explanation}</p>
     conditional_function:   function() {
       var dat2 = jsPsych.data.getLastTrialData().values()[0];
       var answer2 = JSON.parse(dat2.responses).Q0;
-      if(answer2.includes('כו') == true) {
+      if(answer2.includes('True') == true) {
         return true;
       } else {
         return false;
@@ -2233,7 +2233,7 @@ return `<p dir="rtl" align="right">${explanation}</p>
       conditional_function:   function() {
         var dat2 = jsPsych.data.getLastTrialData().values()[0];
         var answer2 = JSON.parse(dat2.responses).Q0;
-        if(answer2.includes('כן') == true) {
+        if(answer2.includes(yes_text) == true) {
           return true;
         } else {
           return false;

@@ -1,0 +1,2510 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Go or Withhold Game</title>
+  <script src="jspsych-6.0.5/jspsych.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-fullscreen.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-instructions.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-survey-text.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-survey-multi-choice.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response-gng.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-html-button-response.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-external-html.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-call-function.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  <link rel='stylesheet' type='text/css' href='jspsych-6.0.5/css/jspsych.css'>
+  <link rel="stylesheet" href="jspsych-6.0.5/css/jspsych.css"></link>
+  <link rel="stylesheet" href="jspsych-6.0.5/css/style.css"></link>
+
+  <style>
+    .rtl-questions .jspsych-survey-multi-choice-question {
+      direction: rtl;
+      text-align: right;
+    }
+    .rtl-questions label {
+      direction: rtl;
+      display: inline-block;
+    }
+    li {
+    margin-bottom: 10px; /* Adds 10 pixels of space below each list item */
+    }
+  </style>
+
+
+</head>
+<body dir="rtl">
+</body>
+<script>
+
+  intro_1  = "<div dir=\"ltr\"><p>Please play using a computer, and not via a mobile phone.<br><br></p><p>On the next screen, the browser will switch to full-screen mode.</p></div>"
+  intro_2 = "<div dir=\"ltr\"><p>Even if you exit full-screen mode, the game will not stop.</p></div>"
+  intro_3 = "<div dir=\"ltr\"><p>Therefore, it is important that you do not switch tabs, minimize, or change the browser view until the end of the game.</p></div>"
+
+  full_screen_msg = "<p dir='ltr'>The experiment will now switch to full screen. Click any button to continue.</p>"
+
+  inst_1 = `<div dir="ltr">
+    <p align="left">Welcome to the game <strong>"To Press or Not to Press"</strong>!</p>
+    <p align="left">The game takes about 12 minutes.</p>
+    <p align="left">Click "Next" to move to the instructions.</p>
+  </div>`;
+
+  inst_2 = '<div dir=\"ltr\"><p align=\'left\'>In each round of the game, four images will be presented to you, one at a time.</p></div>'
+  inst_3 = '<div dir=\"ltr\"><p align=\'left\'>Each image will be displayed for a short time, and you must quickly decide whether to <strong>press</strong> the spacebar in response to it or <strong>not-press</strong>.</p></div>'
+  inst_4 = '<div dir=\"ltr\"><p align=\'left\'>Your goal is to accumulate as many points as possible. <br>A correct choice will win you points or prevent a loss of points, depending on the image presented.</p></div>'
+  inst_5 = '<div dir=\"ltr\"><p align=\'left\'>Each image has a fixed rule (<strong>to press</strong> or <strong>not-to-press</strong> the spacebar) that you will need to learn.</p></div>'
+  inst_5_old = '<div dir=\"ltr\"><p align=\'left\'>An incorrect choice will lead to a loss of points.</p></div>'
+  inst_6 = '<div dir=\"ltr\"><p align=\'left\'>Each image you see in the game has its own fixed rule, which does not change.</p></div>'
+  inst_6 = '<div dir=\"ltr\"><p align=\'left\'>During the game, you must learn how to correctly respond to each image - whether to <strong>press</strong> or <strong>not-to-press</strong> the spacebar.</p></div>'
+  inst_6a = '<div dir=\"ltr\"><p align=\'left\'>Immediately after you press (or don\'t press) the spacebar, you will get feedback - whether you won points, lost points, or remained unchanged:</p></div>'
+  inst_6b = '<td>You won points</td><td>Nothing happened (neutral)</td><td>You lost points</td>'
+  inst_6win = '<td>You won points</td><td>Nothing happened (neutral)</td>'
+  inst_6lose = '<td>Nothing happened (neutral)</td><td>You lost points</td>'
+  inst_7 = "<div dir=\"ltr\"><p align='left'> During the game, you will see 4 different images displayed repeatedly.\n\n" +
+          "Remember that each image has a different rule, which you will need to learn based on the feedback."
+  inst_8 = "<div dir=\"ltr\"><p align='left'>    ● <strong>Press</strong> to <strong style='color:green'>win</strong>: only if you press will you get points&nbsp;&nbsp;&nbsp;(you have already practiced this rule)</p></div>"
+  inst_9 = "<div dir=\"ltr\"><p align='left'>    ● <strong>Not-to-press</strong> to <strong style='color:green'>win</strong>: only if you do not press will you get points</p></div>"
+  inst_10 = "<div dir=\"ltr\"><p align='left'>    ● <strong>Press</strong> to <strong style='color:darkred;'>prevent a loss</strong>: only if you press will you avoid a loss </p></div>"
+  inst_11 = "<div dir=\"ltr\"><p align='left'>    ● <strong>Not-to-press</strong> to <strong style='color:darkred;'>prevent a loss</strong>: only if you do not press will you avoid a loss&nbsp;&nbsp;&nbsp;(you have already practiced this rule)</p></div>"
+  inst_11_1 = "<div dir=\"ltr\"><p align='left'></p></div>"
+  inst_12 = "<div dir=\"ltr\"><p align='left'>As you saw in the practice, the rule for each image is fixed. However, sometimes you will receive different feedback than expected.\n</p>" +
+            "<p align='left'>Even if you chose correctly, sometimes you will receive neutral feedback (even if you were supposed to win points). \n</p>" +
+            "<p align='left'>Similarly, even if you chose correctly, sometimes you will lose points (even if you were supposed to receive neutral feedback). \n</p>" +
+            "<p align='left'>Your goal is to learn the correct rule for each image. \n</p>"
+  inst_13_short = "<div dir=\"ltr\"><p align='left'>The game has 3 rounds. Each round lasts about 4:00 minutes and includes 4 images that you must learn.<br>Your goal is to accumulate as many points as possible.<br></p></div>"
+  inst_14_short = "<div dir=\"ltr\"><p align='left'>Remember that each image has a different and fixed rule throughout the game, which you will need to learn based on the feedback:<br><br>\n\n"
+  inst_15_short = "<div dir=\"ltr\"><p align='left'> Each image will be displayed for a short time, so you must decide quickly whether to press or not-to-press the spacebar, <strong>before the image disappears</strong>.</p></div>"
+  inst_16_short = "<div dir=\"ltr\"><p align='left'>The monetary bonus you receive will be determined according to the points you accumulate during the game.</p></div>"
+  inst_13 = "<div dir=\"ltr\"><p align='left'>The game has 3 rounds.</p></div>"
+  inst_14 = "<div dir=\"ltr\"><p align='left'>In each round there are 4 new images, which will be displayed a total of 80 times (20 times for each image).</p></div>"
+  inst_15 = "<div dir=\"ltr\"><p align='left'>Each time, one image out of the 4 possible images will be displayed.</p></div>"
+  inst_16 = "<div dir=\"ltr\"><p align='left'>Each image will be displayed for a short time, so you must decide quickly whether to press or not-to-press the spacebar, before the image disappears.</p></div>"
+  inst_17 = "<div dir=\"ltr\"><p align='left'> On the next screen, this image will appear:</p></div>"
+  inst_18 = "<div dir=\"ltr\"><p align='left'>We will now see a few examples:</p></div>"
+  inst_19 = "<div dir=\"ltr\"><p align='left'> Please try to learn the appropriate action for each image and perform the task to the best of your ability. The monetary bonus you receive will be determined according to the points you accumulate during the game.</p></div>"
+  inst_20 = "<div dir=\"ltr\"><p align='left'> Please note that if you respond randomly, always press, or never press, we reserve the right to withhold your bonus. </p></div>"
+  inst_21 = "<div dir=\"ltr\"><p align='left'>Now, you will answer a few questions regarding the game, and then you will move on to a short practice session. </p></div>"
+  inst_22 = "<p>Click \"Next\" to answer the instruction comprehension questions.</p></div>"
+  next_text = "Next"
+  prev_text = "Previous"
+  continue_text = "Continue"
+  q1_0 = "Which action will you perform during the game?"
+  q1_1 = "I will press a button displayed on the screen or wait (not press anything)"
+  q1_2 = "I will press the spacebar or wait (not press anything)"
+  q1_3 = "I will press the left or right arrows on the keyboard to indicate my choice"
+  q1_4 = "I will press the up arrow on the keyboard or wait (not press anything)"
+  q1_5 = "In a single round of 4:00 minutes, how many different images will be displayed?"
+  q1_6 = "Each image has a fixed rule that does not change during the game."
+  q1_7 = "True"
+  q1_8 = "False"
+  q1_9 = "Suppose an image appears on the screen whose rule is \"press to win\". You pressed the spacebar in time. Therefore, you will definitely receive points."
+  q1_10 = "True. The feedback received is also fixed. If I pressed a \"press to win\" image, I will definitely get points."
+  q1_11 = "False. Even though the rule is fixed, the feedback sometimes changes. Therefore, there is a chance of receiving neutral feedback instead of points even if you act correctly."
+  redo_1 = "<p align='left'> Based on one or more of your answers to the previous questions, you may not fully understand the task. </p>"
+  redo_2 = "<p align='left'> If you fail to answer the questions correctly again, we reserve the right to withhold your bonus, and you may be asked to leave the study. </p>"
+  redo_3 = "<p align='left'> Please click 'Next' to return to the instructions. </p>"
+  space_text = "Space"
+  start_1 = '<p>We will immediately begin a full trial round.</p> <p>Your goal is to accumulate as many points as possible.</p> <p>You must learn the correct response for each image - whether to <strong>press</strong> or <strong>not-to-press</strong> the spacebar.</p> <p>Press the spacebar to continue.</p>'
+  end_1 = '<p>The practice has ended, and you will now begin the experiment with images you have not yet seen. </p> <p>Your goal is to learn the correct response for each image - whether to <strong>press</strong> or <strong>not-to-press</strong> the spacebar.</p> <p>If you choose to press, do so before the image disappears.</p> <p>Press the spacebar to start. Good luck!</p>'
+  sus_1_1 = "<p align='left'> You pressed the spacebar every time an image was displayed. It seems you do not completely understand the task. </p>"
+  sus_1_2 = "<p align='left'> If you do not manage to improve in the next practice round, we reserve the right to withhold your bonus, and you may be asked to leave the study. </p>"
+  sus_1_3 = "<p align='left'> Click 'Next' to return to the instructions. </p>"
+  sus_1_4 = "<p align='left'> You did not press the spacebar at all while the images were displayed. It seems you do not completely understand the task. </p>"
+  sus_1_5 = "<p align='left'> If you do not manage to improve in the next practice round, we reserve the right to withhold your bonus, and you may be asked to leave the study. </p>"
+  sus_1_6 = "<p align='left'> Click 'Next' to return to the instructions. </p>"
+  sus_1_7 = "<p align='left'> Your choices of when to press and when not to press the spacebar suggest that you do not completely understand the task. </p>"
+  sus_1_8 = "<p align='left'> If you do not manage to improve in the next practice round, we reserve the right to withhold your bonus, and you may be asked to leave the study. </p>"
+  sus_1_9 = "<p align='left'> Click 'Next' to return to the instructions. </p>"
+  between_1 = "<p>You have completed "
+  between_2 = " of the game and earned a total of <b>"
+  between_3 = "</b> bonus points!</p>"+
+          "<p>You can take a short break of a few seconds, but no more than that. </p>"+
+          "<p>Press the spacebar to continue.</p>"
+  bonus_1 = '<p>The experiment has ended</p>' + '<p>You earned <b>'
+  bonus_2 = ' bonus points </b>!</p>' +
+          '<p>Thank you very much for participating.</p>' +
+          '<p>Click <q>Next</q> to move to the feedback questionnaire</p>'
+  fb_warn_1 = [
+    "<p align='left'> The game includes several built-in checks designed to see if players failed to complete the task" +
+    "<p align='left'> (for example, if they always chose the same action or did not choose any action). " +
+    "<p align='left'> Something in your responses for part or all of this task triggered one of these alerts." ,
+
+    "<p align='left'> Your bonus will be suspended until an experimenter can manually review your responses to check if there was an error on our part." +
+    "<p align='left'> In the following feedback questionnaire, you will be able to explain if something happened that might make your responses look incorrect. " +
+    "<p align='left'> In case of a mistake or an error on our part, you will receive the bonus as planned." +
+    "<p align='left'> However, if it turns out you tried to \"game\" the system, we reserve the right not to award a bonus."
+  ]
+  yes_text = "Yes "
+  not_sure_text = "Not sure "
+  no_text = 'No '
+  q1_head = "<h4> Feedback Questionnaire 1/4 </h4>"
+  q1_prompt = "Did you encounter any technical difficulties during the game? (For example, did the experiment freeze, close in the middle, etc.).\n" +
+          "If you choose \"Yes\" or \"Not sure\", you will be given the option to elaborate.\n"
+  q1_prompt_2 = "Please tell us about the technical difficulties you encountered. "
+  q2_head = "<h4> Feedback Questionnaire 2/4 </h4>"
+  q2_prompt =  "Did you experience a significant distraction during the game?\n" +
+          "If you choose \"Yes\", you will be given the option to elaborate.\n"
+  q2_prompt_2 = "Please describe what distractions affected your performance, and if possible, at what stage in the task you experienced this:"
+  q3_head = "<h4> Feedback Questionnaire 3/4 </h4>"
+  q3_prompt = "On a scale from 1 to 4, to what extent did the game keep you focused on it (how much did it capture your attention)?"
+  q3_answers = [" 1. Did not cause focus at all", " 2. Relatively did not cause focus", " 3. Caused a certain amount of focus", " 4. Caused a great deal of focus"]
+  q4_head = '<h4> Feedback Questionnaire 4/4 </h4>'
+  q4_prompt = "Please describe in a few sentences the strategy you used to complete the task"
+  end_exp_1 = '<p>Thank you! The feedback questionnaire has ended.</p>' +
+          ' <p>Press the spacebar to finish the experiment.</p>'
+  ns_warn_1 = [
+    "<p align='left'> The game includes several built-in checks designed to see if players failed to complete the task" +
+    "<p align='left'> (for example, if they always chose the same action or did not choose any action). " +
+
+    "<p align='left'> Your responses will be reviewed by the researchers, but it seems you made an effort to complete the task. Thank you very much!" +
+    "<p align='left'> In the following feedback questionnaire, you will be able to explain if something happened that might make your responses look incorrect. " +
+    "<p align='left'> In case of a mistake or an error on our part, you will receive the bonus as planned." +
+    "<p align='left'> However, if it turns out you tried to \"game\" the system, we reserve the right not to award a bonus."
+  ]
+  honstly_prompt = "<h5 align='left'> Please answer honestly. <u> Your answers will not affect the bonus for the experiment. </u> </h5>"
+  tech_issue_1 = "Please tell us about the technical difficulties you encountered. "
+  please_wait_1 = '<p> Please wait about 30 seconds for data saving.</p>'
+
+
+
+  // quick change variables
+  const BUCKET_NAME = 'gonogo-experiment-2025';
+  const START_TIME = Date.now();
+  var nextTask_name = "Escaping Dots Game";
+  var nextTask_Id = "rdm";
+
+  square_duration = 1000    //1000 from guitart-masip
+  feedback_duration = 1000  //1000
+
+  // loads images for squaare stimuli
+  var squares = [ 'f1_1', 'f1_2', 'f1_3', 'f1_4', 'f2_1',  'f2_2',  'f2_3',  'f2_4',  'f3_1', 'f3_2', 'f3_3',  'f3_4',  'f4_1', 'f4_2',  'f4_3',  'f4_4', 'fsamp_1']
+
+  // loads feedback images
+  win_fb = "img/plus_points.jpg"
+  lose_fb = "img/minus_points.jpg"
+  neutral_fb = "img/no_points.jpg"
+
+  prob_outcome = 80   // keep it a whole number
+  reps_in_trial = 6  //reps_in_trial * 4 = actual number of reps in the trial/practice block (i.e. 15*4 = 60 )
+  reps_in_exp = 20    // reps_in_exp * 4 = actual number of reps in the experimental blocks
+  bonus_percent = 20/(reps_in_exp*2*4)// // 4*30*.8*0.33 --> max ~32
+  fixed_bonus = 0     // 0
+  error_rate_cap = 0.7 // if error rate is higher than error_rate_cap*100 percent, than a suspicion flag is triggered
+
+  // start timeline
+  var timeline = [];
+
+  // add identifying information for primary key
+  // weeks of participation
+  var weekId = jsPsych.data.getURLVariable('weekId'); // change each week
+  jsPsych.data.addProperties({
+    weekId: weekId
+  });
+
+  // experiment Id: go no go task  = gng
+  var expId = "gng_" + jsPsych.randomization.randomID(8);
+  var eId = "gng"
+  jsPsych.data.addProperties({
+    expId: eId
+  });
+
+  // url
+  var fullurl = window.location.href;
+  jsPsych.data.addProperties({
+    url: fullurl
+  });
+
+  // grabs turk info from the url
+  var subjectId = jsPsych.data.getURLVariable('workerId');
+  jsPsych.data.addProperties({
+    subjectId: subjectId
+  });
+
+  // grabs turk info from the url
+  var assignmentId = jsPsych.data.getURLVariable('assignmentId');
+  jsPsych.data.addProperties({
+    assignmentId: assignmentId
+  });
+
+  // grabs turk info from the url
+  var hitId = jsPsych.data.getURLVariable('hitId');
+  jsPsych.data.addProperties({
+    hitId: hitId
+  });
+
+  // for teting purposes only
+  // var subjectId = "hannatest"
+  // jsPsych.data.addProperties({
+  //   subjectId: subjectId
+  // });
+  //
+  // var assignmentId = "abc"
+  // jsPsych.data.addProperties({
+  //   assignmentId: assignmentId
+  // });
+  //
+  // var hitId = "123"
+  // jsPsych.data.addProperties({
+  //   hitId: hitId
+  // });
+
+  // fullscreen mode
+
+  var fullscreen_intro = {
+    type: 'instructions',
+    pages: [intro_1 + intro_2 + intro_3],
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"fullscreen",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "fullscreen"
+      })
+    }
+  };
+  timeline.push(fullscreen_intro)
+
+  var fullscreen = {
+    type: 'fullscreen',
+    fullscreen_mode: true,
+    message: full_screen_msg,
+    button_label: continue_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"fullscreen",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "fullscreen"
+      })
+    }
+  };
+  timeline.push(fullscreen)
+
+  // instructions block
+var page3 =
+  inst_6 +
+  inst_6a +
+  '<table style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;">' +
+    '<tr>' +
+      '<td><img src="' + win_fb     + '" style="height:200px;"></td>' +
+      '<td><img src="' + neutral_fb + '" style="height:200px;"></td>' +
+      '<td><img src="' + lose_fb    + '" style="height:200px;"></td>' +
+    '</tr>' +
+    '<tr>' + inst_6b + '</tr>' +
+  '</table><br>'
+
+  var instructions1 = {
+    type: 'instructions',
+    pages: [
+      // page 1
+      inst_1,
+      // page 2
+      inst_2 + inst_3 + inst_4 +inst_5,
+      // page 3
+      page3,
+      // page 4
+      inst_18
+
+    ],
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"instructions",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "instructions"
+      })
+    }
+  };
+  timeline.push(instructions1)
+
+
+  // experiment helper functions
+
+  function shuffler(listy){
+    for(var i = 0; i < listy.length; i++){	// support function, shuffles a list
+      var swpIdx = i + Math.floor(Math.random() * listy.length - i);
+      var tmp = listy[i];
+      listy[i] = listy[swpIdx];
+      listy[swpIdx] = tmp;
+    }
+    return listy;
+  }
+
+  function make_stimuli(trial, stim, block_num) {  // generates the stimuli from the square images
+
+    if (trial === true){
+      stimulus = [
+        {stimulus: 'img/go-nogo/stim/' + stim[0] + '.png', data: {color: stim[0], cond: 1, cond_name: 'go2win', correct_choice: 32, exp_part: 'practice', block: block_num}},
+        {stimulus: 'img/go-nogo/stim/' + stim[1] + '.png', data: {color: stim[1], cond: 2, cond_name: 'noGo2win', correct_choice: null, exp_part: 'practice', block: block_num}},
+        {stimulus: 'img/go-nogo/stim/' + stim[2] + '.png', data: {color: stim[2], cond: 3, cond_name: 'go2avoidPun', correct_choice: 32, exp_part: 'practice', block: block_num}},
+        {stimulus: 'img/go-nogo/stim/' + stim[3] + '.png', data: {color: stim[3], cond: 4, cond_name: 'noGo2avoidPun', correct_choice: null, exp_part: 'practice', block: block_num}},
+      ];
+    }
+    else{
+      stimulus = [
+        {stimulus: 'img/go-nogo/stim/' + stim[0] + '.png', data: {color: stim[0], cond: 1, cond_name: 'go2win', correct_choice: 32, exp_part: 'main', block: block_num}},
+        {stimulus: 'img/go-nogo/stim/' + stim[1] + '.png', data: {color: stim[1], cond: 2, cond_name: 'noGo2win', correct_choice: null, exp_part: 'main', block: block_num}},
+        {stimulus: 'img/go-nogo/stim/' + stim[2] + '.png', data: {color: stim[2], cond: 3, cond_name: 'go2avoidPun', correct_choice: 32, exp_part: 'main', block: block_num}},
+        {stimulus: 'img/go-nogo/stim/' + stim[3] + '.png', data: {color: stim[3], cond: 4, cond_name: 'noGo2avoidPun', correct_choice: null, exp_part: 'main', block: block_num}},
+      ];
+    }
+    return stimulus
+  };
+
+  function make_single_stim_tutorial_block({
+                                             stim,
+                                             cond,
+                                             cond_name,
+                                             correct_choice,
+                                             feedback_win,
+                                             feedback_lose
+                                           }) {
+    let failed_last_tutorial = false;
+    
+    let block_name = "tutorial_single_" + cond_name;
+
+    const tutorial_intro_OLD = {
+      type: 'html-keyboard-response',
+      stimulus: function () {
+        let exmp = inst_17 +
+                '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important; width:650px;"><tr>' +
+                `<td><img src="img/go-nogo/stim/${stim}.png" style="width: 200px;"></td>` +
+                '</tr></table>';
+
+        let role = "", explanation = "";
+        if (cond_name === 'go2win') {
+        role = 'For the purpose of practice, the rule for it will be:  <strong style="color:green">Press to win</strong>.';
+        explanation = '<p dir="ltr" style="text-align: left;">As soon as the image appears, you must <strong>press</strong> to <strong style="color:green">win points</strong>.</p><p dir="ltr" style="text-align: left;">Press the spacebar to continue.</p>';
+      } else if (cond_name === 'noGo2win') {
+        role = 'For the purpose of practice, the rule for it will be: <strong style="color:green">Not-to-press to win</strong>.';
+        explanation = '<p dir="ltr" style="text-align: left;">As soon as the image appears, you must <strong>not press</strong> to <strong style="color:green">win points</strong>.</p><p dir="ltr" style="text-align: left;">Press the spacebar to continue.</p>';
+      } else if (cond_name === 'go2avoidPun') {
+        role = 'For the purpose of practice, the rule for it will be: <strong style="color:darkred;">Press to prevent a loss</strong>.';
+        explanation = '<p dir="ltr" style="text-align: left;">As soon as the image appears, you must <strong>press</strong> to <strong style="color:darkred;">avoid a loss</strong>.</p><p dir="ltr" style="text-align: left;">Press the spacebar to continue.</p>';
+      } else if (cond_name === 'noGo2avoidPun') {
+        role = 'For the purpose of practice, the rule for it will be: <strong style="color:darkred;">Not-to-press to prevent a loss</strong>.';
+        explanation = '<p dir="ltr" style="text-align: left;">If you press as soon as the image appears, you will lose points.<br> You must <strong>not press</strong> to <strong style="color:darkred;">avoid a loss</strong>.</p><p dir="ltr" style="text-align: left;">Press the spacebar to continue.</p>';
+      }
+
+
+        return exmp + `<p dir="rtl" align="right">${role}</p><p dir="rtl" align="right">${explanation}</p>`;
+      }
+    };
+
+
+
+
+
+    const tutorial_intro = {
+  type: 'html-keyboard-response',
+  stimulus: function () {
+
+    // Safe getters to avoid ReferenceError if something isn't defined yet
+    const val = (x, fallback = '') => (typeof x !== 'undefined' && x != null ? x : fallback);
+
+    const s_stim    = val(stim, 'placeholder');
+    const s_inst17  = val(inst_17, '');
+    const s_cond    = val(cond_name, 'go2win');
+    const s_win     = val(win_fb, 'img/go-nogo/fb/win.png');
+    const s_neutral = val(neutral_fb, 'img/go-nogo/fb/neutral.png');
+    const s_lose    = val(lose_fb, 'img/go-nogo/fb/lose.png');
+
+    var exmp =
+      s_inst17 +
+      '<table style="margin-left:auto;margin-right:auto;table-layout:fixed !important;width:650px;"><tr>' +
+        '<td><img src="img/go-nogo/stim/' + s_stim + '.png" style="width:200px;" alt="stimulus"></td>' +
+      '</tr></table>';
+
+    var role = '';
+    var fbTable = '';
+
+    if (s_cond === 'go2win') {
+      role = 'For the purpose of practice, the rule for it will be: <strong style="color:green">press to win</strong>.';
+      explanation = 'As soon as the image appears, you must <strong>press</strong> in order to <strong style="color:green">win points</strong>.';
+      fbTable =
+        '<table dir="ltr" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:left;">' +
+          '<tr>' +
+            '<td><img src="' + s_win + '" style="height:200px;" alt="You won points"></td>' +
+            '<td><img src="' + s_neutral + '" style="height:200px;" alt="Neutral feedback"></td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td>If you press as soon as the image appears,<br>you will win points</td>' +
+            '<td>If you do not press as soon as the image appears,<br>you will receive neutral feedback</td>' +
+          '</tr>' +
+        '</table><br>';
+    } else if (s_cond === 'noGo2win') {
+      role = 'For the purpose of practice, the rule for it will be: <strong style="color:green">do-not-press to win</strong>.';
+      explanation = 'As soon as the image appears, you must <strong>not press</strong> in order to <strong style="color:green">win points</strong>.';
+      fbTable =
+        '<table dir="ltr" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:left;">' +
+          '<tr>' +
+            '<td><img src="' + s_win + '" style="height:200px;" alt="You won points"></td>' +
+            '<td><img src="' + s_neutral + '" style="height:200px;" alt="Neutral feedback"></td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td>If you do not press,<br>you will win points</td>' +
+            '<td>If you press,<br>you will receive neutral feedback</td>' +
+          '</tr>' +
+        '</table><br>';
+    } else if (s_cond === 'go2avoidPun') {
+      role = 'For the purpose of practice, the rule for it will be: <strong style="color:darkred;">press to avoid loss</strong>.';
+      explanation = 'As soon as the image appears, you must <strong>press</strong> in order to <strong style="color:darkred;">avoid a loss</strong>.';
+      fbTable =
+        '<table dir="ltr" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:left;">' +
+          '<tr>' +
+            '<td><img src="' + s_lose + '" style="height:200px;" alt="You lost points"></td>' +
+            '<td><img src="' + s_neutral + '" style="height:200px;" alt="Neutral feedback"></td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td>If you do not press,<br>you will lose points</td>' +
+            '<td>If you press,<br>you will receive neutral feedback</td>' +
+          '</tr>' +
+        '</table><br>';
+    } else if (s_cond === 'noGo2avoidPun') {
+      role = 'For the purpose of practice, the rule for it will be: <strong style="color:darkred;">do-not-press to avoid loss</strong>.';
+      explanation = 'If you press as soon as the image appears, you will lose points.<br> You must <strong>not press</strong> in order to <strong style="color:darkred;">avoid a loss</strong>.';
+      fbTable =
+        '<table dir="ltr" style="margin-left:auto;margin-right:auto;table-layout:fixed;width:650px;text-align:left;">' +
+          '<tr>' +
+            '<td><img src="' + s_lose + '" style="height:200px;" alt="You lost points"></td>' +
+            '<td><img src="' + s_neutral + '" style="height:200px;" alt="Neutral feedback"></td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td>If you press as soon as the image appears,<br>you will lose points</td>' +
+            '<td>If you do not press as soon as the image appears,<br>you will receive neutral feedback and avoid a loss</td>' +
+          '</tr>' +
+        '</table><br>';
+    }
+
+    var continue_statement = '<p dir="ltr" style="text-align:left;">Press the spacebar to continue.</p>';
+
+    
+    return (
+    exmp +
+    '<p dir="rtl" style="text-align:right;">' +
+    '<span>' + role + ' </span>' +
+    '</p>' +
+    fbTable +
+    continue_statement    );
+  }
+};
+
+
+
+
+
+    
+
+    const tutorial_fixation = {
+      type: 'html-keyboard-response-gng',
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 1000
+    };
+
+    const tutorial_test = {
+      type: "image-keyboard-response",
+      stimulus: 'img/go-nogo/stim/' + stim + '.png',
+      choices: [32, 49],
+      data: {
+        cond: cond,
+        cond_name: cond_name,
+        correct_choice: correct_choice,
+        block: block_name,
+        exp_part: block_name
+      },
+      trial_duration: square_duration,
+      on_finish: function (data) {
+        const key = data.key_press;
+        data.choice = (key === 32 || key === 49) ? "go" : "nogo";
+        data.correct = (
+                correct_choice === 32
+                        ? (key === 32 || key === 49)
+                        : key === correct_choice
+        );
+      }
+    };
+
+    const tutorial_feedback = {
+      type: "image-keyboard-response",
+      choices: jsPsych.NO_KEYS,
+      trial_duration: feedback_duration,
+      stimulus: function () {
+        const last = jsPsych.data.get().last(1).values()[0];
+        return last.correct ? feedback_win : feedback_lose;
+      }
+    };
+
+    const tutorial_end = {
+      type: 'html-keyboard-response',
+      stimulus: function () {
+        const last_trials = jsPsych.data.get().filter({ exp_part: block_name }).values();
+        const last = last_trials.length > 0 ? last_trials[last_trials.length - 1] : null;
+        const failed = !last || !last.correct;
+
+        if (failed) {
+  return `
+    <p dir="rtl" align="right">It seems that you did not understand the instructions well.</p>
+    <p dir="rtl" align="right">The instructions will be shown again, and then you will try once more.</p>
+    <p dir="rtl" align="right">Press the space bar to continue.</p>
+  `;
+}
+
+let explanation = "";
+if (cond_name === 'go2win') {
+  explanation = "Excellent! You <strong>pressed the key</strong> when the image appeared, and therefore <strong>earned points</strong>.";
+} else if (cond_name === 'noGo2win') {
+  explanation = "Excellent! You <strong>did not press the key</strong> when the image appeared, and therefore <strong>earned points</strong>.";
+} else if (cond_name === 'go2avoidPun') {
+  explanation = "Excellent! You <strong>pressed the key</strong> when the image appeared, and therefore <strong>did not lose points</strong>.";
+} else if (cond_name === 'noGo2avoidPun') {
+  explanation = "Excellent! You <strong>did not press the key</strong> when the image appeared, and therefore <strong>did not lose points</strong>.";
+}
+
+return `<p dir="rtl" align="right">${explanation}</p><p dir="rtl" align="right">Press the space bar to continue.</p>`;
+
+
+    const tutorial_loop = {
+      timeline: [tutorial_intro, tutorial_fixation, tutorial_test, tutorial_feedback, tutorial_end],
+      loop_function: function () {
+        const last_trials = jsPsych.data.get().filter({ exp_part: block_name }).values();
+        const last = last_trials.length > 0 ? last_trials[last_trials.length - 1] : null;
+        return !last || !last.correct;
+
+      }
+    };
+
+    return {
+      timeline: [tutorial_loop]
+    };
+  }
+
+  function make_tutorial_block_v2({
+                                    stim,
+                                    cond,
+                                    cond_name,
+                                    correct_choice,
+                                    feedback_win,
+                                    feedback_lose,
+                                    feedback_neutral,
+                                    instructions_type = 1 // default is 1
+                                  }) {
+    // Intro explanation screen
+
+    let block_name = 'tutorial_5_trials_' + cond_name;
+    const tutorial_intro0 = {
+  type: 'html-keyboard-response',
+  stimulus: function () {
+    if (instructions_type === 2) {
+      return `
+        <p dir="rtl" style="text-align: right;">
+        כעת נראה דוגמה אחרת לכך שהמשוב אינו תמיד קבוע.<br>
+        בדוגמה הבאה תופיע תמונה אחרת 5 פעמים.<br>
+        לחצו על מקש הרווח כדי להמשיך.<br>
+        </p>
+      `;
+    } else {
+const stimSrc1 = `img/go-nogo/stim/f1_1.png`;
+const stimSrc2 = `img/go-nogo/stim/f1_2.png`;
+const neutral_fb = 'img/no_points.jpg';
+const lose_fb = "img/minus_points.jpg"
+  
+return `
+<div dir="rtl" lang="he" class="instr">
+  <p>Please note: although each image has a fixed rule, to make the game more challenging, the feedback you receive will not always be consistent.<br>For example:</p>
+
+  <ul class="bullets">
+    <li>
+      <span class="nowrap">
+        Even if you responded correctly and pressed the space bar for this image
+        <img src="${stimSrc1}" alt="stimulus image" class="inline-img">
+        , you may sometimes receive neutral feedback instead
+        <img src="${neutral_fb}" alt="neutral feedback" class="inline-img">.<br>
+      </span>
+    </li>
+
+    <li>
+      <span class="nowrap">
+        Even if you responded correctly and did not press the space bar for this image
+        <img src="${stimSrc2}" alt="stimulus image" class="inline-img">
+        , you may sometimes lose points
+        <img src="${lose_fb}" alt="loss feedback" class="inline-img">.
+      </span>
+    </li>
+  </ul>
+
+  <p><br>Press the space bar to continue.</p>
+</div>
+  </div>
+
+  <style>
+    .instr { text-align: right; }
+    .bullets { list-style-position: inside; padding: 0; margin: 0 0 0 1em; }
+    .inline-img {
+      height: 3.0em;        /* controls how small the images are (relative to text) */
+      width: auto;
+      vertical-align: -1.5em; /* nudge to align nicely with Hebrew text; try "middle" if you prefer */
+      margin: 0 0.25em;
+    }
+    .nowrap { white-space: nowrap; } /* keeps the text and images on one line */
+  </style>
+`;
+
+    }
+  }
+};
+
+    const tutorial_intro = {
+      type: 'html-keyboard-response',
+      stimulus: function () {
+        let explanation = "";
+if (cond_name === 'go2win') {
+  explanation = "For the image that will be shown, you should <strong>press</strong> in order to <strong style='color:green'>earn points</strong>.";
+} else if (cond_name === 'noGo2win') {
+  explanation = "For the image that will be shown, you should <strong>not press</strong> in order to <strong style='color:green'>earn points</strong>.";
+} else if (cond_name === 'go2avoidPun') {
+  explanation = "For the image that will be shown, you should <strong>press</strong> in order to <strong style='color:darkred;'>avoid losing points</strong>.";
+} else if (cond_name === 'noGo2avoidPun') {
+  explanation = "For the image that will be shown, you should <strong>not press</strong> in order to <strong style='color:darkred;'>avoid losing points</strong>.";
+} else {
+  explanation = "In the following example, an image will be presented. Perform the appropriate action.";
+}
+
+return `<p dir="ltr" align="left">${explanation}</p><p dir="ltr" align="left">Press the space bar to continue.</p>`;      }
+    };
+
+    // Create the 5 repetitions
+    const trials = [];
+    const flipIndex = jsPsych.randomization.sampleWithoutReplacement([1,2,3], 1)[0]; // Flip the feedback in one of the middle trials, not trials 0 or 4
+
+    for (let i = 0; i < 5; i++) {
+      const isFlipTrial = (i === flipIndex);
+      trials.push({
+        timeline: [
+          {
+            type: 'html-keyboard-response-gng',
+            stimulus: '<div style="font-size:60px;">+</div>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 1000
+          },
+          {
+            type: "image-keyboard-response",
+            stimulus: 'img/go-nogo/stim/' + stim + '.png',
+            choices: [32, 49],
+            data: {
+              cond: cond,
+              cond_name: cond_name,
+              correct_choice: correct_choice,
+              block: block_name,
+              exp_part: block_name,
+              trial_index_in_tutorial: i,
+              force_flip: isFlipTrial
+            },
+            trial_duration: square_duration,
+            on_finish: function (data) {
+              const key = data.key_press;
+              const pressed = (key === 32 || key === 49); // space or '1'
+              data.choice = pressed ? "go" : "nogo";
+            
+              if (correct_choice === 32) {
+                // Go correct
+                data.correct = pressed;
+              } else if (correct_choice === 'nogo') {
+                // NoGo correct
+                data.correct = !pressed;
+              } else {
+                // Fallback for other specific-key conditions
+                data.correct = (key === correct_choice);
+              }
+            }
+
+          },
+          {
+            type: "image-keyboard-response",
+            choices: jsPsych.NO_KEYS,
+            trial_duration: feedback_duration,
+            stimulus: function () {
+              const trial = jsPsych.data.get().last(1).values()[0];
+          
+              // Incorrect → lose in all conditions
+              if (!trial.correct) return feedback_lose;
+            
+              const isWinFamily   = (cond_name === 'go2win' || cond_name === 'noGo2win');
+              const isAvoidFamily = (cond_name === 'go2avoidPun' || cond_name === 'noGo2avoidPun');
+            
+              // One “flip” trial per block (set elsewhere as force_flip / force_neutral)
+              if (isWinFamily) {
+                // default-correct = WIN; flipped = NEUTRAL
+                return trial.force_flip ? feedback_neutral : feedback_win;
+              }
+              if (isAvoidFamily) {
+                // default-correct = NEUTRAL; flipped = LOSE
+                return trial.force_flip ? feedback_lose : feedback_neutral;
+              }
+            
+              return feedback_neutral;
+
+            }
+                      
+          }
+        ]
+      });
+    }
+
+    let failed_last_tutorial = false;
+
+    const tutorial_end = {
+      type: 'html-keyboard-response',
+      stimulus: function() {
+
+        const last5 = jsPsych.data.get().last(15)
+                .filter({ exp_part: block_name })
+                .filter(trial => trial.correct !== undefined);
+
+        const failed = last5.count() < 5 || last5.filter({ correct: false }).count() > 0;
+
+if (failed) {
+  return `
+    <p dir="rtl" align="right">It seems that you did not understand the instructions well.</p>
+    <p dir="rtl" align="right">The instructions will be shown again, and then you will try once more.</p>
+    <p dir="rtl" align="right">Press the space bar to continue.</p>
+  `;
+}
+
+let explanation = "";
+let explanation2 = "";
+
+if (cond_name === 'go2win') {
+  explanation = "Excellent! You <strong>pressed the key</strong> when the image appeared, and therefore <strong>usually earned points</strong>.";
+  explanation2 = "Sometimes you made the correct choice, yet received neutral feedback instead.";
+} else if (cond_name === 'noGo2win') {
+  explanation = "Excellent! You <strong>did not press the key</strong> when the image appeared, and therefore <strong>usually earned points</strong>.";
+  explanation2 = "Sometimes you made the correct choice, yet received neutral feedback instead.";
+} else if (cond_name === 'go2avoidPun') {
+  explanation = "Excellent! You <strong>pressed the key</strong> when the image appeared, and therefore <strong>usually did not lose points</strong>.";
+  explanation2 = "Sometimes you made the correct choice, yet still lost points.";
+} else if (cond_name === 'noGo2avoidPun') {
+  explanation = "Excellent! You <strong>did not press the key</strong> when the image appeared, and therefore <strong>usually did not lose points</strong>.";
+  explanation2 = "Sometimes you made the correct choice, yet still lost points.";
+}
+
+return `<p dir="rtl" align="right">${explanation}</p>
+        <p dir="rtl" align="right">${explanation2}</p>
+        <p dir="rtl" align="right">Press the space bar to continue.</p>`;
+    };
+
+    const tutorial_loop = {
+      timeline: [tutorial_intro0, tutorial_intro, ...trials, tutorial_end],
+      loop_function: function () {
+        const last5 = jsPsych.data.get().last(15)
+                .filter({ exp_part: block_name })
+                .filter(trial => trial.correct !== undefined);
+
+        failed_last_tutorial = last5.count() < 5 || last5.filter({ correct: false }).count() > 0;
+        console.log(last5.count());
+        console.log("failed", failed_last_tutorial)
+        return failed_last_tutorial;
+      }
+    };
+    // Final wrapper
+    return {
+      timeline: [tutorial_loop]
+    };
+  }
+
+
+  const tutorial_block_go2win = make_single_stim_tutorial_block({
+    stim: 'f1_1',
+    cond: 5,
+    cond_name: 'go2win',
+    correct_choice: 32,
+    feedback_win: win_fb,
+    feedback_lose: neutral_fb
+  });
+
+  timeline.push(tutorial_block_go2win);
+
+  const tutorial_block_noGo2avoid = make_single_stim_tutorial_block({
+    stim: 'f1_2',                 // the image file for noGo2win
+    cond: 5,                      // numerical condition code
+    cond_name: 'noGo2avoidPun',        // string label
+    correct_choice: null,         // participant must NOT press a key
+    feedback_win: neutral_fb,         // image shown when correct
+    feedback_lose: lose_fb        // image shown when wrong
+  });
+
+  timeline.push(tutorial_block_noGo2avoid);
+
+  const tutorial_block_go2win_v2 = make_tutorial_block_v2({
+    stim: 'f1_1',
+    cond: 1,
+    cond_name: 'go2win',
+    correct_choice: 32,
+    feedback_win: win_fb,
+    feedback_lose: neutral_fb,
+    feedback_neutral: neutral_fb,
+    instructions_type: 1
+  });
+
+  timeline.push(tutorial_block_go2win_v2);
+
+  // Roey test: Trying to add a tutorial block with 5 trials for NoGo to Avoid punishment, so have a more balanced practice for the subjects (not introduce a Go bias)
+  const tutorial_block_nogo2avoid_v2 = make_tutorial_block_v2({
+    stim: 'f1_2',
+    cond: 5,
+    cond_name: 'noGo2avoidPun',
+    correct_choice: null,
+    feedback_win: win_fb,
+    feedback_lose: lose_fb,
+    feedback_neutral: neutral_fb,
+    instructions_type: 2
+  });
+
+  timeline.push(tutorial_block_nogo2avoid_v2);
+  // End of Roey test
+  
+  var instructions = {
+    type: 'instructions',
+    pages: [
+      // Roey - this was the previous version:
+      //page 4
+      //inst_7 + inst_8 + inst_9 + inst_10 + inst_11  + inst_11_1,
+      //inst_12,
+
+      // page 5
+      //inst_13 + inst_14 + inst_15 + inst_16,
+
+      // page 6
+      //inst_19 + inst_20,
+
+      // page 4
+      inst_13_short + inst_14_short + inst_8 + inst_9 + inst_10 + inst_11,
+
+      // page 5
+      inst_21 + inst_22,
+    ],
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"instructions",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "instructions"
+      })
+    }
+  };
+  timeline.push(instructions)
+
+
+  // instruction comprehension questions
+  var instruction_questions = {
+    type: 'survey-multi-choice',
+    button_label: continue_text,
+    questions: [
+      {
+        prompt: q1_0,
+        options: [ q1_1, q1_2, q1_3, q1_4]
+      },
+      {
+        prompt: q1_5,
+        options: ["1", "2", "3", "4"]
+      }
+    ],
+    required: true,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage: "instruction_questions",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "instructions"
+      });
+    }
+  };
+
+
+
+  timeline.push(instruction_questions);
+
+  // what they see if they answered one or both questions incorrectly the first time
+  var redo_instructions = {
+    type: 'instructions',
+    pages: [redo_1 + redo_2 + redo_3],
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"instruction_fail_first",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "instructions"
+      })
+    },
+  };
+
+  // what they see if they answered one or both of the questions incorrectly more than once
+  var failed_instructions = {
+    type: 'instructions',
+    pages: [
+"<p dir='ltr' align='left'>Sorry. It appears that once again you did not correctly answer one or more of the comprehension questions.</p>" +
+"<p dir='ltr' align='left'>You may not be eligible for a monetary bonus for participating in the experiment.</p>" +
+"<p dir='ltr' align='left'><b>If you do not correctly answer the comprehension questions on your third attempt, you may be asked to withdraw from the study.</b></p>"
+    ],
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"instruction_fail_again",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "instructions"
+      })
+    },
+  };
+
+  var final_bad = {
+    type: 'instructions',
+    pages: function(data){
+      try {
+        num_gos = jsPsych.data.get().last(3 * 4 * reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
+      }
+      catch(err) {
+        num_gos = -1;
+      }
+      return [
+"<p dir='ltr' align='left'>Sorry, it appears that you still do not fully understand the task.</p>" +
+"<p dir='ltr' align='left'>We reserve the right to withhold your bonus payment, and you may be asked to withdraw from the study.</p>" +
+"<p dir='ltr' align='left'>Click 'Next' to complete a feedback questionnaire.</p>"
+      ]
+    },
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data){
+      data.primary_key =  subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      data.suspicious = true
+      data.num_gos = num_gos
+      data.num_nogos = (4*reps_in_trial)-num_gos
+      data.block = 'block_p'
+      data.exp_stage = "practice_suspicion_flag"
+      data.exp_part = "instructions"
+
+      if(num_gos == reps_in_trial*4) {
+        data.suspicious_type = 'all_one';
+      }
+      else if (num_gos == 0) {
+        data.suspicious_type = 'time_outs'
+      }
+      else {
+        data.suspicious_type = 'error_rate'
+      }
+
+      jsPsych.endExperiment('Ending experiment early due to misunderstanding.');
+      jsPsych.init({
+        timeline: [
+          fb_warning_ss, fb_q1_ss, fb_q1_eval_ss,
+          fb_q2_ss, fb_q2_eval_ss, fb_q3_ss,
+          fb_q4_ss, fb_end_exp_ss, save_data
+        ]
+      });
+    }
+  }
+
+  // evaluates question responses and loops timeline if questions are incorrect (part 3)
+  // Note: you need all three parts (next two follow) for this function to work
+  var instructions_understood3 = {
+    timeline: [final_bad],
+    conditional_function:   function() {
+      var dat = jsPsych.data.getLastTrialData().values()[0];
+      var dat1 = jsPsych.data.getLastTrialData().values()[1];
+      var answer1 = JSON.parse(dat.responses).Q0;
+      var answer2 = JSON.parse(dat.responses).Q1;
+      var answer3 = JSON.parse(dat.responses).Q2;
+      var answer4 = JSON.parse(dat.responses).Q3;
+      if(answer1.includes(space_text) === true && answer2.includes('4') === true) {
+        return false;
+      } else {
+        console.log("this is test point");
+        return true;
+      }
+    },
+  };
+
+  // evaluates question responses and loops timeline if questions are incorrect (part 2)
+  var instructions_understood2 = {
+    timeline: [failed_instructions, instructions, instruction_questions, instructions_understood3],
+    conditional_function:   function() {
+      var dat = jsPsych.data.getLastTrialData().values()[0];
+      var dat1 = jsPsych.data.getLastTrialData().values()[1];
+      var answer1 = JSON.parse(dat.responses).Q0;
+      var answer2 = JSON.parse(dat.responses).Q1;
+      if(answer1.includes(space_text) === true && answer2.includes('4') === true) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  };
+
+  // evaluates question responses and loops timeline if questions are incorrect (part 1)
+  var instructions_understood = {
+    timeline: [redo_instructions, instructions, instruction_questions, instructions_understood2],
+    conditional_function:   function() {
+      var dat = jsPsych.data.getLastTrialData().values()[0];
+      var dat1 = jsPsych.data.getLastTrialData().values()[1];
+      var answer1 = JSON.parse(dat.responses).Q0;
+      var answer2 = JSON.parse(dat.responses).Q1;
+      if(answer1.includes(space_text) === true && answer2.includes('4') === true) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  };
+
+  timeline.push(instructions_understood);
+
+
+
+  // instruction comprehension questions
+  var instruction_questions_b = {
+    type: 'survey-multi-choice',
+    button_label: continue_text,
+    questions: [
+      {
+        prompt: q1_6,
+        options: [q1_7, q1_8]
+      },
+      {
+        prompt: q1_9,
+        options: [q1_10, q1_11]
+      }
+    ],
+    required: true,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage: "instruction_questions",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "instructions"
+      });
+    }
+  };
+
+
+
+  timeline.push(instruction_questions_b);
+
+  // what they see if they answered one or both questions incorrectly the first time
+  var redo_instructions_b = {
+    type: 'instructions',
+    pages: [redo_1 + redo_2 + redo_3],
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"instruction_fail_first",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "instructions"
+      })
+    },
+  };
+
+  // what they see if they answered one or both of the questions incorrectly more than once
+  var failed_instructions_b = {
+    type: 'instructions',
+    pages: [
+"<p dir='ltr' align='left'>Sorry. It appears that once again you did not correctly answer one or more of the comprehension questions.</p>" +
+"<p dir='ltr' align='left'>You may not receive a monetary bonus for participating in the experiment.</p>" +
+"<p dir='ltr' align='left'><b>If you do not correctly answer the comprehension questions on your third attempt, you may be asked to leave the study.</b></p>"
+    ],
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"instruction_fail_again",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "instructions"
+      })
+    },
+  };
+
+
+  // evaluates question responses and loops timeline if questions are incorrect (part 3)
+  // Note: you need all three parts (next two follow) for this function to work
+  var instructions_understood3_b = {
+    timeline: [final_bad],
+    conditional_function:   function() {
+      var dat = jsPsych.data.getLastTrialData().values()[0];
+      var dat1 = jsPsych.data.getLastTrialData().values()[1];
+      var answer1 = JSON.parse(dat.responses).Q0;
+      var answer2 = JSON.parse(dat.responses).Q1;
+      if(answer1.includes("לא") !== true && answer2.includes('לא') === true) {
+        return false;
+      } else {
+        console.log("this is test point");
+        return true;
+      }
+    },
+  };
+
+  // evaluates question responses and loops timeline if questions are incorrect (part 2)
+  var instructions_understood2_b = {
+    timeline: [failed_instructions_b, instructions, instruction_questions_b, instructions_understood3_b],
+    conditional_function:   function() {
+      var dat = jsPsych.data.getLastTrialData().values()[0];
+      var dat1 = jsPsych.data.getLastTrialData().values()[1];
+      var answer1 = JSON.parse(dat.responses).Q0;
+      var answer2 = JSON.parse(dat.responses).Q1;
+      if(answer1.includes("לא") !== true && answer2.includes('לא') === true) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  };
+
+  // evaluates question responses and loops timeline if questions are incorrect (part 1)
+  var instructions_understood_b = {
+    timeline: [redo_instructions_b, instructions, instruction_questions_b, instructions_understood2_b],
+    conditional_function:   function() {
+      var dat = jsPsych.data.getLastTrialData().values()[0];
+      var dat1 = jsPsych.data.getLastTrialData().values()[1];
+      var answer1 = JSON.parse(dat.responses).Q0;
+      var answer2 = JSON.parse(dat.responses).Q1;
+      if(answer1.includes("לא") !== true && answer2.includes('לא') === true) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  };
+
+  timeline.push(instructions_understood_b);
+
+
+  // practice trial
+
+  var start_trial = {
+    type: 'html-keyboard-response',
+    stimulus: start_1,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"practice_start",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part:"practice"
+      })
+    }
+  }
+  timeline.push(start_trial);
+
+  // fixation pause
+  var practice_fixation = {
+    type: 'html-keyboard-response-gng',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    data: jsPsych.timelineVariable('data'),
+    trial_duration: function(){
+      return jsPsych.randomization.sampleWithoutReplacement([750, 900, 1050, 1200, 1350, 1500], 1)[0];
+    },
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"practice_iti",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      })
+    }
+  }
+
+  // choice
+  var practice_test = {
+    type: "image-keyboard-response",
+    stimulus: jsPsych.timelineVariable('stimulus'),
+    choices: [32, 49],
+    data: jsPsych.timelineVariable('data'),
+    trial_duration: square_duration,
+    on_finish: function(data){
+      // choice label
+      if (data.key_press == 32 || data.key_press == 49) {
+        data.choice = "go"
+      } else if (data.key_press == null) {
+        data.choice = "nogo"
+      } else {
+        data.choice = "invalid"
+      }
+      // correct label & bonus pt allocation
+      data.correct = (
+              data.correct_choice === 32
+                      ? (data.key_press === 32 || data.key_press === 49)
+                      : data.key_press === data.correct_choice
+      );
+      var practice_correct = jsPsych.data.get().filter({correct: true, block: 'block_p'}).count()
+      var all_correct = jsPsych.data.get().filter({correct: true}).count()
+      data.curr_bonus = (all_correct - practice_correct)*bonus_percent
+      data.trial_bonus = data.correct * bonus_percent
+      // feedback determination
+      random = Math.floor(Math.random()*100)
+      // to-win conditions
+      if ((data.cond == 1 || data.cond == 2) && data.correct == true) { // if it's go-to-win or no-go-to-win and they made correct choice
+        if (random <= prob_outcome) { // if they fall in the 75% they get a reward
+          data.outcome = 'win'
+          data.feedback_points = 1
+          data.probFall = prob_outcome //random number fell within the probability outcome
+          data.fbExpected = true  //fbExpected means that they'll get the reward/punishment feedback that fits the expectation
+        }
+        else if (random> prob_outcome) {
+          data.outcome = 'neutral' // if they fall in the 25% they get neutral
+          data.feedback_points = 0
+          data.probFall = 100 - prob_outcome
+          data.fbExpected = false
+        }
+      } else if ((data.cond == 1 || data.cond == 2) && data.correct == false) { // if it's go-to-win or no-go-to-win and they made INcorrect choice
+        if (random <= prob_outcome) { // if they fall in the 75% they get a neutral
+          data.outcome = 'neutral'
+          data.feedback_points = 0
+          data.probFall = prob_outcome
+          data.fbExpected = true
+        }
+        else if (random> prob_outcome) {
+          data.outcome = 'win' // if they fall in the 25% they get reward
+          data.feedback_points = 1
+          data.probFall = 100 - prob_outcome
+          data.fbExpected = false
+        }
+      }
+      // to-avoid-punishment conditions
+      if ((data.cond == 3 || data.cond == 4) && data.correct == true) { // if it's go-to-avoidPun or no-go-to-avoidPun and they made correct choice
+        if (random <= prob_outcome) { // if they fall in the 75% they get a neutral
+          data.outcome = 'neutral'
+          data.feedback_points = 0
+          data.probFall = prob_outcome
+          data.fbExpected = true
+        }
+        else if (random> prob_outcome) {
+          data.outcome = 'lose' // if they fall in the 25% they get punishment
+          data.feedback_points = -1
+          data.probFall = 100 - prob_outcome
+          data.fbExpected = false
+        }
+      } else if ((data.cond == 3 || data.cond == 4) && data.correct == false) { // if it's go-to-avoidPun or no-go-to-avoidPun and they made INcorrect choice
+        if (random <= prob_outcome) { // if they fall in the 75% they get a punishment
+          data.outcome = 'lose'
+          data.feedback_points = -1
+          data.probFall = prob_outcome
+          data.fbExpected = true
+        }
+        else if (random> prob_outcome) {
+          data.outcome = 'neutral' // if they fall in the 25% they get neutral
+          data.feedback_points = 0
+          data.probFall = 100 - prob_outcome
+          data.fbExpected = false
+        }
+      }
+      // feedback pt allocation
+      practice_agg_fb_pts = jsPsych.data.get().filter({block: "block_p"}).select('feedback_points').sum()
+      data.agg_fb_pts = jsPsych.data.get().select('feedback_points').sum() - practice_agg_fb_pts
+
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"practice_choice",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      })
+    },
+  }
+
+
+  // feedback
+  var practice_feedback = {
+    type: "image-keyboard-response",
+    choices: jsPsych.NO_KEYS,
+    trial_duration: feedback_duration,
+    data: jsPsych.timelineVariable('data'),
+    stimulus: function(){
+      var outcome = jsPsych.data.get().last(1).values()[0].outcome;
+      if (outcome === 'win'){
+        return win_fb
+      } else if (outcome === 'lose'){
+        return lose_fb
+      }
+      else {
+        return neutral_fb
+      }
+    },
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"practice_feedback",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      })
+    }
+  }
+
+  // shuffler(squares)
+  squares0 = ['f1_1', 'f1_2', 'f1_3', 'f1_4']
+  // stim0 = make_stimuli(true, shuffler(squares0), 'block_p') // Note: We used to shuffle the stimuli here, but now we want to be consistent with the images the subjects already practiced
+  stim0 = make_stimuli(true, ['f1_1', 'f1_3', 'f1_4', 'f1_2'], 'block_p')
+  // practice trial all together
+  var trial_procedure = {
+    timeline: [practice_fixation, practice_test, practice_feedback],
+    timeline_variables: stim0,
+    repetitions: reps_in_trial,
+    randomize_order: true
+  }
+  timeline.push(trial_procedure);
+
+  // end of practice trial
+  var end_trial = {
+    type: 'html-keyboard-response',
+    stimulus: end_1,
+    on_finish: function(data) {
+
+      uploadDataWithRetry()
+      block_corr = jsPsych.data.get().last(3*4*reps_in_trial).filter({exp_stage: 'practice_choice', correct: true}).count()
+      data.error_block = 1-(block_corr/(4*reps_in_trial))
+
+      data.num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
+      data.num_nogos = (4*reps_in_trial)-data.num_gos
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"practice_end",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        suspicious: false,
+        block: 'block_p',
+        exp_part: "practice"
+      })
+    }
+  }
+
+  // if no suspicion flags were triggered
+  var no_sus = {
+    timeline: [end_trial],
+    conditional_function:   function(data) {
+      num_gos = jsPsych.data.get().last(3 * 4 * reps_in_trial).filter(function(trial) {
+        return trial.key_press === 32 || trial.key_press === 49;
+      }).count();
+      correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
+      error_rate = 1 - (correct_oi/(4*reps_in_trial))
+
+      if(num_gos == reps_in_trial*4 || num_gos == 0) {
+        return false;
+      } else if (error_rate >= error_rate_cap){
+        return false
+      }
+      else {
+        return true;
+      }
+    }
+
+  };
+  timeline.push(no_sus);
+
+  // if suspicion flags were triggered:
+  var sus_1 = {
+    type: 'instructions',
+    pages: function(data){
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
+      if (num_gos == reps_in_trial * 4) {
+        return [sus_1_1 + sus_1_2 + sus_1_3];
+      }
+      else if (num_gos == 0) {
+        return [
+          sus_1_4 + sus_1_5 + sus_1_6
+        ];
+      }
+      else {
+        return [ sus_1_7, sus_1_8 + sus_1_9];
+      }
+
+
+    },
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data){
+      data.primary_key =  subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      data.suspicious = true
+      data.block = 'block_p'
+      data.num_gos = num_gos
+      data.num_nogos = (4*reps_in_trial)-num_gos
+      data.exp_part = "instructions"
+
+      data.exp_stage = "practice_suspicion_flag"
+      if(num_gos == reps_in_trial*4) {
+        data.suspicious_type = 'all_one';
+      }
+      else if (num_gos == 0) {
+        data.suspicious_type = 'time_outs'
+      }
+      else {
+        data.suspicious_type = 'error_rate'
+      }
+    }
+  }
+
+  var sus_2 = {
+    type: 'instructions',
+    pages: function(data){
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
+      if (num_gos == reps_in_trial * 4) {
+        return [sus_1_1 + sus_1_2 + sus_1_3];
+      }
+      else if (num_gos == 0) {
+        return [sus_1_4 + sus_1_5 + sus_1_6];
+      }
+      else {
+        return [sus_1_7 + sus_1_8 + sus_1_9];
+      }
+
+
+
+    },
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data){
+      data.primary_key =  subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      data.suspicious = true
+      data.block = 'block_p'
+      data.num_gos = num_gos
+      data.num_nogos = (4*reps_in_trial)-num_gos
+      data.exp_stage = "practice_suspicion_flag"
+      data.exp_part = "instructions"
+
+      if(num_gos == reps_in_trial*4) {
+        data.suspicious_type = 'all_one';
+      }
+      else if (num_gos == 0) {
+        data.suspicious_type = 'time_outs'
+      }
+      else {
+        data.suspicious_type = 'error_rate'
+      }
+    }
+  }
+
+
+  var sus_procedure3 = {
+    timeline: [final_bad],
+    data: {exp_part: 'practice'},
+    conditional_function:   function() {
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
+      correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
+      error_rate = 1 - (correct_oi/(4*reps_in_trial))
+      if(num_gos == reps_in_trial*4 || num_gos == 0) {
+        return true;
+      } else if (error_rate >= error_rate_cap){
+        return true
+      }
+      else {
+        return false;
+      }
+    },
+
+  }
+
+  var sus_procedure2 = {
+    timeline: [sus_2, instructions, trial_procedure, no_sus, sus_procedure3],
+    data: {exp_part: 'practice'},
+    conditional_function:   function() {
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
+      correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
+      error_rate = 1 - (correct_oi/(4*reps_in_trial))
+      if(num_gos == reps_in_trial*4 || num_gos == 0) {
+        return true;
+      } else if (error_rate >= error_rate_cap){
+        return true
+      }
+      else {
+        return false;
+      }
+    },
+  };
+
+  var sus_procedure = {
+    timeline: [sus_1, instructions, trial_procedure, no_sus, sus_procedure2],
+    data: {exp_part: 'practice'},
+    conditional_function:   function() {
+      num_gos = jsPsych.data.get().last(3*4*reps_in_trial).filterCustom(trial => trial.exp_stage === 'practice_choice' && (trial.key_press === 32 || trial.key_press === 49)).count()
+      correct_oi = jsPsych.data.get().last(3*4*reps_in_trial).filter({correct: true}).count()
+      error_rate = 1 - (correct_oi/(4*reps_in_trial))
+      if(num_gos == reps_in_trial*4 || num_gos == 0) {
+        return true;
+      } else if (error_rate >= error_rate_cap){
+        return true
+      }
+      else {
+        return false;
+      }
+    },
+  };
+
+  timeline.push(sus_procedure);
+
+
+
+  // main experiment
+
+  // fixation pause
+  var fixation = {
+    type: 'html-keyboard-response-gng',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    data: jsPsych.timelineVariable('data'),
+    trial_duration: function(){
+      return jsPsych.randomization.sampleWithoutReplacement([750, 900, 1050, 1200, 1350, 1500], 1)[0];
+    },
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"main_iti",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      })
+    }
+  }
+
+  // choice
+  var test = {
+    type: "image-keyboard-response",
+    stimulus: jsPsych.timelineVariable('stimulus'),
+    choices: [32, 49],
+    data: jsPsych.timelineVariable('data'),
+    trial_duration: square_duration,
+    on_finish: function(data){
+      // choice label
+      if (data.key_press == 32 || data.key_press == 49) {
+        data.choice = "go"
+      } else if (data.key_press == null) {
+        data.choice = "nogo"
+      } else {
+        data.choice = "invalid"
+      }
+      // correct label & bonus pt allocation
+      data.correct = (
+              data.correct_choice === 32
+                      ? (data.key_press === 32 || data.key_press === 49)
+                      : data.key_press === data.correct_choice
+      );
+      var practice_correct = jsPsych.data.get().filter({correct: true, block: 'block_p'}).count()
+      var all_correct = jsPsych.data.get().filter({correct: true}).count()
+      data.curr_bonus = (all_correct - practice_correct)*bonus_percent
+      data.trial_bonus = data.correct * bonus_percent
+      // feedback determination
+      random = Math.floor(Math.random()*100)
+      // to-win conditions
+      if ((data.cond == 1 || data.cond == 2) && data.correct == true) { // if it's go-to-win or no-go-to-win and they made correct choice
+        if (random <= prob_outcome) { // if they fall in the 75% they get a reward
+          data.outcome = 'win'
+          data.feedback_points = 1
+          data.probFall = prob_outcome //random number fell within the probability outcome
+          data.fbExpected = true  //fbExpected means that they'll get the reward/punishment feedback that fits the expectation
+        }
+        else if (random> prob_outcome) {
+          data.outcome = 'neutral' // if they fall in the 25% they get neutral
+          data.feedback_points = 0
+          data.probFall = 100 - prob_outcome
+          data.fbExpected = false
+        }
+      } else if ((data.cond == 1 || data.cond == 2) && data.correct == false) { // if it's go-to-win or no-go-to-win and they made INcorrect choice
+        if (random <= prob_outcome) { // if they fall in the 75% they get a neutral
+          data.outcome = 'neutral'
+          data.feedback_points = 0
+          data.probFall = prob_outcome
+          data.fbExpected = true
+        }
+        else if (random> prob_outcome) {
+          data.outcome = 'win' // if they fall in the 25% they get reward
+          data.feedback_points = 1
+          data.probFall = 100 - prob_outcome
+          data.fbExpected = false
+        }
+      }
+      // to-avoid-punishment conditions
+      if ((data.cond == 3 || data.cond == 4) && data.correct == true) { // if it's go-to-avoidPun or no-go-to-avoidPun and they made correct choice
+        if (random <= prob_outcome) { // if they fall in the 75% they get a neutral
+          data.outcome = 'neutral'
+          data.feedback_points = 0
+          data.probFall = prob_outcome
+          data.fbExpected = true
+        }
+        else if (random> prob_outcome) {
+          data.outcome = 'lose' // if they fall in the 25% they get punishment
+          data.feedback_points = -1
+          data.probFall = 100 - prob_outcome
+          data.fbExpected = false
+        }
+      } else if ((data.cond == 3 || data.cond == 4) && data.correct == false) { // if it's go-to-avoidPun or no-go-to-avoidPun and they made INcorrect choice
+        if (random <= prob_outcome) { // if they fall in the 75% they get a punishment
+          data.outcome = 'lose'
+          data.feedback_points = -1
+          data.probFall = prob_outcome
+          data.fbExpected = true
+        }
+        else if (random> prob_outcome) {
+          data.outcome = 'neutral' // if they fall in the 25% they get neutral
+          data.feedback_points = 0
+          data.probFall = 100 - prob_outcome
+          data.fbExpected = false
+        }
+      }
+      // feedback pt allocation
+      practice_agg_fb_pts = jsPsych.data.get().filter({block: "block_p"}).select('feedback_points').sum()
+      data.agg_fb_pts = jsPsych.data.get().select('feedback_points').sum() - practice_agg_fb_pts
+
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"main_choice",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      })
+    },
+  }
+
+  // feedback page
+  var feedback = {
+    type: "image-keyboard-response",
+    choices: jsPsych.NO_KEYS,
+    trial_duration: feedback_duration,
+    data: jsPsych.timelineVariable('data'),
+    stimulus: function(){
+      var outcome = jsPsych.data.get().last(1).values()[0].outcome;
+      if (outcome === 'win'){
+        return win_fb
+      } else if (outcome === 'lose'){
+        return lose_fb
+      }
+      else {
+        return neutral_fb
+      }
+    },
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"main_feedback",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      })
+    }
+  }
+
+  // which squares are used in which experimental block - pseudo randomly shuffled every week
+  squares1 = ['f2_1', 'f2_2', 'f2_3', 'f2_4']
+  squares2 = ['f3_1', 'f3_2', 'f3_3', 'f3_4']
+  squares3 = ['f4_1', 'f4_2', 'f4_3', 'f4_4']
+
+  // turn the square images into stimuli
+  stim1 = make_stimuli(false, shuffler(squares1), 'block_1')
+  stim2 = make_stimuli(false, shuffler(squares2), 'block_2')
+  stim3 = make_stimuli(false, shuffler(squares3), 'block_3')
+  stims = [[stim1, "שליש"], [stim2, "שני שלישים"], [stim3]]
+
+  // block 1
+  for (i = 0; i < stims.length; i++){
+    num = i+1
+    var exp = {
+      timeline: [fixation, test, feedback],
+      timeline_variables: stims[i][0],
+      repetitions: reps_in_exp,
+      randomize_order: true
+    }
+
+    timeline.push(exp)
+    if (stims[i].length == 2){
+      timeline.push(between_block(stims[i][1]))
+
+    }
+  }
+
+  // new block take a brief pause between
+  function between_block(percent) {
+    return {
+      type: 'html-keyboard-response',
+      stimulus: function() {
+        var bonus = jsPsych.data.get().last(2).values()[0].curr_bonus;
+        var rounded_bonus = Math.round(bonus)
+
+        return [between_1 + percent + between_2 + rounded_bonus + between_3];
+      },
+      trial_duration: 60000,
+      response_ends_trial: true,
+      on_finish: function(data) {
+        uploadDataWithRetry();
+        var curr_block = jsPsych.data.get().last(2).values()[0].block;
+        data.num_gos = jsPsych.data.get().filter(function(trial) {
+          return (trial.key_press === 32 || trial.key_press === 49) && trial.exp_stage === 'main_choice' && trial.block === curr_block;
+        }).count();
+        data.num_nogos = jsPsych.data.get().filter({key_press: null, exp_stage: 'main_choice', block: curr_block}).count()
+        // data.num_nogos = (2*reps_in_exp)- data.num_gos
+
+        num_trials = jsPsych.data.get().filter({exp_stage: 'main_choice', block: curr_block}).count()
+
+        ttl_correct = jsPsych.data.get().filter({exp_stage: 'main_choice', correct: true, block: curr_block}).count()
+        error_rate = 1 - (ttl_correct/num_trials)
+        data.error_block = error_rate
+
+        num_trials = jsPsych.data.get().filter({exp_stage: 'main_choice', block: curr_block}).count()
+
+        if (data.num_gos == num_trials){
+          data.suspicious_type = 'all_one'
+          data.suspicious = true
+        }
+        else if (data.num_gos == 0){
+          data.suspicious_type = 'time_outs'
+          data.suspicious = true
+        }
+        else if (error_rate >= error_rate_cap){
+          data.suspicious_type = 'error_rate'
+          data.suspicious = true
+        }
+        else{
+          data.suspicious = false
+        }
+        data.block = curr_block // defines as this block after the filtering to determine num gos
+        data.exp_part = 'main'
+
+        jsPsych.data.addDataToLastTrial({
+          exp_stage:"between_block",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+        })
+      }
+    }
+  };
+
+  // end of exp - tell them what they made in terms of bonus points
+  var bonus_block = {
+    type: 'instructions',
+    pages: function() {
+      var bonus = jsPsych.data.get().last(2).values()[0].curr_bonus
+      var rounded_bonus = Math.round(bonus)
+      if (rounded_bonus < fixed_bonus){
+        rounded_bonus = fixed_bonus
+      }
+
+      return [bonus_1 + rounded_bonus + bonus_2];
+    },
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      var curr_block = jsPsych.data.get().last(2).values()[0].block;
+      data.num_gos = jsPsych.data.get().filter(function(trial) {
+        return (trial.key_press === 32 || trial.key_press === 49) && trial.exp_stage === 'main_choice' && trial.block === curr_block;
+      }).count();
+      data.num_nogos = jsPsych.data.get().filter({key_press: null, exp_stage: 'main_choice', block: curr_block}).count()
+      // data.num_nogos = (2*reps_in_exp)- data.num_gos
+
+      num_trials = jsPsych.data.get().filter({exp_stage: 'main_choice', block: curr_block}).count()
+
+      ttl_correct = jsPsych.data.get().filter({exp_stage: 'main_choice', correct: true, block: curr_block}).count()
+      error_rate = 1 - (ttl_correct/num_trials)
+      data.error_block = error_rate
+
+
+      if (data.num_gos == num_trials){
+        data.suspicious_type = 'all_one'
+        data.suspicious = true
+      }
+      else if (data.num_gos == 0){
+        data.suspicious_type = 'time_outs'
+        data.suspicious = true
+      }
+      else if (error_rate >= error_rate_cap){
+        data.suspicious_type = 'error_rate'
+        data.suspicious = true
+      }
+      else{
+        data.suspicious = false
+      }
+      data.block = curr_block // defines as this block after the filtering to determine num gos
+      data.exp_part = 'main'
+
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"end_bonus",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index
+      })
+    }
+  };
+  timeline.push(bonus_block);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  // if they triggered a suspicion flag
+
+  var fb_warning_ss = {
+    type: 'instructions',
+    pages: fb_warn_1,
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        fb_type: "suspicious",
+        exp_stage:"feedback_warning",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "feedback"
+      })
+    }
+  };
+
+  // first question - tech problems
+  var fb_q1_ss = {
+    type: 'survey-multi-choice',
+    button_label: continue_text,
+    preamble: q1_head, //+
+    //"<h5 align='left'> אנא השיבו בכנות., <u> תשבותיכם לא ישפיעו על הבונוס עבור הניסוי. </u> </h5>",
+    questions: [
+      {prompt: q1_prompt,
+        options: [yes_text, no_text, not_sure_text],
+        // horizontal: true,
+        required: true,
+        name: 'tech problems'},
+    ],
+    on_finish: function(data){
+      var dat1 = jsPsych.data.getLastTrialData().values()[0];
+      var answer1 = JSON.parse(dat1.responses).Q0;
+      if(answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
+        jsPsych.data.addDataToLastTrial({
+          fb_type: "suspicious",
+          fb_issue:'tech',
+          exp_stage:"feedback_tech",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      } else {
+        jsPsych.data.addDataToLastTrial({
+          fb_type: "suspicious",
+          exp_stage:"feedback_tech",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      }
+    }
+  };
+
+  // first question - tech problems - if yes, please explain
+  var fb_q1_follow_ss = {
+    type: 'survey-text',
+    button_label: continue_text,
+    preamble: q1_head, // +
+    questions: [
+      {prompt: q1_prompt_2,
+        required: true,
+        name: 'tech problems follow up'},
+    ],
+    on_finish: function(data){
+      var dat1 = jsPsych.data.getLastTrialData().values()[0];
+      var answer1 = JSON.parse(dat1.responses).Q0;
+      jsPsych.data.addDataToLastTrial({
+        fb_type: "suspicious",
+        fb_issue: 'tech',
+        fb_issue_txt: answer1,
+        exp_stage:"feedback_tech_followup",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "feedback"
+      })
+    }
+  };
+
+  // determines if subject answered yes, and explanation is required
+  var fb_q1_eval_ss = {
+    timeline: [fb_q1_follow_ss],
+    conditional_function:   function() {
+      var dat1 = jsPsych.data.getLastTrialData().values()[0];
+      var answer1 = JSON.parse(dat1.responses).Q0;
+      if(answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  };
+
+
+  // second question - distractions
+  var fb_q2_ss = {
+    type: 'survey-multi-choice',
+    button_label: continue_text,
+    preamble: q2_head, // +
+    questions: [{
+      prompt:q2_prompt,
+      options: [yes_text, no_text],
+      required: true,
+      name: 'distractions'
+    },
+    ],
+    on_finish: function(data){
+      var dat2 = jsPsych.data.getLastTrialData().values()[0];
+      var answer2 = JSON.parse(dat2.responses).Q0;
+      if(answer2.includes(yes_text) == true) {
+        jsPsych.data.addDataToLastTrial({
+          fb_type: "suspicious",
+          fb_issue:'distraction',
+          exp_stage:"feedback_distraction",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      } else {
+        jsPsych.data.addDataToLastTrial({
+          fb_type: "suspicious",
+          exp_stage:"feedback_distraction",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      }
+    }
+  };
+
+  // second question - distractions - if yes, please explain
+  var fb_q2_follow_ss = {
+    type: 'survey-text',
+    button_label: continue_text,
+    preamble: q2_head, // +
+    questions: [
+      {prompt: q2_prompt_2,
+        name: 'tech problems follow up'},
+    ],
+    on_finish: function(data){
+      var dat2 = jsPsych.data.getLastTrialData().values()[0];
+      var answer2 = JSON.parse(dat2.responses).Q0;
+      jsPsych.data.addDataToLastTrial({
+        fb_type: "suspicious",
+        fb_issue: 'distraction',
+        fb_issue_txt: answer2,
+        exp_stage:"feedback_distraction_followup",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "feedback"
+      })
+    }
+  };
+
+  // determines if subject answered yes, and explanation is required
+  var fb_q2_eval_ss = {
+    timeline: [fb_q2_follow_ss],
+    conditional_function:   function() {
+      var dat2 = jsPsych.data.getLastTrialData().values()[0];
+      var answer2 = JSON.parse(dat2.responses).Q0;
+      if(answer2.includes('כו') == true) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  };
+
+
+  // third question: engagement
+  var fb_q3_ss = {
+    type: 'survey-multi-choice',
+    button_label: continue_text,
+    preamble: q3_head, // +
+    questions: [{
+      prompt: q3_prompt,
+      options: q3_answers,
+      required: true,
+      name: 'engagement'
+    },
+    ],
+    on_finish: function(data){
+      var dat3 = jsPsych.data.getLastTrialData().values()[0];
+      var answer3 = JSON.parse(dat3.responses).Q0;
+      jsPsych.data.addDataToLastTrial({
+        fb_type: "suspicious",
+        fb_engagement: answer3,
+        exp_stage:"feedback_engaged",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "feedback"
+      })
+    }
+  };
+
+  // fourth question: anything else
+  var fb_q4_ss = {
+    type: 'survey-text',
+    button_label: continue_text,
+    preamble: q4_head , // +
+    questions: [{
+      prompt: q4_prompt,
+      name: 'anything else'
+    },
+    ],
+    on_finish: function(data){
+
+      var interaction_data = jsPsych.data.getInteractionData();
+      data.screen = interaction_data.json();
+
+      var dat4 = jsPsych.data.getLastTrialData().values()[0];
+      var answer4 = JSON.parse(dat4.responses).Q0;
+      if (answer4 == ''){
+        jsPsych.data.addDataToLastTrial({
+          fb_type: "suspicious",
+          exp_stage:"feedback_other",
+          fb_type: "suspicious",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      } else {
+        jsPsych.data.addDataToLastTrial({
+          fb_type: "suspicious",
+          fb_issue: 'other',
+          fb_issue_txt: answer4,
+          exp_stage:"feedback_other",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      }
+    }
+  };
+
+  // conclusion
+  var fb_end_exp_ss = {
+    type: 'html-keyboard-response',
+    stimulus: end_exp_1,
+    on_finish: function(data) {
+
+      var interaction_data = jsPsych.data.getInteractionData();
+      data.screen = interaction_data.json();
+
+      jsPsych.data.addDataToLastTrial({
+        fb_type: "suspicious",
+        exp_stage:"exp_end",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "feedback"
+      })
+    }
+  };
+
+
+  // not suspicious
+
+  var fb_warning_ns = {
+    type: 'instructions',
+    pages: ns_warn_1,
+    show_clickable_nav: true,
+    button_label_next: next_text,
+    button_label_previous: prev_text,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        fb_type: "nonsuspicious",
+        exp_stage:"feedback_warning",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "feedback"
+      })
+    }
+  };
+
+  // first question - tech problems
+  var fb_q1_ns = {
+    type: 'survey-multi-choice',
+    button_label: continue_text,
+    preamble: q1_head + honstly_prompt
+    ,
+    questions: [
+      {
+        prompt:q1_prompt,
+        options: [yes_text, no_text, not_sure_text],
+        // horizontal: true,
+        required: true,
+        name: 'tech problems'
+      },
+    ],
+    on_finish: function (data) {
+      var dat1 = jsPsych.data.getLastTrialData().values()[0];
+      var answer1 = JSON.parse(dat1.responses).Q0;
+      if (answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
+        if (answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
+          jsPsych.data.addDataToLastTrial({
+            fb_type: "nonsuspicious",
+            fb_issue: 'tech',
+            exp_stage: "feedback_tech",
+            primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+            exp_part: "feedback"
+          })
+        } else {
+          jsPsych.data.addDataToLastTrial({
+            fb_type: "nonsuspicious",
+            exp_stage: "feedback_tech",
+            primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+            exp_part: "feedback"
+
+          })
+        }
+      }
+    }
+  }
+
+    // first question - tech problems - if yes, please explain
+    var fb_q1_follow_ns = {
+      type: 'survey-text',
+      button_label: continue_text,
+      preamble: q1_head + honstly_prompt,
+      questions: [
+        {prompt: tech_issue_1,
+          required: true,
+          name: 'tech problems follow up'},
+      ],
+      on_finish: function(data){
+        var dat1 = jsPsych.data.getLastTrialData().values()[0];
+        var answer1 = JSON.parse(dat1.responses).Q0;
+        jsPsych.data.addDataToLastTrial({
+          fb_type: "nonsuspicious",
+          fb_issue: 'tech',
+          fb_issue_txt: answer1,
+          exp_stage:"feedback_tech_followup",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      }
+    };
+
+    // determines if subject answered yes, and explanation is required
+    var fb_q1_eval_ns = {
+      timeline: [fb_q1_follow_ns],
+      conditional_function:   function() {
+        var dat1 = jsPsych.data.getLastTrialData().values()[0];
+        var answer1 = JSON.parse(dat1.responses).Q0;
+        if(answer1.includes(yes_text) == true || answer1.includes(not_sure_text)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    };
+
+
+// second question - distractions
+    var fb_q2_ns = {
+      type: 'survey-multi-choice',
+      button_label: continue_text,
+      preamble: q2_head + honstly_prompt,
+      questions: [{
+        prompt: q2_prompt,
+        options: [yes_text, no_text],
+        required: true,
+        name: 'distractions'
+      },
+      ],
+      on_finish: function(data){
+        var dat2 = jsPsych.data.getLastTrialData().values()[0];
+        var answer2 = JSON.parse(dat2.responses).Q0;
+        if(answer2.includes(yes_text) == true) {
+          jsPsych.data.addDataToLastTrial({
+            fb_type: "nonsuspicious",
+            fb_issue:'distraction',
+            exp_stage:"feedback_distraction",
+            primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+            exp_part: "feedback"
+          })
+        } else {
+          jsPsych.data.addDataToLastTrial({
+            fb_type: "nonsuspicious",
+            exp_stage:"feedback_distraction",
+            primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+            exp_part: "feedback"
+          })
+        }
+      }
+    };
+
+    // second question - distractions - if yes, please explain
+    var fb_q2_follow_ns = {
+      type: 'survey-text',
+      button_label: continue_text,
+      preamble: q2_head + honstly_prompt,
+      questions: [
+        {prompt: q2_prompt_2,
+          name: 'tech problems follow up'},
+      ],
+      on_finish: function(data){
+        var dat2 = jsPsych.data.getLastTrialData().values()[0];
+        var answer2 = JSON.parse(dat2.responses).Q0;
+        jsPsych.data.addDataToLastTrial({
+          fb_type: "nonsuspicious",
+          fb_issue: 'distraction',
+          fb_issue_txt: answer2,
+          exp_stage:"feedback_distraction_followup",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      }
+    };
+
+    // determines if subject answered yes, and explanation is required
+    var fb_q2_eval_ns = {
+      timeline: [fb_q2_follow_ns],
+      conditional_function:   function() {
+        var dat2 = jsPsych.data.getLastTrialData().values()[0];
+        var answer2 = JSON.parse(dat2.responses).Q0;
+        if(answer2.includes('כן') == true) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    };
+
+
+// third question: engagement
+    var fb_q3_ns = {
+      type: 'survey-multi-choice',
+      button_label: continue_text,
+      preamble: q3_head + honstly_prompt,
+      questions: [{
+        prompt: q3_prompt,
+        options: q3_answers,
+        required: true,
+        name: 'engagement'
+      },
+      ],
+      on_finish: function(data){
+        var dat3 = jsPsych.data.getLastTrialData().values()[0];
+        var answer3 = JSON.parse(dat3.responses).Q0;
+        jsPsych.data.addDataToLastTrial({
+          fb_type: "nonsuspicious",
+          fb_engagement: answer3,
+          exp_stage:"feedback_engaged",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      }
+    };
+
+// fourth question: anything else
+    var fb_q4_ns = {
+      type: 'survey-text',
+      button_label: continue_text,
+      preamble: q4_head + honstly_prompt,
+      questions: [{
+        prompt: q4_prompt,
+        name: 'anything else'
+      },
+      ],
+      on_finish: function(data){
+
+        var interaction_data = jsPsych.data.getInteractionData();
+        data.screen = interaction_data.json();
+
+        var dat4 = jsPsych.data.getLastTrialData().values()[0];
+        var answer4 = JSON.parse(dat4.responses).Q0;
+        if (answer4 == ''){
+          jsPsych.data.addDataToLastTrial({
+            fb_type: "nonsuspicious",
+            exp_stage:"feedback_other",
+            primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+            exp_part: "feedback"
+          })
+        } else {
+          jsPsych.data.addDataToLastTrial({
+            fb_type: "nonsuspicious",
+            fb_issue: 'other',
+            fb_issue_txt: answer4,
+            exp_stage:"feedback_other",
+            primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+            exp_part: "feedback"
+          })
+        }
+      }
+    };
+
+// conclusion - if its not the last experiment in the battery
+    var fb_end_exp_ns = {
+      type: 'html-keyboard-response',
+      stimulus: end_exp_1,
+      on_finish: function(data) {
+
+        var interaction_data = jsPsych.data.getInteractionData();
+        data.screen = interaction_data.json();
+
+        jsPsych.data.addDataToLastTrial({
+          exp_stage:"exp_end",
+          primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+          exp_part: "feedback"
+        })
+      }
+    };
+
+// timeline push
+
+
+// evaluate whether any of the responses were suspicious and provide appropriate quiz
+
+    var eval_ss_timeline = {
+      timeline: [fb_warning_ss, fb_q1_ss, fb_q1_eval_ss, fb_q2_ss, fb_q2_eval_ss, fb_q3_ss, fb_q4_ss, fb_end_exp_ss],
+      // timeline: [fb_warning_ss, fb_q1_ss, fb_q1_eval_ss, fb_q2_ss, fb_q2_eval_ss, fb_q3_ss, fb_q4_ss], // uncomment if it is the last experiment in battery
+      conditional_function: function(data) {
+        sus_dat = jsPsych.data.get().filter({exp_part: 'main', suspicious: true}).count()
+        if (sus_dat >= 1) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    };
+    timeline.push(eval_ss_timeline);
+
+    var eval_ns_timeline = {
+      timeline: [fb_warning_ns, fb_q1_ns, fb_q1_eval_ns, fb_q2_ns, fb_q2_eval_ns, fb_q3_ns, fb_q4_ns, fb_end_exp_ns],
+      // timeline: [fb_warning_ns, fb_q1_ns, fb_q1_eval_ns, fb_q2_ns, fb_q2_eval_ns, fb_q3_ns, fb_q4_ns], // uncomment if it is the last experiment in battery
+      conditional_function: function(data) {
+        if (sus_dat == 0) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    };
+    timeline.push(eval_ns_timeline);
+
+    // Save data to CSV
+    function saveData_csv(name, data){
+    uploadDataWithRetry(true)
+  }
+
+  var save_data = {
+    type: 'call-function',
+    func: function(){ saveData_csv(subjectId + '_' + weekId + '_' + expId, jsPsych.data.get().csv());
+    },
+    timing_post_trial: 0,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"save_CSV",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "save"
+      })
+    }
+  };
+  timeline.push(save_data);
+  console.log('csv save successful')
+
+  // // "dashboard"
+  // var dash_to_task = {
+  //   type: "html-button-response",
+  //   stimulus:
+  //           '<div id="blue"> ' +
+  //           '<div id="title">' +
+  //           "<h1>DASHBOARD</h1>" +
+  //           "<h3>If you need to take a brief rest between tasks please do so now.</h3>" +
+  //           "<h2>Click the button below to proceed to the next task.</h2>" +
+  //           "<h4>Note: you will not be paid for the time you spend on this page.</h4>" +
+  //           "</div> " +
+  //           "</div>",
+  //   button_html: '<button style="height:75px;width:400px;background-color:powderblue">%choice%</button>',
+  //   choices: ["<h1>" + nextTask_name + "</h1>"],
+  //   on_finish: function(data) {
+  //
+  //     var interaction_data = jsPsych.data.getInteractionData();
+  //     data.screen = interaction_data.json();
+  //
+  //     jsPsych.data.addDataToLastTrial({
+  //       exp_stage:"dashboard",
+  //       primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+  //       task_selected: nextTask_Id,
+  //       exp_part: "dash"
+  //     })
+  //   }
+  // }
+  // timeline.push(dash_to_task)
+
+
+
+  // database save
+
+  function saveData() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'write_data_gng.php'); // change 'write_data.php' to point to php script.
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+      console.log('xhr response text coming up')
+      console.log(xhr.responseText);
+      if(xhr.status == 200){
+        var response = JSON.parse(xhr.responseText);
+        console.log(xhr.responseText);
+        console.log(response.success);
+      }
+    };
+    xhr.send(jsPsych.data.get().json());
+    console.log('function finished well')
+  };
+
+  var db_save = {
+    type: 'call-function',
+    func: uploadDataWithRetry(true),
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"save_database",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "save"
+      })
+    }
+  };
+  timeline.push(db_save)
+
+
+
+  // data saving + compensation code
+  var save_wait_1 = {
+    type: 'html-keyboard-response',
+    stimulus: please_wait_1,
+    choices: [jsPsych.NO_KEYS],
+    trial_duration: 30000,
+    response_ends_trial: false,
+    on_finish: function(data) {
+      jsPsych.data.addDataToLastTrial({
+        exp_stage:"save_wait",
+        primary_key: subjectId + '_' + weekId + '_' + expId + '_' + data.trial_index,
+        exp_part: "save"
+      })
+    }
+  };
+
+  timeline.push(save_wait_1)
+
+
+  // init experiment
+
+  jsPsych.init({
+    timeline: timeline,
+    on_finish: function() {window.location.href = "pre_rdm.html" + '?workerId=' + subjectId + '&hitId=' + hitId + '&assignmentId=' + assignmentId}
+    // on_finish: function() {     // for testing purposes
+    //   jsPsych.data.displayData();
+    //   jsPsych.data.get().localSave('csv','gng_0_CSV.csv');
+    // },
+  });
+
+
+  function uploadDataWithRetry(lastTry=false, endTest=true ,retryCount = 5, delay = 1000) {
+    let subject = subjectId;
+    let week = weekId;
+    let results = jsPsych.data.get().json();
+
+    return new Promise((resolve, reject) => {
+      function attemptUpload(remainingRetries) {
+        $.ajax({
+          url: 'https://hss74dd1ed.execute-api.us-east-1.amazonaws.com/dev/',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            "subject_id": `${subject}_${week}_${START_TIME}`,
+            "bucket": `${BUCKET_NAME}`,
+            "exp_data": JSON.stringify(results, null, 2)
+          }),
+          success: function(response) {
+            console.log('Data uploaded successfully:', response);
+            resolve(response);
+            if(endTest) {
+              //window.location.href = getRedirectionUrl();
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error(`Error uploading data (${remainingRetries} retries left):`, error);
+            if (remainingRetries > 0) {
+              setTimeout(() => {
+                attemptUpload(remainingRetries - 1);
+              }, delay);
+            }
+          }
+        });
+      }
+
+      attemptUpload(retryCount);
+    });
+  }
+</script>
+
+</html>
